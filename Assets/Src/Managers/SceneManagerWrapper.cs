@@ -11,8 +11,8 @@ namespace VirtualRecovery {
     internal class SceneManagerWrapper : MonoBehaviour {
         public static SceneManagerWrapper Instance { get; private set; }
         
-        private const string k_mainMenuSceneName = "MainMenu";
-        private const string k_kitchenSceneName = "Kitchen";
+        private string m_mainMenuSceneName;
+        private string m_kitchenSceneName;
 
         private void Awake() {
             if (Instance != null && Instance != this) {
@@ -20,12 +20,18 @@ namespace VirtualRecovery {
                 return;
             }
 
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Instance = this; DontDestroyOnLoad(gameObject);
+            
+            if (Configuration.Instance != null && Configuration.Instance.configData != null) {
+                m_mainMenuSceneName = Configuration.Instance.configData.scenes.mainMenuSceneName;
+                m_kitchenSceneName = Configuration.Instance.configData.scenes.kitchenSceneName;
+            } else {
+                Debug.LogError("Configuration is not properly loaded.");
+            }
         }
 
-        public void LoadMainMenu() => SceneManager.LoadScene(k_mainMenuSceneName, LoadSceneMode.Single);
-        public void LoadKitchen() => SceneManager.LoadScene(k_kitchenSceneName, LoadSceneMode.Single);
+        public void LoadMainMenu() => SceneManager.LoadScene(m_mainMenuSceneName, LoadSceneMode.Single);
+        public void LoadKitchen() => SceneManager.LoadScene(m_kitchenSceneName, LoadSceneMode.Single);
         
         void Start() {
 

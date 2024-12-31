@@ -10,17 +10,22 @@ using System.Collections.Generic;
 namespace VirtualRecovery {
     internal class RoomRepository : IRepository<Room> {
         private readonly DbConnector m_dbConnector;
-        private const string k_roomsTableName = "Rooms";
-        private const string k_activitiesTableName = "Activities";
+        private readonly string m_roomsTableName;
+        private readonly string m_activitiesTableName;
 
         public RoomRepository() {
             m_dbConnector = new DbConnector();
             m_dbConnector.OpenConnection();
+            
+            var config = Configuration.Instance;
+            m_roomsTableName = config.configData.database.roomsTableName;
+            m_activitiesTableName = config.configData.database.activitiesTableName;
+            
             EnsureTables();
         } 
 
         private string GenerateCreateRoomsTableQuery() {
-            return $"CREATE TABLE {k_roomsTableName} (" +
+            return $"CREATE TABLE {m_roomsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "Name TEXT NOT NULL," +
                    "Description TEXT NOT NULL" +
@@ -28,28 +33,28 @@ namespace VirtualRecovery {
         }
     
         private string GenerateCreateActivitiesTableQuery() {
-            return $"CREATE TABLE {k_activitiesTableName} (" +
+            return $"CREATE TABLE {m_activitiesTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "RoomId INTEGER NOT NULL," +
                    "Name TEXT NOT NULL," +
                    "Description TEXT NOT NULL," +
                    "IsBodySideDifferentiated BOOLEAN NOT NULL," +
-                   $"FOREIGN KEY(RoomId) REFERENCES {k_roomsTableName}(Id)" +
+                   $"FOREIGN KEY(RoomId) REFERENCES {m_roomsTableName}(Id)" +
                    ")";
         }
     
         private void EnsureTables() {
-            if (!m_dbConnector.TableExists(k_roomsTableName)) {
+            if (!m_dbConnector.TableExists(m_roomsTableName)) {
                 m_dbConnector.ExecuteQuery(GenerateCreateRoomsTableQuery());
             }
             
-            if (!m_dbConnector.TableExists(k_activitiesTableName)) {
+            if (!m_dbConnector.TableExists(m_activitiesTableName)) {
                 m_dbConnector.ExecuteQuery(GenerateCreateActivitiesTableQuery());
             }
         }
 
         public void Insert(Room entity) {
-            var query = $"INSERT INTO {k_roomsTableName} (Name, Description)" +
+            var query = $"INSERT INTO {m_roomsTableName} (Name, Description)" +
                         "VALUES (@Name, @Description)";
             
             using (var command = m_dbConnector.CreateCommand(query,
@@ -63,7 +68,7 @@ namespace VirtualRecovery {
         }
 
         public void Update(int id, Room entity) {
-            var query = $"UPDATE {k_roomsTableName} SET Name = @Name, Description = @Description WHERE Id = @Id";
+            var query = $"UPDATE {m_roomsTableName} SET Name = @Name, Description = @Description WHERE Id = @Id";
             
             using (var command = m_dbConnector.CreateCommand(query,
                        ("@Name", entity.Name),
@@ -77,7 +82,7 @@ namespace VirtualRecovery {
         }
 
         public void Delete(int id) {
-            var query = $"DELETE FROM {k_roomsTableName} WHERE Id = @Id";
+            var query = $"DELETE FROM {m_roomsTableName} WHERE Id = @Id";
             
             using (var command = m_dbConnector.CreateCommand(query, ("@Id", id))) {
                 if (m_dbConnector.ExecuteNonQuery(command) == 0) {
@@ -88,7 +93,7 @@ namespace VirtualRecovery {
         
         private List<Activity> GetActivitiesForRoom(int roomId) {
             var activities = new List<Activity>();
-            var activitiesQuery = $"SELECT * FROM {k_activitiesTableName} WHERE RoomId = @RoomId";
+            var activitiesQuery = $"SELECT * FROM {m_activitiesTableName} WHERE RoomId = @RoomId";
     
             using (var activitiesCommand = m_dbConnector.CreateCommand(activitiesQuery, ("@RoomId", roomId)))
             using (var activitiesReader = activitiesCommand.ExecuteReader()) {
@@ -108,7 +113,7 @@ namespace VirtualRecovery {
         }
 
         public Room GetById(int id) {
-            var query = $"SELECT * FROM {k_roomsTableName} WHERE Id = @Id";
+            var query = $"SELECT * FROM {m_roomsTableName} WHERE Id = @Id";
     
             using (var command = m_dbConnector.CreateCommand(query, ("@Id", id)))
             using (var reader = command.ExecuteReader()) {
@@ -128,7 +133,7 @@ namespace VirtualRecovery {
         }
 
         public List<Room> GetAll() {
-            var query = $"SELECT * FROM {k_roomsTableName}";
+            var query = $"SELECT * FROM {m_roomsTableName}";
             var rooms = new List<Room>();
     
             using (var command = m_dbConnector.CreateCommand(query))

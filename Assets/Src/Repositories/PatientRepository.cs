@@ -10,17 +10,22 @@ using System.Collections.Generic;
 namespace VirtualRecovery {
     internal class PatientRepository : IRepository<Patient> {
         private readonly DbConnector m_dbConnector;
-        private const string k_patientTableName = "Patients";
-        private const string k_sessionsTableName = "Sessions";
+        private readonly string m_patientTableName;
+        private readonly string m_sessionsTableName;
 
         public PatientRepository() {
             m_dbConnector = new DbConnector();
             m_dbConnector.OpenConnection();
+            
+            var config = Configuration.Instance;
+            m_patientTableName = config.configData.database.patientTableName;
+            m_sessionsTableName = config.configData.database.sessionsTableName;
+            
             EnsureTables();
         }
 
         private string GenerateCreatePatientsTableQuery() {
-            return $"CREATE TABLE {k_patientTableName} (" +
+            return $"CREATE TABLE {m_patientTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "Name TEXT NOT NULL," +
                    "Surname TEXT NOT NULL," +
@@ -29,29 +34,29 @@ namespace VirtualRecovery {
         }
 
         private string GenerateCreateSessionsTableQuery() {
-            return $"CREATE TABLE {k_sessionsTableName} (" +
+            return $"CREATE TABLE {m_sessionsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "PatientId INTEGER NOT NULL," +
                    "StartDate TEXT NOT NULL," +
                    "EndDate TEXT NOT NULL," +
                    "BodySide INTEGER NOT NULL," +
                    "DifficultyLevel INTEGER NOT NULL," +
-                   $"FOREIGN KEY(PatientId) REFERENCES {k_patientTableName}(Id)" +
+                   $"FOREIGN KEY(PatientId) REFERENCES {m_patientTableName}(Id)" +
                    ")";
         }
 
         private void EnsureTables() {
-            if (!m_dbConnector.TableExists(k_patientTableName)) {
+            if (!m_dbConnector.TableExists(m_patientTableName)) {
                 m_dbConnector.ExecuteQuery(GenerateCreatePatientsTableQuery());
             }
             
-            if (!m_dbConnector.TableExists(k_sessionsTableName)) {
+            if (!m_dbConnector.TableExists(m_sessionsTableName)) {
                 m_dbConnector.ExecuteQuery(GenerateCreateSessionsTableQuery());
             }
         }
         
         public void Insert(Patient entity) {
-            var query = $"INSERT INTO {k_patientTableName} (Name, Surname, WeakBodySide, SessionsHistory)" +
+            var query = $"INSERT INTO {m_patientTableName} (Name, Surname, WeakBodySide, SessionsHistory)" +
                         "VALUES (@Name, @Surname, @WeakBodySide, @SessionsHistory)";
             
             using (var command = m_dbConnector.CreateCommand(query,
@@ -67,7 +72,7 @@ namespace VirtualRecovery {
         }
 
         public void Update(int id, Patient entity) {
-            var query = $"UPDATE {k_patientTableName} SET Name = @Name, Surname = @Surname, " +
+            var query = $"UPDATE {m_patientTableName} SET Name = @Name, Surname = @Surname, " +
                         "WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
             
             using (var command = m_dbConnector.CreateCommand(query,
@@ -84,7 +89,7 @@ namespace VirtualRecovery {
         }
 
         public void Delete(int id) {
-            var query = $"DELETE FROM {k_patientTableName} WHERE Id = @Id";
+            var query = $"DELETE FROM {m_patientTableName} WHERE Id = @Id";
             
             using (var command = m_dbConnector.CreateCommand(query, ("@Id", id))) {
                 if(m_dbConnector.ExecuteNonQuery(command) == 0) {
@@ -95,7 +100,7 @@ namespace VirtualRecovery {
         
         private List<Session> GetSessionsForPatient(int patientId) {
             var sessions = new List<Session>();
-            var sessionsQuery = $"SELECT * FROM {k_sessionsTableName} WHERE PatientId = @PatientId";
+            var sessionsQuery = $"SELECT * FROM {m_sessionsTableName} WHERE PatientId = @PatientId";
     
             using (var sessionsCommand = m_dbConnector.CreateCommand(sessionsQuery, ("@PatientId", patientId)))
             using (var sessionsReader = sessionsCommand.ExecuteReader()) {
@@ -116,7 +121,7 @@ namespace VirtualRecovery {
         }
 
         public Patient GetById(int id) {
-            var query = $"SELECT * FROM {k_patientTableName} WHERE Id = @Id";
+            var query = $"SELECT * FROM {m_patientTableName} WHERE Id = @Id";
     
             using (var command = m_dbConnector.CreateCommand(query, ("@Id", id)))
             using (var reader = command.ExecuteReader()) {
@@ -137,7 +142,7 @@ namespace VirtualRecovery {
         }
 
         public List<Patient> GetAll() {
-            var query = $"SELECT * FROM {k_patientTableName}";
+            var query = $"SELECT * FROM {m_patientTableName}";
             var patients = new List<Patient>();
     
             using (var command = m_dbConnector.CreateCommand(query))

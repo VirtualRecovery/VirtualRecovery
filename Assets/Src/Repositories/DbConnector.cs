@@ -8,10 +8,15 @@ using Mono.Data.Sqlite;
 
 namespace VirtualRecovery {
     internal class DbConnector {
-        private const string k_dbName = "Data Source = Assets/Database/VirtualRecovery.db";
         private SqliteConnection m_connection;
+        private readonly string m_dbName;
 
-        private SqliteConnection CreateConnection() => new SqliteConnection(k_dbName);
+        public DbConnector() {
+            var config = Configuration.Instance;
+            m_dbName = config.configData.database.connectionString;
+        }
+
+        private SqliteConnection CreateConnection() => new SqliteConnection(m_dbName);
 
         public void OpenConnection() => (m_connection ??= CreateConnection()).Open();
 
