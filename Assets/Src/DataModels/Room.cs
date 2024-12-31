@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace VirtualRecovery {
     internal class Room {
-        private int Id { get; set; }
-        private string Name { get; set; }
-        private string Description { get; set; }
-        private List<Activity> Activities { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<Activity> Activities { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace VirtualRecovery {
     internal class ScreenManager : MonoBehaviour {
-        internal static ScreenManager Instance { get; private set; }
+        public static ScreenManager Instance { get; private set; }
 
         private void Awake() {
             if (Instance != null && Instance != this) {

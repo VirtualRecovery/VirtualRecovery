@@ -4,15 +4,21 @@
 //  * Created on: 30/12/2024
 //  */
 
+using System;
 using System.Collections.Generic;
 
 namespace VirtualRecovery {
-    internal class PatientRepository : Repository<PatientData> {
-        protected override string GetTableName() => "Patients";
+    internal class PatientRepository : IRepository<PatientData> {
+        private readonly DbConnector m_dbConnector;
+        private const string k_patientTableName = "Patients";
 
-        public PatientRepository() : base() { }
-
-        protected override string GenerateCreateTableQuery() {
+        public PatientRepository() {
+            m_dbConnector = new DbConnector();
+            m_dbConnector.OpenConnection();
+            EnsureTable();
+        }
+        
+        private string GenerateCreateTableQuery() {
             return "CREATE TABLE Patients (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "Name TEXT NOT NULL," +
@@ -22,28 +28,57 @@ namespace VirtualRecovery {
                    ")";
         }
 
-        public override void Insert(PatientData entity) {
-            m_dbConnector.ExecuteNonQuery(
-                "INSERT INTO Patients (Name, Surname, WeakBodySide, SessionsHistory) VALUES (" +
-                $"'{entity.Name}', '{entity.Surname}', {(int)entity.WeakBodySide}, '{entity.SessionsHistory}'" +
-                ")"
-            );
+        private void EnsureTable() {
+            if (!m_dbConnector.TableExists(k_patientTableName)) {
+                m_dbConnector.ExecuteQuery(GenerateCreateTableQuery());
+            }
+        }
+        
+        public void Insert(PatientData entity) {
+            var query = $"INSERT INTO {k_patientTableName} (Name, Surname, WeakBodySide, SessionsHistory)" +
+                        "VALUES (@Name, @Surname, @WeakBodySide, @SessionsHistory)";
+            
+            using (var command = m_dbConnector.CreateCommand(query,
+                       ("@Name", entity.Name),
+                       ("@Surname", entity.Surname),
+                       ("@WeakBodySide", (int)entity.WeakBodySide),
+                       ("@SessionsHistory", entity.SessionsHistory))) {
+                
+                if (m_dbConnector.ExecuteNonQuery(command) == 0) {
+                    throw new Exception("No rows were updated.");
+                }
+            }
         }
 
-        public override void Update(int id, PatientData entity) {
-            m_dbConnector.ExecuteNonQuery(
-                "UPDATE Patients SET " +
-                $"Name = '{entity.Name}', Surname = '{entity.Surname}', WeakBodySide = {(int)entity.WeakBodySide}, SessionsHistory = '{entity.SessionsHistory}'" +
-                $" WHERE Id = {id}"
-            );
+        public void Update(int id, PatientData entity) {
+            var query = $"UPDATE {k_patientTableName} SET Name = @Name, Surname = @Surname, " +
+                        "WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
+            
+            using (var command = m_dbConnector.CreateCommand(query,
+                       ("@Name", entity.Name),
+                       ("@Surname", entity.Surname),
+                       ("@WeakBodySide", (int)entity.WeakBodySide),
+                       ("@SessionsHistory", entity.SessionsHistory),
+                       ("@Id", id))) {
+                
+                if (m_dbConnector.ExecuteNonQuery(command) == 0) {
+                    throw new Exception("No rows were updated.");
+                }
+            }
         }
 
-        public override void Delete(int id) {
-            m_dbConnector.ExecuteNonQuery($"DELETE FROM Patients WHERE Id = {id}");
+        public void Delete(int id) {
+            var query = $"DELETE FROM {k_patientTableName} WHERE Id = @Id";
+            
+            using (var command = m_dbConnector.CreateCommand(query, ("@Id", id))) {
+                if(m_dbConnector.ExecuteNonQuery(command) == 0) {
+                    throw new Exception("No rows were updated.");
+                }
+            }
         }
 
-        public override PatientData GetById(int id) {
-            var reader = m_dbConnector.ExecuteReader($"SELECT * FROM Patients WHERE Id = {id}");
+        public PatientData GetById(int id) {
+            /*var reader = m_dbConnector.ExecuteReader($"SELECT * FROM {k_patientTableName} WHERE Id = {id}");
             if (!reader.Read()) {
                 return null;
             }
@@ -53,11 +88,12 @@ namespace VirtualRecovery {
                 Surname = reader.GetString(2),
                 WeakBodySide = (BodySide)reader.GetInt32(3),
                 SessionsHistory = reader.GetString(4)
-            };
+            };*/
+            throw new NotImplementedException();
         }
 
-        public override List<PatientData> GetAll() {
-            var reader = m_dbConnector.ExecuteReader("SELECT * FROM Patients");
+        public List<PatientData> GetAll() {
+            /*var reader = m_dbConnector.ExecuteReader($"SELECT * FROM {k_patientTableName}");
             var patients = new List<PatientData>();
             while (reader.Read()) {
                 patients.Add(new PatientData {
@@ -68,7 +104,8 @@ namespace VirtualRecovery {
                 });
             }
 
-            return patients;
+            return patients;*/
+            throw new NotImplementedException();
         }
     }
 }

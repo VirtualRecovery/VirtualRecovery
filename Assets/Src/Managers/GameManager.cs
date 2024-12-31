@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace VirtualRecovery {
     internal class GameManager : MonoBehaviour {
-        internal static GameManager Instance { get; private set; }
+        public static GameManager Instance { get; private set; }
 
         private MainMenuModule m_mainMenuManager;
         private SessionManager m_sessionManager;

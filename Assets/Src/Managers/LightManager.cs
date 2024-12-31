@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace VirtualRecovery {
     internal class LightManager : MonoBehaviour {
-        internal static LightManager Instance { get; private set; }
+        public static LightManager Instance { get; private set; }
 
         private void Awake() {
             if (Instance != null && Instance != this) {

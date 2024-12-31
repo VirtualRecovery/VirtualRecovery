@@ -5,7 +5,7 @@
 //  */
 
 namespace VirtualRecovery {
-    public enum DifficultyLevel {
+    internal enum DifficultyLevel {
         Low,
         Medium,
         High

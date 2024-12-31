@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace VirtualRecovery {
     internal class InterfaceManager : MonoBehaviour {
-        internal static InterfaceManager Instance { get; private set; }
+        public static InterfaceManager Instance { get; private set; }
 
         private void Awake() {
             if (Instance != null && Instance != this) {

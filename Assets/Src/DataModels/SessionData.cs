@@ -8,10 +8,10 @@ using System;
 
 namespace VirtualRecovery {
     internal class SessionData {
-        private int Id { get; set; }
-        private DateTime StartDate { get; set; }
-        private DateTime EndDate { get; set; }
-        private BodySide BodySide { get; set; }
-        private DifficultyLevel DifficultyLevel { get; set; }
+        public int Id { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public BodySide BodySide { get; set; }
+        public DifficultyLevel DifficultyLevel { get; set; }
     }
 }

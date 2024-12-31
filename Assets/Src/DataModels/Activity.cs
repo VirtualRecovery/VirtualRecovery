@@ -6,10 +6,10 @@
 
 namespace VirtualRecovery {
     internal class Activity {
-        private int Id { get; set; }
-        private int RoomId { get; set; }
-        private string Name { get; set; }
-        private string Description { get; set; }
-        private bool IsBodySideDifferentied{ get; set; }
+        public int Id { get; set; }
+        public int RoomId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsBodySideDifferentied{ get; set; }
     }
 }

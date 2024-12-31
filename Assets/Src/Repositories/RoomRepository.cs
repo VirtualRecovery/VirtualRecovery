@@ -16,7 +16,7 @@ namespace VirtualRecovery {
 
         private void EnsureRoomsTable() {
             if (!m_dbConnector.TableExists("Rooms")) {
-                m_dbConnector.ExecuteNonQuery(GenerateCreateTableQuery());
+               // m_dbConnector.ExecuteNonQuery(GenerateCreateTableQuery());
             }
         }
     }

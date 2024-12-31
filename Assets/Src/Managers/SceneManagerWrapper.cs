@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace VirtualRecovery {
     internal class SceneManagerWrapper : MonoBehaviour {
-        internal static SceneManagerWrapper Instance { get; private set; }
+        public static SceneManagerWrapper Instance { get; private set; }
         
         private const string k_mainMenuSceneName = "MainMenu";
         private const string k_kitchenSceneName = "Kitchen";
@@ -24,8 +24,8 @@ namespace VirtualRecovery {
             DontDestroyOnLoad(gameObject);
         }
 
-        internal void LoadMainMenu() => SceneManager.LoadScene(k_mainMenuSceneName, LoadSceneMode.Single);
-        internal void LoadKitchen() => SceneManager.LoadScene(k_kitchenSceneName, LoadSceneMode.Single);
+        public void LoadMainMenu() => SceneManager.LoadScene(k_mainMenuSceneName, LoadSceneMode.Single);
+        public void LoadKitchen() => SceneManager.LoadScene(k_kitchenSceneName, LoadSceneMode.Single);
         
         void Start() {
 
