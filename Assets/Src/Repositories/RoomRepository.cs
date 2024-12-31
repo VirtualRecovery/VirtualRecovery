@@ -4,10 +4,20 @@
 //  * Created on: 30/12/2024
 //  */
 
-using System.Collections.Generic;
-
 namespace VirtualRecovery {
     internal class RoomRepository {
-        private List<Room> m_rooms;
+        private DbConnector m_dbConnector;
+
+        public RoomRepository() {
+            m_dbConnector = new DbConnector();
+            m_dbConnector.OpenConnection();
+            EnsureRoomsTable();
+        }
+
+        private void EnsureRoomsTable() {
+            if (!m_dbConnector.TableExists("Rooms")) {
+                m_dbConnector.ExecuteNonQuery(GenerateCreateTableQuery());
+            }
+        }
     }
 }

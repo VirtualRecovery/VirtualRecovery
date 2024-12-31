@@ -8,24 +8,14 @@ using UnityEngine;
 
 namespace VirtualRecovery {
     internal class PatientsListModule : MonoBehaviour {
-        internal static PatientsListModule Instance { get; private set; }
-        private PatientRepository m_patientRepository = new PatientRepository();
+        private PatientRepository m_patientRepository;
 
         private void Awake() {
-            if (Instance != null && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            m_patientRepository = new PatientRepository();
         }
 
-        void Start() {
+        void Start() { }
 
-        }
-
-        void Update() {
-        }
+        void Update() { }
     }
 }

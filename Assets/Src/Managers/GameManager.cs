@@ -23,7 +23,6 @@ namespace VirtualRecovery {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            m_mainMenuManager = MainMenuModule.Instance;
             m_sessionManager = SessionManager.Instance;
             m_sceneManagerWrapper = SceneManagerWrapper.Instance;
         }
@@ -32,7 +31,6 @@ namespace VirtualRecovery {
             m_sceneManagerWrapper.LoadMainMenu();
         }
 
-        private void Update() {
-        }
+        private void Update() { }
     }
 }
