@@ -7,11 +7,12 @@
 using System.Collections.Generic;
 
 namespace VirtualRecovery {
-    internal class PatientData {
+    internal class Patient {
         // TODO: Ask what Id should we use. (Id of EDM? PESEL?)
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public BodySide WeakBodySide { get; set; }
-        public List<SessionData> SessionsHistory { get; set; }
+        public List<Session> SessionsHistory { get; set; }
     }
 }

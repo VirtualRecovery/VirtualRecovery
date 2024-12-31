@@ -7,8 +7,9 @@
 using System;
 
 namespace VirtualRecovery {
-    internal class SessionData {
+    internal class Session {
         public int Id { get; set; }
+        public int PatientId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public BodySide BodySide { get; set; }
