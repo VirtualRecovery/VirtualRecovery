@@ -12,6 +12,7 @@ namespace VirtualRecovery {
         private readonly DbConnector m_dbConnector;
         private readonly string m_patientTableName;
         private readonly string m_sessionsTableName;
+        private readonly string m_activitiesTableName;
 
         public PatientRepository() {
             m_dbConnector = new DbConnector();
@@ -20,6 +21,7 @@ namespace VirtualRecovery {
             var config = Configuration.Instance;
             m_patientTableName = config.configData.database.patientTableName;
             m_sessionsTableName = config.configData.database.sessionsTableName;
+            m_activitiesTableName = config.configData.database.activitiesTableName;
             
             EnsureTables();
         }
@@ -37,11 +39,13 @@ namespace VirtualRecovery {
             return $"CREATE TABLE {m_sessionsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "PatientId INTEGER NOT NULL," +
+                   "ActivityId INTEGER NOT NULL," +
                    "StartDate TEXT NOT NULL," +
                    "EndDate TEXT NOT NULL," +
                    "BodySide INTEGER NOT NULL," +
                    "DifficultyLevel INTEGER NOT NULL," +
-                   $"FOREIGN KEY(PatientId) REFERENCES {m_patientTableName}(Id)" +
+                   $"FOREIGN KEY(PatientId) REFERENCES {m_patientTableName}(Id)," +
+                   $"FOREIGN KEY(ActivityId) REFERENCES {m_activitiesTableName}(Id)" +
                    ")";
         }
 
@@ -60,8 +64,8 @@ namespace VirtualRecovery {
                         "VALUES (@Name, @Surname, @WeakBodySide, @SessionsHistory)";
             
             using (var command = m_dbConnector.CreateCommand(query,
-                       ("@Name", entity.Name),
-                       ("@Surname", entity.Surname),
+                       ("@Name", entity.FirstName),
+                       ("@Surname", entity.LastName),
                        ("@WeakBodySide", (int)entity.WeakBodySide),
                        ("@SessionsHistory", entity.SessionsHistory))) {
                 
@@ -76,8 +80,8 @@ namespace VirtualRecovery {
                         "WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
             
             using (var command = m_dbConnector.CreateCommand(query,
-                       ("@Name", entity.Name),
-                       ("@Surname", entity.Surname),
+                       ("@Name", entity.FirstName),
+                       ("@Surname", entity.LastName),
                        ("@WeakBodySide", (int)entity.WeakBodySide),
                        ("@SessionsHistory", entity.SessionsHistory),
                        ("@Id", id))) {
@@ -128,8 +132,8 @@ namespace VirtualRecovery {
                 if (reader.Read()) {
                     var patient = new Patient {
                         Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Surname = reader.GetString(2),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
                         WeakBodySide = (BodySide)reader.GetInt32(3),
                         SessionsHistory = GetSessionsForPatient(id)
                     };
@@ -150,8 +154,8 @@ namespace VirtualRecovery {
                 while (reader.Read()) {
                     var patient = new Patient {
                         Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Surname = reader.GetString(2),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
                         WeakBodySide = (BodySide)reader.GetInt32(3),
                         SessionsHistory = GetSessionsForPatient(reader.GetInt32(0))
                     };

@@ -7,12 +7,10 @@
 using System.Collections.Generic;
 
 namespace VirtualRecovery {
-    internal class Patient {
-        // TODO: Ask what Id should we use. (Id of EDM? PESEL?)
+    internal class Room {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public BodySide WeakBodySide { get; set; }
-        public List<Session> SessionsHistory { get; set; }
+        public string Description { get; set; }
+        public List<Activity> Activities { get; set; }
     }
 }
