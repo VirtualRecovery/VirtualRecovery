@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers.Modules {
     internal class MainMenuModule : MonoBehaviour {
         private PatientsListModule m_patientsListModule;
         private SessionConfigurationModule m_sessionConfigurationModule;

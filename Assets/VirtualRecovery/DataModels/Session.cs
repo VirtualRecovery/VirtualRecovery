@@ -6,7 +6,7 @@
 
 using System;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.DataModels {
     internal class Session {
         public int Id { get; set; }
         public int PatientId { get; set; }

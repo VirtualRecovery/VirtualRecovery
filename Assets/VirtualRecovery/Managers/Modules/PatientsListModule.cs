@@ -5,8 +5,9 @@
 //  */
 
 using UnityEngine;
+using VirtualRecovery.Repositories;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers.Modules {
     internal class PatientsListModule : MonoBehaviour {
         private PatientRepository m_patientRepository;
 

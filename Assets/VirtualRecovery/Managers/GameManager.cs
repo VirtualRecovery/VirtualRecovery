@@ -5,8 +5,9 @@
 //  */
 
 using UnityEngine;
+using VirtualRecovery.Managers.Modules;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
 

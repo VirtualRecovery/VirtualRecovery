@@ -5,8 +5,9 @@
 //  */
 
 using UnityEngine;
+using VirtualRecovery.Repositories;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers.Modules {
     internal class SessionConfigurationModule : MonoBehaviour {
         private RoomRepository m_roomRepository;
 

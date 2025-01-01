@@ -4,7 +4,7 @@
 //  * Created on: 30/12/2024
 //  */
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.DataModels {
     internal class Activity {
         public int Id { get; set; }
         public int RoomId { get; set; }

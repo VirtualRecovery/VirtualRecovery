@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers {
     internal class SessionManager : MonoBehaviour {
         public static SessionManager Instance { get; private set; }
 

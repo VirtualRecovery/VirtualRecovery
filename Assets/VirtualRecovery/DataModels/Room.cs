@@ -5,6 +5,7 @@
 //  */
 
 using System.Collections.Generic;
+using VirtualRecovery.DataModels;
 
 namespace VirtualRecovery {
     internal class Room {

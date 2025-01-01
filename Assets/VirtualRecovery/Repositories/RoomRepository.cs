@@ -6,8 +6,9 @@
 
 using System;
 using System.Collections.Generic;
+using VirtualRecovery.DataModels;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Repositories {
     internal class RoomRepository : IRepository<Room> {
         private readonly DbConnector m_dbConnector;
         private readonly string m_roomsTableName;

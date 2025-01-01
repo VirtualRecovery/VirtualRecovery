@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers {
     internal class ScreenManager : MonoBehaviour {
         public static ScreenManager Instance { get; private set; }
 

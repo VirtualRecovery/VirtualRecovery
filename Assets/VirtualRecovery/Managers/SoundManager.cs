@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Managers {
     internal class SoundManager : MonoBehaviour {
         public static SoundManager Instance { get; private set; }
 

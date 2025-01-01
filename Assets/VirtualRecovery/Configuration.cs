@@ -30,7 +30,7 @@ namespace VirtualRecovery {
     }
     
     internal class Configuration : MonoBehaviour {
-        private const string k_configFilePath = "Assets/Src/config.json";
+        private const string k_configFilePath = "Assets/VirtualRecovery/config.json";
         public static Configuration Instance { get; private set; }
 
         public ConfigurationData configData;
