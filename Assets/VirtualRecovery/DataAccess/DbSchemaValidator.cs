@@ -4,6 +4,8 @@
 //  * Created on: 02/01/2025
 //  */
 
+using VirtualRecovery.Core;
+
 namespace VirtualRecovery.DataAccess {
     internal class DbSchemaValidator {
         private readonly string m_roomsTableName;
@@ -14,6 +16,11 @@ namespace VirtualRecovery.DataAccess {
 
         public DbSchemaValidator (DbConnector connector) {
             m_dbConnector = connector;
+            var config = Configuration.Instance;
+            m_patientsTableName = config.configData.database.patientTableName;
+            m_sessionsTableName = config.configData.database.sessionsTableName;
+            m_activitiesTableName = config.configData.database.activitiesTableName;
+            m_roomsTableName = config.configData.database.roomsTableName;
         }
         
         private string GenerateCreateRoomsTableQuery() {

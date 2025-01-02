@@ -31,7 +31,7 @@ namespace VirtualRecovery.Core {
     }
     
     internal class Configuration : MonoBehaviour {
-        private const string k_configFilePath = "Assets/VirtualRecovery/config.json";
+        private const string k_configFilePath = "Assets/VirtualRecovery/Core/config.json";
         public static Configuration Instance { get; private set; }
 
         public ConfigurationData configData;
@@ -44,13 +44,13 @@ namespace VirtualRecovery.Core {
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
+            
+            LoadConfig();
+            
             // TODO: Maybe make entry point file? This code should be moved from here
             var dbConnector = new DbConnector();
             var dbSchemaValidator = new DbSchemaValidator(dbConnector);
             dbSchemaValidator.EnsureTables();
-            
-            LoadConfig();
         }
         
         void Start() {
