@@ -5,8 +5,9 @@
 //  */
 
 using Mono.Data.Sqlite;
+using VirtualRecovery.Core;
 
-namespace VirtualRecovery.DataAccess.Repositories {
+namespace VirtualRecovery.DataAccess {
     internal class DbConnector {
         private SqliteConnection m_connection;
         private readonly string m_dbName;

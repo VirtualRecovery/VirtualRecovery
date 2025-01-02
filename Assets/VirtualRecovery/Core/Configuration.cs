@@ -7,7 +7,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.Core {
     [System.Serializable]
     internal class ConfigurationData {
         public DatabaseConfig database;

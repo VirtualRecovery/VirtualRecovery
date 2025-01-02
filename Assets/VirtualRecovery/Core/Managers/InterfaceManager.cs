@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery.Managers {
+namespace VirtualRecovery.Core.Managers {
     internal class InterfaceManager : MonoBehaviour {
         public static InterfaceManager Instance { get; private set; }
 

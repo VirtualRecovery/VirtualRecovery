@@ -5,9 +5,8 @@
 //  */
 
 using System.Collections.Generic;
-using VirtualRecovery.DataModels;
 
-namespace VirtualRecovery {
+namespace VirtualRecovery.DataAccess.DataModels {
     internal class Room {
         public int Id { get; set; }
         public string Name { get; set; }

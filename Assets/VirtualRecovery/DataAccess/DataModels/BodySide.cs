@@ -4,7 +4,7 @@
 //  * Created on: 30/12/2024
 //  */
 
-namespace VirtualRecovery.DataModels {
+namespace VirtualRecovery.DataAccess.DataModels {
     internal enum BodySide {
         Left,
         Right,

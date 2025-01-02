@@ -7,7 +7,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace VirtualRecovery.Managers {
+namespace VirtualRecovery.Core.Managers {
     internal class SceneManagerWrapper : MonoBehaviour {
         public static SceneManagerWrapper Instance { get; private set; }
         

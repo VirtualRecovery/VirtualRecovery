@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace VirtualRecovery.Managers {
+namespace VirtualRecovery.Core.Managers {
     internal class LightManager : MonoBehaviour {
         public static LightManager Instance { get; private set; }
 

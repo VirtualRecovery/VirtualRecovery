@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace VirtualRecovery.Repositories {
+namespace VirtualRecovery.DataAccess.Repositories {
     internal interface IRepository<T> {
         void Insert(T entity);
         void Update(int id, T entity);

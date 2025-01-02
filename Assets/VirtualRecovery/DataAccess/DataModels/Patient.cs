@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace VirtualRecovery.DataModels {
+namespace VirtualRecovery.DataAccess.DataModels {
     internal class Patient {
         // TODO: Ask what Id should we use. (Id of EDM? PESEL?)
         public int Id { get; set; }
