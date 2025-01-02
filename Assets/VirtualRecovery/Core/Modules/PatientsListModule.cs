@@ -9,10 +9,10 @@ using VirtualRecovery.DataAccess.Repositories;
 
 namespace VirtualRecovery.Core.Modules {
     internal class PatientsListModule : MonoBehaviour {
-        private PatientRepository m_patientRepository;
+        private PatientsRepository m_patientsRepository;
 
         private void Awake() {
-            m_patientRepository = new PatientRepository();
+            m_patientsRepository = new PatientsRepository();
         }
 
         void Start() { }

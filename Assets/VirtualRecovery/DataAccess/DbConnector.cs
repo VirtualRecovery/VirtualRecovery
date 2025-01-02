@@ -17,7 +17,7 @@ namespace VirtualRecovery.DataAccess {
             m_dbName = config.configData.database.connectionString;
         }
 
-        private SqliteConnection CreateConnection() => new SqliteConnection(m_dbName);
+        private SqliteConnection CreateConnection() => new (m_dbName);
 
         public void OpenConnection() => (m_connection ??= CreateConnection()).Open();
 
@@ -38,15 +38,5 @@ namespace VirtualRecovery.DataAccess {
         public int ExecuteNonQuery(SqliteCommand command) => command.ExecuteNonQuery();
         
         public int ExecuteQuery(string query) => new SqliteCommand(query, m_connection).ExecuteNonQuery();
-
-        public bool TableExists(string tableName) {
-            var command = CreateCommand("SELECT name FROM sqlite_master WHERE type='table' AND name=@tableName;");
-            
-            command.Parameters.AddWithValue("@tableName", tableName);
-            
-            using (var reader = command.ExecuteReader()) {
-                return reader.Read();
-            }
-        }
     }
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/Assets/VirtualRecovery/DataAccess/DbConnector.cs" dialect="SQLite" />
-    <file url="file://$PROJECT_DIR$/Assets/VirtualRecovery/DataAccess/Repositories/PatientRepository.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Assets/VirtualRecovery/DataAccess/DbSchemaValidator.cs" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/Assets/VirtualRecovery/DataAccess/Repositories/PatientsRepository.cs" dialect="GenericSQL" />
   </component>
 </project>

@@ -6,6 +6,7 @@
 
 using System.IO;
 using UnityEngine;
+using VirtualRecovery.DataAccess;
 
 namespace VirtualRecovery.Core {
     [System.Serializable]
@@ -43,6 +44,11 @@ namespace VirtualRecovery.Core {
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // TODO: Maybe make entry point file? This code should be moved from here
+            var dbConnector = new DbConnector();
+            var dbSchemaValidator = new DbSchemaValidator(dbConnector);
+            dbSchemaValidator.EnsureTables();
             
             LoadConfig();
         }
