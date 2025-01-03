@@ -1,0 +1,15 @@
+﻿{
+  "database" : {
+    "connectionString" : "Data Source = Assets/Database/VirtualRecovery.db",
+    "roomsTableName" : "Rooms",
+    "activitiesTableName" : "Activities",
+    "patientTableName" : "Patients",
+    "sessionsTableName" : "Sessions"
+  },
+  "scenes" : {
+    "mainMenuSceneName" : "MainMenu",
+    "kitchenSceneName" : "Kitchen",
+    "bathroomSceneName" : "Bathroom",
+    "livingRoomSceneName" : "LivingRoom"
+  }
+}
