@@ -8,6 +8,8 @@
   },
   "scenes" : {
     "mainMenuSceneName" : "MainMenu",
-    "kitchenSceneName" : "Kitchen"
+    "kitchenSceneName" : "Kitchen",
+    "bathroomSceneName" : "Bathroom",
+    "livingRoomSceneName" : "LivingRoom"
   }
 }

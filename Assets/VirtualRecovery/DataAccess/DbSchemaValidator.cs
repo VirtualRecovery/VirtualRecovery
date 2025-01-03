@@ -4,15 +4,18 @@
 //  * Created on: 02/01/2025
 //  */
 
+using System;
+using System.Collections.Generic;
 using VirtualRecovery.Core;
 
 namespace VirtualRecovery.DataAccess {
     internal class DbSchemaValidator {
-        private readonly string m_roomsTableName;
-        private readonly string m_activitiesTableName;
-        private readonly string m_sessionsTableName;
-        private readonly string m_patientsTableName;
         private readonly DbConnector m_dbConnector;
+        private readonly string m_patientsTableName;
+        private readonly string m_sessionsTableName;
+        private readonly string m_activitiesTableName;
+        private readonly string m_roomsTableName;
+        private readonly Dictionary<string, Func<string>> m_tableCreationQueries;
 
         public DbSchemaValidator (DbConnector connector) {
             m_dbConnector = connector;
@@ -21,6 +24,13 @@ namespace VirtualRecovery.DataAccess {
             m_sessionsTableName = config.configData.database.sessionsTableName;
             m_activitiesTableName = config.configData.database.activitiesTableName;
             m_roomsTableName = config.configData.database.roomsTableName;
+
+            m_tableCreationQueries = new Dictionary<string, Func<string>> {
+                { m_patientsTableName, GenerateCreatePatientsTableQuery },
+                { m_sessionsTableName, GenerateCreateSessionsTableQuery },
+                { m_activitiesTableName, GenerateCreateActivitiesTableQuery },
+                { m_roomsTableName, GenerateCreateRoomsTableQuery }
+            };
         }
         
         private string GenerateCreateRoomsTableQuery() {
@@ -79,20 +89,10 @@ namespace VirtualRecovery.DataAccess {
         public void EnsureTables() {
             m_dbConnector.OpenConnection();
             try {
-                if (!TableExists(m_roomsTableName)) {
-                    m_dbConnector.ExecuteQuery(GenerateCreateRoomsTableQuery());
-                }
-
-                if (!TableExists(m_activitiesTableName)) {
-                    m_dbConnector.ExecuteQuery(GenerateCreateActivitiesTableQuery());
-                }
-                
-                if (!TableExists(m_patientsTableName)) {
-                    m_dbConnector.ExecuteQuery(GenerateCreatePatientsTableQuery());
-                }
-
-                if (!TableExists(m_sessionsTableName)) {
-                    m_dbConnector.ExecuteQuery(GenerateCreateSessionsTableQuery());
+                foreach (var table in m_tableCreationQueries) {
+                    if (!TableExists(table.Key)) {
+                        m_dbConnector.ExecuteQuery(table.Value());
+                    }
                 }
             }
             finally {

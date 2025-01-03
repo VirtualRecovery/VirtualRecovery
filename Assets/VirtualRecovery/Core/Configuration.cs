@@ -28,6 +28,8 @@ namespace VirtualRecovery.Core {
     internal class ScenesConfig {
         public string mainMenuSceneName;
         public string kitchenSceneName;
+        public string bathroomSceneName;
+        public string livingRoomSceneName;
     }
     
     internal class Configuration : MonoBehaviour {
