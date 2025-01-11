@@ -7,8 +7,8 @@
 using UnityEngine;
 using VirtualRecovery.DataAccess.Repositories;
 
-namespace VirtualRecovery.Core.Modules {
-    internal class SessionConfigurationModule : MonoBehaviour {
+namespace VirtualRecovery.Core.MainMenu {
+    internal class SessionConfiguration : MonoBehaviour {
         private RoomRepository m_roomRepository;
 
         private void Awake() {

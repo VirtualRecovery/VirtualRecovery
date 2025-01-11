@@ -7,8 +7,8 @@
 using UnityEngine;
 using VirtualRecovery.DataAccess.Repositories;
 
-namespace VirtualRecovery.Core.Modules {
-    internal class PatientsListModule : MonoBehaviour {
+namespace VirtualRecovery.Core.MainMenu {
+    internal class PatientsList : MonoBehaviour {
         private PatientsRepository m_patientsRepository;
 
         private void Awake() {
