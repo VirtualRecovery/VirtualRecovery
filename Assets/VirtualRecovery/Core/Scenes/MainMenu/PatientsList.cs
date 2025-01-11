@@ -7,7 +7,7 @@
 using UnityEngine;
 using VirtualRecovery.DataAccess.Repositories;
 
-namespace VirtualRecovery.Core.MainMenu {
+namespace VirtualRecovery.Core.Scenes.MainMenu {
     internal class PatientsList : MonoBehaviour {
         private PatientsRepository m_patientsRepository;
 

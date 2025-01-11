@@ -7,7 +7,7 @@
 using UnityEngine;
 using VirtualRecovery.DataAccess.Repositories;
 
-namespace VirtualRecovery.Core.MainMenu {
+namespace VirtualRecovery.Core.Scenes.MainMenu {
     internal class SessionConfiguration : MonoBehaviour {
         private RoomRepository m_roomRepository;
 
