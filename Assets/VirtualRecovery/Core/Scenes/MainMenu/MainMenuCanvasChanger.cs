@@ -6,9 +6,11 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using VirtualRecovery.Core.Interfaces;
+using VirtualRecovery.Core.Scenes.MainMenu.TitleScreen;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu {
-    public class MainMenuCanvasManager : MonoBehaviour {
+    public class MainMenuCanvasChanger : MonoBehaviour {
         private Canvas m_currentCanvas;
 
         private readonly Stack<Canvas> m_previousCanvases = new Stack<Canvas>();
@@ -18,17 +20,17 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         [SerializeField] private Canvas sessionConfigurationCanvas;
         [SerializeField] private Canvas settingsCanvas;
 
-        private Dictionary<MainMenuEvents, Canvas> m_eventToCanvas;
+        private Dictionary<MainMenuEventType, Canvas> m_eventToCanvas;
 
         private void Awake() {
             m_currentCanvas = titleScreenCanvas;
             EnableCurrentCanvas();
             
-            m_eventToCanvas = new Dictionary<MainMenuEvents, Canvas> {
-                { MainMenuEvents.BeginSessionButtonClicked, sessionConfigurationCanvas },
-                { MainMenuEvents.PatientsListButtonClicked, patientsListCanvas },
-                { MainMenuEvents.SettingsButtonClicked, settingsCanvas },
-                { MainMenuEvents.BackToMainMenuButtonClicked, titleScreenCanvas }
+            m_eventToCanvas = new Dictionary<MainMenuEventType, Canvas> {
+                { MainMenuEventType.BeginSessionButtonClicked, sessionConfigurationCanvas },
+                { MainMenuEventType.PatientsListButtonClicked, patientsListCanvas },
+                { MainMenuEventType.SettingsButtonClicked, settingsCanvas },
+                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas }
             };
         }
 
@@ -40,9 +42,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             m_currentCanvas.GetComponent<Canvas>().enabled = false;
         }
         
-        internal void ChangeCanvas(MainMenuEvents eventType) {
+        internal void ChangeCanvas(MainMenuEventType eventType) {
+            if (eventType == MainMenuEventType.ExitButtonClicked) {
+                Application.Quit();
+            }
+            
             DisableCurrentCanvas();
-            if (eventType == MainMenuEvents.ReturnButtonClicked) {
+            if (eventType == MainMenuEventType.ReturnButtonClicked) {
                 m_currentCanvas = m_previousCanvases.Pop();
             }
             else {

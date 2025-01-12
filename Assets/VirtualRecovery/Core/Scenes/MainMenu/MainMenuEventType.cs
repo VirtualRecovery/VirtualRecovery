@@ -5,11 +5,12 @@
 //  */
 
 namespace VirtualRecovery.Core.Scenes.MainMenu {
-    internal enum MainMenuEventTypes {
+    internal enum MainMenuEventType {
         ReturnButtonClicked,
         BeginSessionButtonClicked,
         PatientsListButtonClicked,
         SettingsButtonClicked,
+        ExitButtonClicked,
         BackToMainMenuButtonClicked
     }
 }
