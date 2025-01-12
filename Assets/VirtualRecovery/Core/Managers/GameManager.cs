@@ -10,8 +10,7 @@ using VirtualRecovery.Core.Scenes.MainMenu;
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
-
-        private TitleScreen m_mainMenuManager;
+        
         private SessionManager m_sessionManager;
         private SceneManagerWrapper m_sceneManagerWrapper;
 

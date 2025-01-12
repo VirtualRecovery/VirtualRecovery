@@ -1,11 +1,11 @@
 ﻿// /*
 //  * Copyright © 2024 Virtual Recovery
-//  * Author: Mateusz Kaszubowski
-//  * Created on: 11/01/2025
+//  * Author: Piotr Lachowicz
+//  * Created on: 12/01/2025
 //  */
 
-namespace VirtualRecovery.Core.UI {
-    internal enum UIEventType {
+namespace VirtualRecovery.Core.Scenes.MainMenu {
+    internal enum MainMenuEventTypes {
         ReturnButtonClicked,
         BeginSessionButtonClicked,
         PatientsListButtonClicked,
