@@ -648,6 +648,7 @@ GameObject:
   - component: {fileID: 505193321}
   - component: {fileID: 505193320}
   - component: {fileID: 505193319}
+  - component: {fileID: 505193322}
   m_Layer: 5
   m_Name: BeginSessionButton
   m_TagString: Untagged
@@ -719,10 +720,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 81613070}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen,
+      - m_Target: {fileID: 505193322}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen.BeginSessionButton,
           Assembly-CSharp
-        m_MethodName: GoToSessionConfiguration
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -770,6 +771,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505193317}
   m_CullTransparentMesh: 1
+--- !u!114 &505193322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505193317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7475f37ceebd4b47a80019836030fcc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 695068547}
 --- !u!1 &515219899
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +1011,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c214251407984a789160aeec63087a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &695068546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695068548}
+  - component: {fileID: 695068547}
+  m_Layer: 0
+  m_Name: MainMenuCanvasChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &695068547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695068546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426db8afb7cd4428bebaf06734f51a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleScreenCanvas: {fileID: 1677553439}
+  patientsListCanvas: {fileID: 0}
+  sessionConfigurationCanvas: {fileID: 0}
+  settingsCanvas: {fileID: 0}
+--- !u!4 &695068548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695068546}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 742.5902, y: 397.95486, z: 84.37009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &869678505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,6 +1238,7 @@ GameObject:
   - component: {fileID: 937141238}
   - component: {fileID: 937141237}
   - component: {fileID: 937141236}
+  - component: {fileID: 937141239}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1247,9 +1310,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 81613070}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Modules.MainMenuModule, Assembly-CSharp
-        m_MethodName: QuitApp
+      - m_Target: {fileID: 937141239}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen.ExitButton,
+          Assembly-CSharp
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1297,6 +1361,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937141234}
   m_CullTransparentMesh: 1
+--- !u!114 &937141239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937141234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293ad3c6576c44f8a3db30ecfa81e0ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 695068547}
 --- !u!1 &946209103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1461,7 @@ GameObject:
   - component: {fileID: 1056619630}
   - component: {fileID: 1056619629}
   - component: {fileID: 1056619628}
+  - component: {fileID: 1056619631}
   m_Layer: 5
   m_Name: PatientsListButton
   m_TagString: Untagged
@@ -1455,10 +1533,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 81613070}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen,
+      - m_Target: {fileID: 1056619631}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen.PatientsListButton,
           Assembly-CSharp
-        m_MethodName: GoToPatientsList
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1506,6 +1584,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056619626}
   m_CullTransparentMesh: 1
+--- !u!114 &1056619631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056619626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cebe7bed344dc8957512eed2995f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 695068547}
 --- !u!1 &1233024532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1877,7 @@ GameObject:
   - component: {fileID: 1449985332}
   - component: {fileID: 1449985331}
   - component: {fileID: 1449985330}
+  - component: {fileID: 1449985333}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -1857,10 +1949,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 81613070}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen,
+      - m_Target: {fileID: 1449985333}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.TitleScreen.SettingsButton,
           Assembly-CSharp
-        m_MethodName: GoToSettings
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1908,6 +2000,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449985328}
   m_CullTransparentMesh: 1
+--- !u!114 &1449985333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449985328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6698969bd241dab9b4f1bd6c41e90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 695068547}
 --- !u!1 &1460758818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,4 +2730,5 @@ SceneRoots:
   - {fileID: 1781926452}
   - {fileID: 1233024534}
   - {fileID: 946209104}
+  - {fileID: 695068548}
   - {fileID: 1677553440}
