@@ -5,7 +5,7 @@
 //  */
 
 using UnityEngine;
-using VirtualRecovery.Core.Scenes.MainMenu;
+using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
@@ -13,6 +13,12 @@ namespace VirtualRecovery.Core.Managers {
         
         private SessionManager m_sessionManager;
         private SceneManagerWrapper m_sceneManagerWrapper;
+
+        private Patient m_patient; // TODO: for now these values should be fixed as we're not implementing selection yet
+        private Room m_room;
+        private Activity m_activity;
+        private DifficultyLevel m_difficultyLevel;
+        private BodySide m_bodySide;
 
         private void Awake() {
             if (Instance != null && Instance != this) {
@@ -27,10 +33,32 @@ namespace VirtualRecovery.Core.Managers {
             m_sceneManagerWrapper = SceneManagerWrapper.Instance;
         }
 
+        public void BeginSession() {
+            
+        }
+
+        public void SetPatient(Patient patient) {
+            m_patient = patient;
+        }
+
+        public void SetRoom(Room room) {
+            m_room = room;
+        }
+
+        public void SetActivity(Activity activity) {
+            m_activity = activity;
+        }
+
+        public void SetDifficulty(DifficultyLevel difficultyLevel) {
+            m_difficultyLevel = difficultyLevel;
+        }
+
+        public void SetBodyside(BodySide bodySide) {
+            m_bodySide = bodySide;
+        }
+
         private void Start() {
             m_sceneManagerWrapper.LoadMainMenu();
         }
-
-        private void Update() { }
     }
 }

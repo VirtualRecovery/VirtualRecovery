@@ -6,8 +6,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using VirtualRecovery.Core.Interfaces;
-using VirtualRecovery.Core.Scenes.MainMenu.TitleScreen;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu {
     public class MainMenuCanvasChanger : MonoBehaviour {
@@ -19,6 +17,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         [SerializeField] private Canvas patientsListCanvas;
         [SerializeField] private Canvas sessionConfigurationCanvas;
         [SerializeField] private Canvas settingsCanvas;
+        [SerializeField] private Canvas patientSelectionCanvas;
+        [SerializeField] private Canvas activitySelectionCanvas;
 
         private Dictionary<MainMenuEventType, Canvas> m_eventToCanvas;
 
@@ -30,16 +30,18 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 { MainMenuEventType.BeginSessionButtonClicked, sessionConfigurationCanvas },
                 { MainMenuEventType.PatientsListButtonClicked, patientsListCanvas },
                 { MainMenuEventType.SettingsButtonClicked, settingsCanvas },
-                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas }
+                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas },
+                { MainMenuEventType.PatientSelectionButtonClicked, patientSelectionCanvas },
+                { MainMenuEventType.ActivitySelectionButtonClicked, activitySelectionCanvas }
             };
         }
 
         private void DisableCurrentCanvas() {
-            m_currentCanvas.GetComponent<Canvas>().enabled = false;
+            m_currentCanvas.enabled = false;
         }
         
         private void EnableCurrentCanvas() {
-            m_currentCanvas.GetComponent<Canvas>().enabled = false;
+            m_currentCanvas.enabled = true;
         }
         
         internal void ChangeCanvas(MainMenuEventType eventType) {

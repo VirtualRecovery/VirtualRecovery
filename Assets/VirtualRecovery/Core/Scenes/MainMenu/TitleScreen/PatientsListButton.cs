@@ -13,10 +13,9 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.TitleScreen {
         [SerializeField] private MainMenuCanvasChanger mainMenuCanvasChanger;
         
         public void OnButtonClicked() {
-            Button button = GetComponent<Button>();
+            var button = GetComponent<Button>();
             if (button != null && mainMenuCanvasChanger != null) {
-                button.onClick.AddListener(() => mainMenuCanvasChanger.
-                    ChangeCanvas(MainMenuEventType.PatientsListButtonClicked));
+                mainMenuCanvasChanger.ChangeCanvas(MainMenuEventType.PatientsListButtonClicked);
             }
         }
     }
