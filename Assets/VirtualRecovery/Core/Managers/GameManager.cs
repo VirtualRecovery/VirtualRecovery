@@ -4,8 +4,12 @@
 //  * Created on: 30/12/2024
 //  */
 
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VirtualRecovery.Core.Scenes.BaseClasses;
+using VirtualRecovery.Core.Scenes.Interfaces;
+using VirtualRecovery.Core.Scenes.MainMenu;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
@@ -13,6 +17,9 @@ namespace VirtualRecovery.Core.Managers {
         public static GameManager Instance { get; private set; }
         
         private SessionManager m_sessionManager;
+
+        private float m_sessionStartTime;
+        private float m_sessionEndTime;
 
         private Patient m_patient; // TODO: for now these values should be fixed as we're not implementing selection yet
         private Room m_room;
@@ -34,8 +41,26 @@ namespace VirtualRecovery.Core.Managers {
 
         public void BeginSession() {
             SceneManager.LoadScene(m_room.Name, LoadSceneMode.Single);
+            
+            // TODO: maybe use some different mechanism
+            SceneManager.sceneLoaded += SetSessionStartTime;
+            
+            m_sessionEndTime = Time.time;
+            
+            BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
+            // TODO: change to the session report canvas
+            // baseCanvasChanger.ChangeCanvas();
         }
 
+        public float GetSessionDurationTime() {
+            if (m_sessionStartTime > 0f) {
+                return m_sessionEndTime - m_sessionStartTime;
+            }
+            return 0f;
+        }
+
+        public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
+        
         public void SetPatient(Patient patient) => m_patient = patient;
 
         public void SetRoom(Room room) => m_room = room;
