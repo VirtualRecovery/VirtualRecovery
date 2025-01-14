@@ -4,6 +4,8 @@
 //  * Created on: 12/01/2025
 //  */
 
+using VirtualRecovery.Core.Interfaces;
+
 namespace VirtualRecovery.Core.Scenes.MainMenu {
     internal enum MainMenuEventType {
         ReturnButtonClicked,

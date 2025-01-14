@@ -5,6 +5,7 @@
 //  */
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
@@ -12,7 +13,6 @@ namespace VirtualRecovery.Core.Managers {
         public static GameManager Instance { get; private set; }
         
         private SessionManager m_sessionManager;
-        private SceneManagerWrapper m_sceneManagerWrapper;
 
         private Patient m_patient; // TODO: for now these values should be fixed as we're not implementing selection yet
         private Room m_room;
@@ -30,35 +30,24 @@ namespace VirtualRecovery.Core.Managers {
             DontDestroyOnLoad(gameObject);
 
             m_sessionManager = SessionManager.Instance;
-            m_sceneManagerWrapper = SceneManagerWrapper.Instance;
         }
 
         public void BeginSession() {
-            
+            SceneManager.LoadScene(m_room.Name, LoadSceneMode.Single);
         }
 
-        public void SetPatient(Patient patient) {
-            m_patient = patient;
-        }
+        public void SetPatient(Patient patient) => m_patient = patient;
 
-        public void SetRoom(Room room) {
-            m_room = room;
-        }
+        public void SetRoom(Room room) => m_room = room;
 
-        public void SetActivity(Activity activity) {
-            m_activity = activity;
-        }
+        public void SetActivity(Activity activity) => m_activity = activity;
 
-        public void SetDifficulty(DifficultyLevel difficultyLevel) {
-            m_difficultyLevel = difficultyLevel;
-        }
+        public void SetDifficulty(DifficultyLevel difficultyLevel) => m_difficultyLevel = difficultyLevel;
 
-        public void SetBodyside(BodySide bodySide) {
-            m_bodySide = bodySide;
-        }
+        public void SetBodyside(BodySide bodySide) => m_bodySide = bodySide;
 
         private void Start() {
-            m_sceneManagerWrapper.LoadMainMenu();
+
         }
     }
 }
