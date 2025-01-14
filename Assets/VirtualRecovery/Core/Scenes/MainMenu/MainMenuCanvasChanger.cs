@@ -7,9 +7,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VirtualRecovery.Core.Scenes.BaseClasses;
+using VirtualRecovery.Core.Scenes.Interfaces;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu {
-    internal class MainMenuCanvasChanger : CanvasChangerBase<MainMenuEventType> {
+    internal class MainMenuCanvasChanger : BaseCanvasChanger {
         [SerializeField] private Canvas titleScreenCanvas;
         [SerializeField] private Canvas patientsListCanvas;
         [SerializeField] private Canvas sessionConfigurationCanvas;
@@ -18,20 +19,21 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         [SerializeField] private Canvas activitySelectionCanvas;
 
         private void Awake() {
-            CurrentCanvas = titleScreenCanvas;
-            EnableCurrentCanvas();
-            
-            EventToCanvas = new Dictionary<MainMenuEventType, Canvas> {
-                { MainMenuEventType.BeginSessionButtonClicked, sessionConfigurationCanvas },
-                { MainMenuEventType.PatientsListButtonClicked, patientsListCanvas },
-                { MainMenuEventType.SettingsButtonClicked, settingsCanvas },
-                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas },
-                { MainMenuEventType.PatientSelectionButtonClicked, patientSelectionCanvas },
-                { MainMenuEventType.ActivitySelectionButtonClicked, activitySelectionCanvas }
+            var eventToCanvas = new Dictionary<IEventTypeWrapper, Canvas> {
+                { new MainMenuEventTypeWrapper(MainMenuEventType.BeginSessionButtonClicked), sessionConfigurationCanvas },
+                { new MainMenuEventTypeWrapper(MainMenuEventType.PatientsListButtonClicked), patientsListCanvas },
+                { new MainMenuEventTypeWrapper(MainMenuEventType.SettingsButtonClicked), settingsCanvas },
+                { new MainMenuEventTypeWrapper(MainMenuEventType.BackToMainMenuButtonClicked), titleScreenCanvas },
+                { new MainMenuEventTypeWrapper(MainMenuEventType.PatientSelectionButtonClicked), patientSelectionCanvas },
+                { new MainMenuEventTypeWrapper(MainMenuEventType.ActivitySelectionButtonClicked), activitySelectionCanvas }
             };
+            
+            Initialize(eventToCanvas, titleScreenCanvas);
         }
         
-        internal override void ChangeCanvas(MainMenuEventType eventType) {
+        internal override void ChangeCanvas(IEventTypeWrapper eventTypeWrapper) {
+            eventTypeWrapper = (MainMenuEventTypeWrapper)eventTypeWrapper;
+            MainMenuEventType eventType = (MainMenuEventType)eventTypeWrapper.EventType;
             if (eventType == MainMenuEventType.ExitButtonClicked) {
                 Application.Quit();
             }
@@ -42,7 +44,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             }
             else {
                 PreviousCanvases.Push(CurrentCanvas);
-                CurrentCanvas = EventToCanvas[eventType];
+                CurrentCanvas = EventToCanvas[eventTypeWrapper];
             }
             EnableCurrentCanvas();
         }
