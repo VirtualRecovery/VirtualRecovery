@@ -6,7 +6,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using VirtualRecovery.Core.Interfaces;
+using VirtualRecovery.Core.Scenes.Interfaces;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu.Common {
     internal class ReturnButton : MonoBehaviour, IButton {

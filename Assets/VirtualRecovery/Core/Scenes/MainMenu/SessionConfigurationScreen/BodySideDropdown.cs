@@ -6,7 +6,7 @@
 
 using TMPro;
 using UnityEngine;
-using VirtualRecovery.Core.Interfaces;
+using VirtualRecovery.Core.Scenes.Interfaces;
 using VirtualRecovery.Core.Managers;
 using VirtualRecovery.DataAccess.DataModels;
 

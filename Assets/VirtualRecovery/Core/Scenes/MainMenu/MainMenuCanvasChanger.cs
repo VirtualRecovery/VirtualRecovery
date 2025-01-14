@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using VirtualRecovery.Core.BaseClasses;
+using VirtualRecovery.Core.Scenes.BaseClasses;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu {
     internal class MainMenuCanvasChanger : CanvasChangerBase<MainMenuEventType> {

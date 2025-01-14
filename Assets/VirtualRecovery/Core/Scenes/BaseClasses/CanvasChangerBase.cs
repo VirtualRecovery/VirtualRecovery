@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VirtualRecovery.Core.BaseClasses {
+namespace VirtualRecovery.Core.Scenes.BaseClasses {
     internal abstract class CanvasChangerBase<T> : MonoBehaviour where T : Enum {
         protected Canvas CurrentCanvas;
         protected readonly Stack<Canvas> PreviousCanvases = new Stack<Canvas>();

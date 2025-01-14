@@ -4,7 +4,7 @@
 //  * Created on: 12/01/2025
 //  */
 
-namespace VirtualRecovery.Core.Interfaces {
+namespace VirtualRecovery.Core.Scenes.Interfaces {
     internal interface IButton {
         void OnButtonClicked();
     }

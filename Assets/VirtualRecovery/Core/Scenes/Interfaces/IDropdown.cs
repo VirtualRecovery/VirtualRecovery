@@ -4,7 +4,7 @@
 //  * Created on: 14/01/2025
 //  */
 
-namespace VirtualRecovery.Core.Interfaces {
+namespace VirtualRecovery.Core.Scenes.Interfaces {
     internal interface IDropdown {
         void OnValueChanged();
     }
