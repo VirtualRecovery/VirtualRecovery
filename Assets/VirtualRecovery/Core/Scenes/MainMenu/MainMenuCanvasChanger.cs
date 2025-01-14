@@ -4,6 +4,7 @@
 //  * Created on: 12/01/2025
 //  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VirtualRecovery.Core.Scenes.BaseClasses;
@@ -19,13 +20,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         [SerializeField] private Canvas activitySelectionCanvas;
 
         private void Awake() {
-            var eventToCanvas = new Dictionary<IEventTypeWrapper, Canvas> {
-                { new MainMenuEventTypeWrapper(MainMenuEventType.BeginSessionButtonClicked), sessionConfigurationCanvas },
-                { new MainMenuEventTypeWrapper(MainMenuEventType.PatientsListButtonClicked), patientsListCanvas },
-                { new MainMenuEventTypeWrapper(MainMenuEventType.SettingsButtonClicked), settingsCanvas },
-                { new MainMenuEventTypeWrapper(MainMenuEventType.BackToMainMenuButtonClicked), titleScreenCanvas },
-                { new MainMenuEventTypeWrapper(MainMenuEventType.PatientSelectionButtonClicked), patientSelectionCanvas },
-                { new MainMenuEventTypeWrapper(MainMenuEventType.ActivitySelectionButtonClicked), activitySelectionCanvas }
+            var eventToCanvas = new Dictionary<Enum, Canvas> {
+                { MainMenuEventType.BeginSessionButtonClicked, sessionConfigurationCanvas },
+                { MainMenuEventType.PatientsListButtonClicked, patientsListCanvas },
+                { MainMenuEventType.SettingsButtonClicked, settingsCanvas },
+                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas },
+                { MainMenuEventType.PatientSelectionButtonClicked, patientSelectionCanvas },
+                { MainMenuEventType.ActivitySelectionButtonClicked, activitySelectionCanvas }
             };
             
             Initialize(eventToCanvas, titleScreenCanvas);
@@ -44,7 +45,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             }
             else {
                 PreviousCanvases.Push(CurrentCanvas);
-                CurrentCanvas = EventToCanvas[eventTypeWrapper];
+                CurrentCanvas = EventToCanvas[eventType];
             }
             EnableCurrentCanvas();
         }
