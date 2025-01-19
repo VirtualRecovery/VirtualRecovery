@@ -5,17 +5,20 @@
 //  */
 
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using VirtualRecovery.Core.Scenes.Interfaces;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu.TitleScreen {
     internal class SettingsButton : MonoBehaviour, IButton {
-        [SerializeField] private MainMenuCanvasChanger mainMenuCanvasChanger;
+        [FormerlySerializedAs("mainMenuBaseCanvasChanger")] [SerializeField] private MainMenuCanvasChanger mainMenuCanvasChanger;
         
         public void OnButtonClicked() {
             var button = GetComponent<Button>();
             if (button != null && mainMenuCanvasChanger != null) {
-                mainMenuCanvasChanger.ChangeCanvas(MainMenuEventType.ReturnButtonClicked);
+                mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
+                    MainMenuEventType.ReturnButtonClicked)
+                );
             }
         }
     }
