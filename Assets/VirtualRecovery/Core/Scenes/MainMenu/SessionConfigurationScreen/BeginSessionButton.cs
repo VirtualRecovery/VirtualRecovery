@@ -8,7 +8,7 @@ using UnityEngine;
 using VirtualRecovery.Core.Scenes.Interfaces;
 using VirtualRecovery.Core.Managers;
 
-namespace VirtualRecovery.Core.Scenes.MainMenu.Common {
+namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
     internal class BeginSessionButton : MonoBehaviour, IButton {
         public void OnButtonClicked() {
             GameManager.Instance.BeginSession();
