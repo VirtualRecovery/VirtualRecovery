@@ -17,7 +17,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.TitleScreen {
             var button = GetComponent<Button>();
             if (button != null && mainMenuCanvasChanger != null) {
                 mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
-                    MainMenuEventType.ReturnButtonClicked)
+                    MainMenuEventType.SettingsButtonClicked)
                 );
             }
         }

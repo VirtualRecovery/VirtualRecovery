@@ -13,20 +13,31 @@ using VirtualRecovery.Core.Scenes.Interfaces;
 namespace VirtualRecovery.Core.Scenes.MainMenu {
     internal class MainMenuCanvasChanger : BaseCanvasChanger {
         [SerializeField] private Canvas titleScreenCanvas;
-        [SerializeField] private Canvas patientsListCanvas;
         [SerializeField] private Canvas sessionConfigurationCanvas;
-        [SerializeField] private Canvas settingsCanvas;
         [SerializeField] private Canvas patientSelectionCanvas;
         [SerializeField] private Canvas activitySelectionCanvas;
+        [SerializeField] private Canvas patientsListCanvas;
+        [SerializeField] private Canvas settingsCanvas;
+        [SerializeField] private Canvas addPatientCanvas;
+        [SerializeField] private Canvas editPatientCanvas;
+        [SerializeField] private Canvas deletePatientCanvas;
+        [SerializeField] private Canvas pauseMenuCanvas;
+        [SerializeField] private Canvas excerciseEndCanvas;
+        [SerializeField] private Canvas therapistViewCanvas;
+        [SerializeField] private Canvas excerciseHintCanvas;
 
         private void Awake() {
             var eventToCanvas = new Dictionary<Enum, Canvas> {
                 { MainMenuEventType.BeginSessionButtonClicked, sessionConfigurationCanvas },
                 { MainMenuEventType.PatientsListButtonClicked, patientsListCanvas },
                 { MainMenuEventType.SettingsButtonClicked, settingsCanvas },
-                { MainMenuEventType.BackToMainMenuButtonClicked, titleScreenCanvas },
                 { MainMenuEventType.PatientSelectionButtonClicked, patientSelectionCanvas },
-                { MainMenuEventType.ActivitySelectionButtonClicked, activitySelectionCanvas }
+                { MainMenuEventType.ActivitySelectionButtonClicked, activitySelectionCanvas },
+                { MainMenuEventType.PatientChosenButtonClicked, sessionConfigurationCanvas},
+                { MainMenuEventType.ActivityChosenButtonClicked, patientSelectionCanvas},
+                { MainMenuEventType.AddPatientButtonClicked, addPatientCanvas},
+                { MainMenuEventType.EditPatientButtonClicked, editPatientCanvas},
+                { MainMenuEventType.DeletePatientButtonClicked, deletePatientCanvas}
             };
             
             Initialize(eventToCanvas, titleScreenCanvas);
@@ -40,7 +51,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             }
             
             DisableCurrentCanvas();
-            if (eventType == MainMenuEventType.ReturnButtonClicked) {
+            if (eventType == MainMenuEventType.BackToMainMenuButtonClicked) {
+                CurrentCanvas = titleScreenCanvas;
+                PreviousCanvases.Clear();
+            }
+            if (eventType is MainMenuEventType.ReturnButtonClicked 
+                or MainMenuEventType.SavePatientDataButtonClicked 
+                or MainMenuEventType.ConfirmPatientDeletionButton) {
                 CurrentCanvas = PreviousCanvases.Pop();
             }
             else {

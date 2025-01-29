@@ -24,7 +24,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         ExitButtonClicked,
         BackToMainMenuButtonClicked,
         PatientSelectionButtonClicked,
-        ActivitySelectionButtonClicked
+        ActivitySelectionButtonClicked,
+        PatientChosenButtonClicked,
+        ActivityChosenButtonClicked,
+        AddPatientButtonClicked,
+        EditPatientButtonClicked,
+        DeletePatientButtonClicked,
+        SavePatientDataButtonClicked,
+        ConfirmPatientDeletionButton
     }
-
 }
