@@ -7,14 +7,9 @@
 using UnityEngine;
 using VirtualRecovery.Core.Managers;
 
-namespace VirtualRecovery.Core.Scripts {
+namespace VirtualRecovery.Core.HandTracking.Scripts {
     public class FingerCollisionDetector : MonoBehaviour {
-        public GameObject handController;
-        private HandGrabController m_handGrabController;
-
-        private void Awake() {
-            m_handGrabController = handController.GetComponent<HandGrabController>();
-        }
+        [SerializeField] private HandGrabController m_handGrabController;
 
         private void OnTriggerEnter(Collider other) {
             m_handGrabController.HandleFingerTouch(other.gameObject);

@@ -1,8 +1,6 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
 
-namespace VirtualRecovery.Core.Scripts {
+namespace VirtualRecovery.Core.HandTracking.Scripts {
     internal class PlayerControl : MonoBehaviour {
 
         public GameObject target;

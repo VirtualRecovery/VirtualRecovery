@@ -4,20 +4,14 @@
 //  * Created on: 27/01/2025
 //  */
 
-using System;
 using UnityEngine;
-using VirtualRecovery.Core.Managers;
 
-namespace VirtualRecovery.Core.Scripts {
-    
-    
+namespace VirtualRecovery.Core.HandTracking.Scripts {
+                                                                               
     public class ThumbCollisionDetector : MonoBehaviour {
-        public GameObject handController;
-        private HandGrabController m_handGrabController;
         
-        private void Awake() {
-            m_handGrabController = handController.GetComponent<HandGrabController>();
-        }
+        [SerializeField] private HandGrabController m_handGrabController;
+        
         private void OnTriggerEnter(Collider other) {
             m_handGrabController.HandleThumbTouch(this.gameObject, other.gameObject);
         }
