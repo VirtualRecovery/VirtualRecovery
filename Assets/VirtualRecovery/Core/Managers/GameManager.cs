@@ -4,8 +4,13 @@
 //  * Created on: 30/12/2024
 //  */
 
+using System;
 using UnityEngine;
-using VirtualRecovery.Core.Modules;
+using UnityEngine.SceneManagement;
+using VirtualRecovery.Core.Scenes.BaseClasses;
+using VirtualRecovery.Core.Scenes.Interfaces;
+using VirtualRecovery.Core.Scenes.MainMenu;
+using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
@@ -13,7 +18,15 @@ namespace VirtualRecovery.Core.Managers {
         
         private MainMenuModule m_mainMenuManager;
         private SessionManager m_sessionManager;
-        private SceneManagerWrapper m_sceneManagerWrapper;
+
+        private float m_sessionStartTime;
+        private float m_sessionEndTime;
+
+        private Patient m_patient; // TODO: for now these values should be fixed as we're not implementing selection yet
+        private Room m_room;
+        private Activity m_activity;
+        private DifficultyLevel m_difficultyLevel;
+        private BodySide m_bodySide;
 
         private void Awake() {
             if (Instance != null && Instance != this) {
@@ -25,13 +38,42 @@ namespace VirtualRecovery.Core.Managers {
             DontDestroyOnLoad(gameObject);
 
             m_sessionManager = SessionManager.Instance;
-            m_sceneManagerWrapper = SceneManagerWrapper.Instance;
         }
+
+        public void BeginSession() {
+            SceneManager.LoadScene(m_room.Name, LoadSceneMode.Single);
+            
+            // TODO: maybe use some different mechanism
+            SceneManager.sceneLoaded += SetSessionStartTime;
+            
+            m_sessionEndTime = Time.time;
+            
+            BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
+            // TODO: change to the session report canvas
+            // baseCanvasChanger.ChangeCanvas();
+        }
+
+        public float GetSessionDurationTime() {
+            if (m_sessionStartTime > 0f) {
+                return m_sessionEndTime - m_sessionStartTime;
+            }
+            return 0f;
+        }
+
+        public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
+        
+        public void SetPatient(Patient patient) => m_patient = patient;
+
+        public void SetRoom(Room room) => m_room = room;
+
+        public void SetActivity(Activity activity) => m_activity = activity;
+
+        public void SetDifficulty(DifficultyLevel difficultyLevel) => m_difficultyLevel = difficultyLevel;
+
+        public void SetBodyside(BodySide bodySide) => m_bodySide = bodySide;
 
         private void Start() {
-            m_sceneManagerWrapper.LoadMainMenu();
-        }
 
-        private void Update() { }
+        }
     }
 }

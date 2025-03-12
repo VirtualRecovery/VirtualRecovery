@@ -12,7 +12,6 @@ namespace VirtualRecovery.Core {
     [System.Serializable]
     internal class ConfigurationData {
         public DatabaseConfig database;
-        public ScenesConfig scenes;
     }
 
     [System.Serializable]
@@ -22,14 +21,6 @@ namespace VirtualRecovery.Core {
         public string activitiesTableName;
         public string patientTableName;
         public string sessionsTableName;
-    }
-
-    [System.Serializable]
-    internal class ScenesConfig {
-        public string mainMenuSceneName;
-        public string kitchenSceneName;
-        public string bathroomSceneName;
-        public string livingRoomSceneName;
     }
     
     internal class Configuration : MonoBehaviour {
