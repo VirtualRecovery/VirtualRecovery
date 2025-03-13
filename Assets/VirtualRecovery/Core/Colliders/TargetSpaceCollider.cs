@@ -18,7 +18,7 @@ namespace VirtualRecovery.Core.Colliders {
         private void OnTriggerEnter(Collider other)
         {
             // TODO: Check tag
-            if (other.CompareTag(""))
+            if (other.CompareTag("Item"))
             {
                 m_isBeingTouched = true;
                 
@@ -34,7 +34,7 @@ namespace VirtualRecovery.Core.Colliders {
         private void OnTriggerExit(Collider other)
         {
             // TODO: Check tag 
-            if (other.CompareTag(""))
+            if (other.CompareTag("Item"))
             {
                 m_isBeingTouched = false;
                 m_touchTimer = 0f;
