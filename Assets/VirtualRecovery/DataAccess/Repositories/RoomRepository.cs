@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using VirtualRecovery.Core;
 using VirtualRecovery.DataAccess.DataModels;
 
+// TODO: Maybe activity repository? There's need to integrate Stage inside Activity
 namespace VirtualRecovery.DataAccess.Repositories {
     internal class RoomRepository : IRepository<Room> {
         private readonly DbConnector m_dbConnector;

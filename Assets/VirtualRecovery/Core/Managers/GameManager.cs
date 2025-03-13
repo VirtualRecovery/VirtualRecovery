@@ -4,19 +4,15 @@
 //  * Created on: 30/12/2024
 //  */
 
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VirtualRecovery.Core.Scenes.BaseClasses;
-using VirtualRecovery.Core.Scenes.Interfaces;
-using VirtualRecovery.Core.Scenes.MainMenu;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        private MainMenuModule m_mainMenuManager;
         private SessionManager m_sessionManager;
 
         private float m_sessionStartTime;
@@ -58,6 +54,10 @@ namespace VirtualRecovery.Core.Managers {
                 return m_sessionEndTime - m_sessionStartTime;
             }
             return 0f;
+        }
+
+        public void CompleteStage(string spaceId, string itemId) {
+            // TODO: check if spaceId and itemId match, then show the next Hint, and change progress
         }
 
         public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
