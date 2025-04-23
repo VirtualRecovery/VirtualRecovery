@@ -16,13 +16,12 @@ namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        private MainMenuModule m_mainMenuManager;
         private SessionManager m_sessionManager;
 
         private float m_sessionStartTime;
         private float m_sessionEndTime;
 
-        private Patient m_patient; // TODO: for now these values should be fixed as we're not implementing selection yet
+        private Patient m_patient;
         private Room m_room;
         private Activity m_activity;
         private DifficultyLevel m_difficultyLevel;
@@ -63,6 +62,8 @@ namespace VirtualRecovery.Core.Managers {
         public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
         
         public void SetPatient(Patient patient) => m_patient = patient;
+        
+        public Patient GetPatient() => m_patient;
 
         public void SetRoom(Room room) => m_room = room;
 

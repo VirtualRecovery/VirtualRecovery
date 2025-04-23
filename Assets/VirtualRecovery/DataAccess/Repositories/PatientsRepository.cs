@@ -24,14 +24,15 @@ namespace VirtualRecovery.DataAccess.Repositories {
         }
         
         public void Insert(Patient entity) {
-            var query = $"INSERT INTO {m_patientsTableName} (Name, Surname, WeakBodySide, SessionsHistory)" +
-                        "VALUES (@Name, @Surname, @WeakBodySide, @SessionsHistory)";
+            var query = $"INSERT INTO {m_patientsTableName} (IcdCode, YearOfBirth, Gender, WeakBodySide, SessionsHistory)" +
+                        "VALUES (@IcdCode, @YearOfBirth, @Gender, @WeakBodySide, @SessionsHistory)";
             
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
-                           ("@Name", entity.FirstName),
-                           ("@Surname", entity.LastName),
+                           ("@IcdCode", entity.IcdCode),
+                           ("@YearOfBirth", entity.YearOfBirth),
+                           ("@Gender", (int)entity.Gender),
                            ("@WeakBodySide", (int)entity.WeakBodySide),
                            ("@SessionsHistory", entity.SessionsHistory))) {
 
@@ -46,14 +47,15 @@ namespace VirtualRecovery.DataAccess.Repositories {
         }
 
         public void Update(int id, Patient entity) {
-            var query = $"UPDATE {m_patientsTableName} SET Name = @Name, Surname = @Surname, " +
-                        "WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
+            var query = $"UPDATE {m_patientsTableName} SET IcdCode = @IcdCode, YearOfBirth = @YearOfBirth, " +
+                        "Gender = @Gender, WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
             
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
-                           ("@Name", entity.FirstName),
-                           ("@Surname", entity.LastName),
+                           ("@IcdCode", entity.IcdCode),
+                           ("@YearOfBirth", entity.YearOfBirth),
+                           ("@Gender", (int)entity.Gender),
                            ("@WeakBodySide", (int)entity.WeakBodySide),
                            ("@SessionsHistory", entity.SessionsHistory),
                            ("@Id", id))) {
@@ -121,9 +123,10 @@ namespace VirtualRecovery.DataAccess.Repositories {
                     if (reader.Read()) {
                         var patient = new Patient {
                             Id = reader.GetInt32(0),
-                            FirstName = reader.GetString(1),
-                            LastName = reader.GetString(2),
-                            WeakBodySide = (BodySide)reader.GetInt32(3),
+                            IcdCode = reader.GetString(1),
+                            YearOfBirth = reader.GetInt32(2),
+                            Gender = (Gender)reader.GetInt32(3),
+                            WeakBodySide = (BodySide)reader.GetInt32(4),
                             SessionsHistory = GetSessionsForPatient(id)
                         };
 
@@ -148,9 +151,10 @@ namespace VirtualRecovery.DataAccess.Repositories {
                     while (reader.Read()) {
                         var patient = new Patient {
                             Id = reader.GetInt32(0),
-                            FirstName = reader.GetString(1),
-                            LastName = reader.GetString(2),
-                            WeakBodySide = (BodySide)reader.GetInt32(3),
+                            IcdCode = reader.GetString(1),
+                            YearOfBirth = reader.GetInt32(2),
+                            Gender = (Gender)reader.GetInt32(3),
+                            WeakBodySide = (BodySide)reader.GetInt32(4),
                             SessionsHistory = GetSessionsForPatient(reader.GetInt32(0))
                         };
 

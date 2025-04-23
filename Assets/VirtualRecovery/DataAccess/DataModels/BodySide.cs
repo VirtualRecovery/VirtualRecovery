@@ -6,8 +6,8 @@
 
 namespace VirtualRecovery.DataAccess.DataModels {
     internal enum BodySide {
-        Left,
-        Right,
-        Both
+        Lewa,
+        Prawa,
+        Obie
     }
 }

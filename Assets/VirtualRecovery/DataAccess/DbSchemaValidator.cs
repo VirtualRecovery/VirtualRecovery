@@ -55,8 +55,9 @@ namespace VirtualRecovery.DataAccess {
         private string GenerateCreatePatientsTableQuery() {
             return $"CREATE TABLE {m_patientsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                   "Name TEXT NOT NULL," +
-                   "Surname TEXT NOT NULL," +
+                   "IcdCode TEXT NOT NULL," +
+                   "YearOfBirth INTEGER NOT NULL," +
+                   "Gender INTEGER NOT NULL," +
                    "WeakBodySide INTEGER NOT NULL" +
                    ")";
         }
