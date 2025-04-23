@@ -4,6 +4,8 @@
 //  * Created on: 28/01/2025
 //  */
 
+using System.Collections.Generic;
+using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -27,11 +29,11 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.Common {
         }
 
         private bool HandlePatientCreation() {
-            var patientData = GameObject.Find("PatientData");
-            var icdCode = patientData.GetNamedChild("ICDCodeInput").GetNamedChild("InputField (TMP)").GetComponent<InputField>().text;
-            var yearOfBirth = patientData.GetNamedChild("BirthYearInput").GetNamedChild("InputField (TMP)").GetComponent<InputField>().text;
-            var gender = patientData.GetNamedChild("GenderInput").GetNamedChild("GenderDropdown").GetComponent<Dropdown>().value;
-            var weakBodySide = patientData.GetNamedChild("WeakBodySideInput").GetNamedChild("WeakBodySideDropdown").GetComponent<Dropdown>().value;
+            var patientData = transform.parent.transform.parent.gameObject.GetNamedChild("PatientData");
+            var icdCode = patientData.GetNamedChild("ICDCodeInput").GetNamedChild("InputField (TMP)").GetComponent<TMP_InputField>().text;
+            var yearOfBirth = patientData.GetNamedChild("BirthYearInput").GetNamedChild("InputField (TMP)").GetComponent<TMP_InputField>().text;
+            var gender = patientData.GetNamedChild("GenderInput").GetNamedChild("GenderDropdown").GetComponent<TMP_Dropdown>().value;
+            var weakBodySide = patientData.GetNamedChild("WeakBodySideInput").GetNamedChild("WeakBodySideDropdown").GetComponent<TMP_Dropdown>().value;
             
             if (string.IsNullOrEmpty(icdCode) || string.IsNullOrEmpty(yearOfBirth)) {
                 Debug.LogError("ICD Code or Year of Birth is empty.");

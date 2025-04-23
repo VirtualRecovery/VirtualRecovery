@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using VirtualRecovery.Core.Scenes.MainMenu.Common;
 using VirtualRecovery.DataAccess.DataModels;
 using VirtualRecovery.DataAccess.Repositories;
 
@@ -15,20 +16,25 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.PatientsListScreen {
     internal class PopulateGrid : MonoBehaviour {
         public GameObject prefab;
         private PatientsRepository m_patientsRepository;
-
-        private void OnEnable() {
-            m_patientsRepository = new PatientsRepository();
-            var patients = m_patientsRepository.GetAll();
-            for (int i = 0; i < 20; i++) {
-                Patient patient = new Patient();
-                patient.Id = i;
-                patient.IcdCode = "ICD-10";
-                patient.YearOfBirth = 1990;
-                patient.Gender = Gender.Mężczyzna;
-                patient.WeakBodySide = BodySide.Lewa;
-                patients.Add(patient);
+        private bool m_wasCanvasEnabled;
+        
+        private void Update() {
+            var canvas = transform.parent.transform.parent.transform.parent.GetComponent<Canvas>();
+            if (canvas.enabled && !m_wasCanvasEnabled) {
+                m_patientsRepository = new PatientsRepository();
+                var patients = m_patientsRepository.GetAll();
+                ClearPatients();
+                Populate(patients);
             }
-            Populate(patients);
+            m_wasCanvasEnabled = canvas.enabled;
+        }
+        
+        private void ClearPatients() {
+            foreach (Transform child in transform) {
+                if (child.name != "PlaceholderPatientRecord") {
+                    Destroy(child.gameObject);
+                }
+            }
         }
 
         private void Populate(List<Patient> patients) {
@@ -41,6 +47,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.PatientsListScreen {
         }
 
         private void FillPatientData(GameObject newGameObject, Patient patient) {
+            newGameObject.GetComponent<PatientData>().patient = patient;
+            
             var id = newGameObject.GetNamedChild("ID").GetNamedChild("Text");
             var icdCode = newGameObject.GetNamedChild("ICDCode").GetNamedChild("Text");
             var yearOfBirth = newGameObject.GetNamedChild("YearOfBirth").GetNamedChild("Text");
