@@ -6,6 +6,7 @@
 
 namespace VirtualRecovery.DataAccess.DataModels {
     internal enum BodySide {
+        // Those need to be written in Polish for GUI display
         Lewa,
         Prawa,
         Obie

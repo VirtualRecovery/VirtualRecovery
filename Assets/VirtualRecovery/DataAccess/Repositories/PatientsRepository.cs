@@ -84,24 +84,29 @@ namespace VirtualRecovery.DataAccess.Repositories {
             }
         }
         
-        private List<Session> GetSessionsForPatient(int patientId) {
+        public List<Session> GetSessionsForPatient(int patientId) {
             var sessions = new List<Session>();
             var sessionsQuery = $"SELECT * FROM {m_sessionsTableName} WHERE PatientId = @PatientId";
             
-            using (var sessionsCommand = m_dbConnector.CreateCommand(sessionsQuery, ("@PatientId", patientId))) {
-                using (var sessionsReader = sessionsCommand.ExecuteReader()) {
-                    while (sessionsReader.Read()) {
-                        var session = new Session {
-                            Id = sessionsReader.GetInt32(0),
-                            PatientId = sessionsReader.GetInt32(1),
-                            StartDate = sessionsReader.GetDateTime(2),
-                            EndDate = sessionsReader.GetDateTime(3),
-                            BodySide = (BodySide)sessionsReader.GetInt32(4),
-                            DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(5)
-                        };
-                        sessions.Add(session);
+            m_dbConnector.OpenConnection();
+            try {
+                using (var sessionsCommand = m_dbConnector.CreateCommand(sessionsQuery, ("@PatientId", patientId))) {
+                    using (var sessionsReader = sessionsCommand.ExecuteReader()) {
+                        while (sessionsReader.Read()) {
+                            var session = new Session {
+                                Id = sessionsReader.GetInt32(0),
+                                PatientId = sessionsReader.GetInt32(1),
+                                StartDate = sessionsReader.GetDateTime(2),
+                                EndDate = sessionsReader.GetDateTime(3),
+                                BodySide = (BodySide)sessionsReader.GetInt32(4),
+                                DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(5)
+                            };
+                            sessions.Add(session);
+                        }
                     }
                 }
+            } finally {
+                m_dbConnector.CloseConnection();
             }
             return sessions;
         }
@@ -119,8 +124,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
                             IcdCode = reader.GetString(1),
                             YearOfBirth = reader.GetInt32(2),
                             Gender = (Gender)reader.GetInt32(3),
-                            WeakBodySide = (BodySide)reader.GetInt32(4),
-                            SessionsHistory = GetSessionsForPatient(id)
+                            WeakBodySide = (BodySide)reader.GetInt32(4)
                         };
 
                         return patient;
@@ -148,15 +152,10 @@ namespace VirtualRecovery.DataAccess.Repositories {
                                 YearOfBirth = reader.GetInt32(2),
                                 Gender = (Gender)reader.GetInt32(3),
                                 WeakBodySide = (BodySide)reader.GetInt32(4),
-                                SessionsHistory = new List<Session>()
                             };
                             patients.Add(patient);
                         }
                     }
-                }
-
-                foreach (var patient in patients) {
-                    patient.SessionsHistory = GetSessionsForPatient(patient.Id);
                 }
             }
             finally {

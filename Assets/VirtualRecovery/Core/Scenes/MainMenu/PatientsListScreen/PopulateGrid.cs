@@ -38,10 +38,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.PatientsListScreen {
         }
 
         private void Populate(List<Patient> patients) {
-            GameObject newGameObject;
-
             foreach (var patient in patients) {
-                newGameObject = (GameObject)Instantiate(prefab, transform);
+                GameObject newGameObject = (GameObject)Instantiate(prefab, transform);
                 FillPatientData(newGameObject, patient);
             }
         }
