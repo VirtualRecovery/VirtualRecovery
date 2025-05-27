@@ -17,6 +17,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         [SerializeField] private Canvas patientSelectionCanvas;
         [SerializeField] private Canvas activitySelectionCanvas;
         [SerializeField] private Canvas patientsListCanvas;
+        [SerializeField] private Canvas sessionsHistoryCanvas;
         [SerializeField] private Canvas settingsCanvas;
         [SerializeField] private Canvas addPatientCanvas;
         [SerializeField] private Canvas editPatientCanvas;
@@ -37,7 +38,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 { MainMenuEventType.ActivityChosenButtonClicked, patientSelectionCanvas},
                 { MainMenuEventType.AddPatientButtonClicked, addPatientCanvas},
                 { MainMenuEventType.EditPatientButtonClicked, editPatientCanvas},
-                { MainMenuEventType.DeletePatientButtonClicked, deletePatientCanvas}
+                { MainMenuEventType.DeletePatientButtonClicked, deletePatientCanvas},
+                { MainMenuEventType.ViewSessionsHistoryButtonClicked, sessionsHistoryCanvas }
             };
             
             Initialize(eventToCanvas, titleScreenCanvas);

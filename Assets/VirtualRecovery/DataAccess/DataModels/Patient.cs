@@ -8,10 +8,10 @@ using System.Collections.Generic;
 
 namespace VirtualRecovery.DataAccess.DataModels {
     internal class Patient {
-        // TODO: Ask what Id should we use. (Id of EDM? PESEL?)
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string IcdCode { get; set; }
+        public int YearOfBirth { get; set; }
+        public Gender Gender { get; set; }
         public BodySide WeakBodySide { get; set; }
         public List<Session> SessionsHistory { get; set; }
     }

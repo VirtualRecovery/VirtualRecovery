@@ -5,18 +5,30 @@
 //  */
 
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using VirtualRecovery.Core.Managers;
 using VirtualRecovery.Core.Scenes.Interfaces;
+using VirtualRecovery.Core.Scenes.MainMenu.Common;
+using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu.PatientsListScreen {
     internal class DeletePatientButton : MonoBehaviour, IButton {
-        [FormerlySerializedAs("mainMenuBaseCanvasChanger")] [SerializeField] private MainMenuCanvasChanger mainMenuCanvasChanger;
+        private MainMenuCanvasChanger m_mainMenuCanvasChanger;
         
+        private void Start() {
+            m_mainMenuCanvasChanger = Object.FindFirstObjectByType<MainMenuCanvasChanger>();
+            if (m_mainMenuCanvasChanger == null) {
+                Debug.LogError("MainMenuCanvasChanger not found in the scene.");
+            }
+        }
         public void OnButtonClicked() {
             var button = GetComponent<Button>();
-            if (button != null && mainMenuCanvasChanger != null) {
-                mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
+            Patient patient = button.gameObject.GetComponentInParent<PatientData>().patient;
+            if (patient != null) {
+                GameManager.Instance.SetPatient(patient);
+            }
+            if (button != null && m_mainMenuCanvasChanger != null) {
+                m_mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
                     MainMenuEventType.DeletePatientButtonClicked));
             }
         }

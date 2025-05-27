@@ -4,15 +4,20 @@
 //  * Created on: 31/12/2024
 //  */
 
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using VirtualRecovery.DataAccess;
+using VirtualRecovery.DataAccess.DataModels;
+using VirtualRecovery.DataAccess.Repositories;
 
 namespace VirtualRecovery.Core {
     [System.Serializable]
     internal class ConfigurationData {
         public DatabaseConfig database;
+        public List<Room> rooms;
     }
+
 
     [System.Serializable]
     internal class DatabaseConfig {
@@ -44,6 +49,11 @@ namespace VirtualRecovery.Core {
             var dbConnector = new DbConnector();
             var dbSchemaValidator = new DbSchemaValidator(dbConnector);
             dbSchemaValidator.EnsureTables();
+            
+            var roomRepository = new RoomRepository();
+            foreach (var room in configData.rooms) {
+                roomRepository.Insert(room);
+            }
         }
         
         void Start() {

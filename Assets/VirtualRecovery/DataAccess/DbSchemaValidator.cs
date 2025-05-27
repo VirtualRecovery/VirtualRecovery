@@ -16,6 +16,7 @@ namespace VirtualRecovery.DataAccess {
         private readonly string m_activitiesTableName;
         private readonly string m_roomsTableName;
         private readonly Dictionary<string, Func<string>> m_tableCreationQueries;
+        private readonly Dictionary<string, Func<string>> m_tableDeletionQueries;
 
         public DbSchemaValidator (DbConnector connector) {
             m_dbConnector = connector;
@@ -31,13 +32,17 @@ namespace VirtualRecovery.DataAccess {
                 { m_activitiesTableName, GenerateCreateActivitiesTableQuery },
                 { m_roomsTableName, GenerateCreateRoomsTableQuery }
             };
+            
+            m_tableDeletionQueries = new Dictionary<string, Func<string>> {
+                { m_activitiesTableName, GenerateDropActivitiesTableQuery },
+                { m_roomsTableName, GenerateDropRoomsTableQuery }
+            };
         }
         
         private string GenerateCreateRoomsTableQuery() {
             return $"CREATE TABLE {m_roomsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                   "Name TEXT NOT NULL," +
-                   "Description TEXT NOT NULL" +
+                   "Name TEXT NOT NULL" +
                    ")";
         }
     
@@ -46,7 +51,6 @@ namespace VirtualRecovery.DataAccess {
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "RoomId INTEGER NOT NULL," +
                    "Name TEXT NOT NULL," +
-                   "Description TEXT NOT NULL," +
                    "IsBodySideDifferentiated BOOLEAN NOT NULL," +
                    $"FOREIGN KEY(RoomId) REFERENCES {m_roomsTableName}(Id)" +
                    ")";
@@ -55,8 +59,9 @@ namespace VirtualRecovery.DataAccess {
         private string GenerateCreatePatientsTableQuery() {
             return $"CREATE TABLE {m_patientsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                   "Name TEXT NOT NULL," +
-                   "Surname TEXT NOT NULL," +
+                   "IcdCode TEXT NOT NULL," +
+                   "YearOfBirth INTEGER NOT NULL," +
+                   "Gender INTEGER NOT NULL," +
                    "WeakBodySide INTEGER NOT NULL" +
                    ")";
         }
@@ -75,6 +80,14 @@ namespace VirtualRecovery.DataAccess {
                    ")";
         }
         
+        private string GenerateDropRoomsTableQuery() {
+            return $"DROP TABLE IF EXISTS {m_roomsTableName}";
+        }
+        
+        private string GenerateDropActivitiesTableQuery() {
+            return $"DROP TABLE IF EXISTS {m_activitiesTableName}";
+        }
+        
         private bool TableExists(string tableName) {
             var command = m_dbConnector
                 .CreateCommand("SELECT name FROM sqlite_master WHERE type='table' AND name=@tableName;");
@@ -89,6 +102,12 @@ namespace VirtualRecovery.DataAccess {
         public void EnsureTables() {
             m_dbConnector.OpenConnection();
             try {
+                // Drop tables if they exist
+                foreach (var table in m_tableDeletionQueries) {
+                    if (TableExists(table.Key)) {
+                        m_dbConnector.ExecuteQuery(table.Value());
+                    }
+                }
                 foreach (var table in m_tableCreationQueries) {
                     if (!TableExists(table.Key)) {
                         m_dbConnector.ExecuteQuery(table.Value());
