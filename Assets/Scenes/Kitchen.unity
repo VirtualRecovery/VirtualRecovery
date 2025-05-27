@@ -2668,6 +2668,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -5342963413919112623, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
   m_PrefabInstance: {fileID: 260063492}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1256475455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256475458}
+  - component: {fileID: 1256475457}
+  - component: {fileID: 1256475456}
+  m_Layer: 0
+  m_Name: plateDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1256475456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256475455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3669b712e32a439411ad3613023c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: plate
+--- !u!65 &1256475457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256475455}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.095658, y: 0.01709807, z: 0.37369168}
+  m_Center: {x: -0.018702328, y: -0.49145097, z: 0.31315416}
+--- !u!4 &1256475458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256475455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8848, y: 0.731, z: 0.975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1319629004 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5739976463964664941, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
@@ -3855,7 +3922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1aa46002cfc5e4433a29aa568e7366b3, type: 3}
       propertyPath: m_Name
-      value: plate (1)
+      value: plate
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1aa46002cfc5e4433a29aa568e7366b3, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3916,3 +3987,4 @@ SceneRoots:
   - {fileID: 2063009564}
   - {fileID: 196418125}
   - {fileID: 1342544969}
+  - {fileID: 1256475458}
