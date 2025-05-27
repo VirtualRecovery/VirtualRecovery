@@ -31,7 +31,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.PatientsListScreen {
         
         private void ClearPatients() {
             foreach (Transform child in transform) {
-                if (child.name != "PlaceholderPatientRecord") {
+                if (child.name != "PlaceholderPatientRecord" && child.name != "PlaceholderPatientSelectionRecord") {
                     Destroy(child.gameObject);
                 }
             }

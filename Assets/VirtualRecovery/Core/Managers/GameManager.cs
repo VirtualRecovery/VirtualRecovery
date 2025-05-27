@@ -64,6 +64,8 @@ namespace VirtualRecovery.Core.Managers {
         public void SetPatient(Patient patient) => m_patient = patient;
         
         public Patient GetPatient() => m_patient;
+        
+        public Activity GetActivity() => m_activity;
 
         public void SetRoom(Room room) => m_room = room;
 
