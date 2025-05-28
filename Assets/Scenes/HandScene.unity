@@ -1514,6 +1514,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5735284792742419562, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 637344389}
+    - targetCorrespondingSourceObject: {fileID: -5735284792742419562, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 637344390}
     - targetCorrespondingSourceObject: {fileID: -749919788319521991, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1698050083}
@@ -1588,6 +1591,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.057386585, y: 0.029399194, z: 0.08124827}
   m_Center: {x: -0.0029265694, y: -0.006064158, z: 0.005418293}
+--- !u!54 &637344390
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637344388}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &647617500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4122984567820800142, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -1714,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
-  mThumb: {fileID: 0}
+  m_handPalmRigidBody: {fileID: 637344390}
 --- !u!1 &661651660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8804444453898582787, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -1741,6 +1771,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.057386585, y: 0.029399194, z: 0.08124827}
   m_Center: {x: -0.0029265694, y: -0.006064158, z: 0.005418293}
+--- !u!54 &661651662
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661651660}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &681371730 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2613131178710829697, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -2213,7 +2270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
-  mThumb: {fileID: 0}
+  m_handPalmRigidBody: {fileID: 661651662}
 --- !u!1 &793992876 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2885524236602579363, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
@@ -3811,6 +3868,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8804444453898582787, guid: 56186ccf27ad7864681108ed88349071, type: 3}
       insertIndex: -1
       addedObject: {fileID: 661651661}
+    - targetCorrespondingSourceObject: {fileID: 8804444453898582787, guid: 56186ccf27ad7864681108ed88349071, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 661651662}
     - targetCorrespondingSourceObject: {fileID: -7879881099197629671, guid: 56186ccf27ad7864681108ed88349071, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1965620578}
@@ -5702,7 +5762,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 774248053}
-  - {fileID: 933295511}
   - {fileID: 454157518}
   - {fileID: 83481500}
   - {fileID: 1205145069}
@@ -5712,6 +5771,7 @@ SceneRoots:
   - {fileID: 771327408}
   - {fileID: 1349675486}
   - {fileID: 1569873674}
+  - {fileID: 186808047}
+  - {fileID: 933295511}
   - {fileID: 1147361667}
   - {fileID: 1360311115}
-  - {fileID: 186808047}
