@@ -24,33 +24,41 @@ namespace VirtualRecovery.DataAccess.Repositories {
         } 
 
         public void Insert(Room entity) {
-            var query = $"INSERT INTO {m_roomsTableName} (Name, Description)" +
-                        "VALUES (@Name, @Description)";
-            
+            var insertQuery = $"INSERT INTO {m_roomsTableName} (Name) VALUES (@Name)";
+            var getIdQuery = "SELECT last_insert_rowid()";
+
             m_dbConnector.OpenConnection();
             try {
-                using (var command = m_dbConnector.CreateCommand(query,
-                           ("@Name", entity.Name),
-                           ("@Description", entity.Description))) {
-
+                using (var command = m_dbConnector.CreateCommand(insertQuery, ("@Name", entity.Name))) {
                     if (m_dbConnector.ExecuteNonQuery(command) == 0) {
-                        throw new Exception("No rows were updated.");
+                        throw new Exception("No rows were inserted.");
                     }
                 }
+
+                using (var idCommand = m_dbConnector.CreateCommand(getIdQuery))
+                using (var reader = idCommand.ExecuteReader()) {
+                    if (reader.Read()) {
+                        entity.Id = Convert.ToInt32(reader[0]);
+                    }
+                }
+                m_dbConnector.CloseConnection();
+                InsertActivitiesForRoom(entity);
             }
             finally {
-                m_dbConnector.CloseConnection();
+                try {
+                    m_dbConnector.CloseConnection();
+                } catch (Exception ex) {}
             }
         }
 
+
         public void Update(int id, Room entity) {
-            var query = $"UPDATE {m_roomsTableName} SET Name = @Name, Description = @Description WHERE Id = @Id";
+            var query = $"UPDATE {m_roomsTableName} SET Name = @Name WHERE Id = @Id";
             
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
                            ("@Name", entity.Name),
-                           ("@Description", entity.Description),
                            ("@Id", id))) {
 
                     if (m_dbConnector.ExecuteNonQuery(command) == 0) {
@@ -92,8 +100,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
                             Id = activitiesReader.GetInt32(0),
                             RoomId = activitiesReader.GetInt32(1),
                             Name = activitiesReader.GetString(2),
-                            Description = activitiesReader.GetString(3),
-                            IsBodySideDifferentiated = activitiesReader.GetBoolean(4)
+                            IsBodySideDifferentiated = activitiesReader.GetBoolean(3)
                         };
                         activities.Add(activity);
                     }
@@ -116,7 +123,6 @@ namespace VirtualRecovery.DataAccess.Repositories {
                         var room = new Room {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            Description = reader.GetString(2),
                             Activities = GetActivitiesForRoom(id)
                         };
 
@@ -142,8 +148,6 @@ namespace VirtualRecovery.DataAccess.Repositories {
                         var room = new Room {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            Description = reader.GetString(2),
-                            Activities = GetActivitiesForRoom(reader.GetInt32(0))
                         };
 
                         rooms.Add(room);
@@ -153,7 +157,33 @@ namespace VirtualRecovery.DataAccess.Repositories {
             finally {
                 m_dbConnector.CloseConnection();
             }
+            foreach (var room in rooms) {
+                room.Activities = GetActivitiesForRoom(room.Id);
+            }
             return rooms;
+        }
+        
+        private void InsertActivitiesForRoom(Room room) {
+            var query = $"INSERT INTO {m_activitiesTableName} (RoomId, Name, IsBodySideDifferentiated)" +
+                        "VALUES (@RoomId, @Name, @IsBodySideDifferentiated)";
+        
+            m_dbConnector.OpenConnection();
+            try {
+                foreach (var activity in room.Activities) {
+                    using (var command = m_dbConnector.CreateCommand(query,
+                               ("@RoomId", room.Id),
+                               ("@Name", activity.Name),
+                               ("@IsBodySideDifferentiated", activity.IsBodySideDifferentiated))) {
+
+                        if (m_dbConnector.ExecuteNonQuery(command) == 0) {
+                            throw new Exception("No rows were updated.");
+                        }
+                    }
+                }
+            }
+            finally {
+                m_dbConnector.CloseConnection();
+            }
         }
     }
 }

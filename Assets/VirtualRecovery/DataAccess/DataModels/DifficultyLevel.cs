@@ -6,8 +6,9 @@
 
 namespace VirtualRecovery.DataAccess.DataModels {
     internal enum DifficultyLevel {
-        Low,
-        Medium,
-        High
+        // Those need to be written in Polish for GUI display
+        Łatwy,
+        Średni,
+        Trudny
     }
 }

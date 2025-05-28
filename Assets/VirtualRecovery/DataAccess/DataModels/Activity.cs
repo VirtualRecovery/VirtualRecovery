@@ -5,11 +5,12 @@
 //  */
 
 namespace VirtualRecovery.DataAccess.DataModels {
+    [System.Serializable]
     internal class Activity {
-        public int Id { get; set; }
-        public int RoomId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool IsBodySideDifferentiated{ get; set; }
+        public int Id;
+        public int RoomId;
+        public string Name;
+        public bool IsBodySideDifferentiated;
     }
+
 }

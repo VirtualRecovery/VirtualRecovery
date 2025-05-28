@@ -24,17 +24,16 @@ namespace VirtualRecovery.DataAccess.Repositories {
         }
         
         public void Insert(Patient entity) {
-            var query = $"INSERT INTO {m_patientsTableName} (Name, Surname, WeakBodySide, SessionsHistory)" +
-                        "VALUES (@Name, @Surname, @WeakBodySide, @SessionsHistory)";
+            var query = $"INSERT INTO {m_patientsTableName} (IcdCode, YearOfBirth, Gender, WeakBodySide)" +
+                        "VALUES (@IcdCode, @YearOfBirth, @Gender, @WeakBodySide)";
             
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
-                           ("@Name", entity.FirstName),
-                           ("@Surname", entity.LastName),
-                           ("@WeakBodySide", (int)entity.WeakBodySide),
-                           ("@SessionsHistory", entity.SessionsHistory))) {
-
+                           ("@IcdCode", entity.IcdCode),
+                           ("@YearOfBirth", entity.YearOfBirth),
+                           ("@Gender", (int)entity.Gender),
+                           ("@WeakBodySide", (int)entity.WeakBodySide))) {
                     if (m_dbConnector.ExecuteNonQuery(command) == 0) {
                         throw new Exception("No rows were updated.");
                     }
@@ -46,14 +45,15 @@ namespace VirtualRecovery.DataAccess.Repositories {
         }
 
         public void Update(int id, Patient entity) {
-            var query = $"UPDATE {m_patientsTableName} SET Name = @Name, Surname = @Surname, " +
-                        "WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
+            var query = $"UPDATE {m_patientsTableName} SET IcdCode = @IcdCode, YearOfBirth = @YearOfBirth, " +
+                        "Gender = @Gender, WeakBodySide = @WeakBodySide, SessionsHistory = @SessionsHistory WHERE Id = @Id";
             
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
-                           ("@Name", entity.FirstName),
-                           ("@Surname", entity.LastName),
+                           ("@IcdCode", entity.IcdCode),
+                           ("@YearOfBirth", entity.YearOfBirth),
+                           ("@Gender", (int)entity.Gender),
                            ("@WeakBodySide", (int)entity.WeakBodySide),
                            ("@SessionsHistory", entity.SessionsHistory),
                            ("@Id", id))) {
@@ -84,28 +84,28 @@ namespace VirtualRecovery.DataAccess.Repositories {
             }
         }
         
-        private List<Session> GetSessionsForPatient(int patientId) {
+        public List<Session> GetSessionsForPatient(int patientId) {
             var sessions = new List<Session>();
             var sessionsQuery = $"SELECT * FROM {m_sessionsTableName} WHERE PatientId = @PatientId";
             
             m_dbConnector.OpenConnection();
             try {
-                using (var sessionsCommand = m_dbConnector.CreateCommand(sessionsQuery, ("@PatientId", patientId)))
-                using (var sessionsReader = sessionsCommand.ExecuteReader()) {
-                    while (sessionsReader.Read()) {
-                        var session = new Session {
-                            Id = sessionsReader.GetInt32(0),
-                            PatientId = sessionsReader.GetInt32(1),
-                            StartDate = sessionsReader.GetDateTime(2),
-                            EndDate = sessionsReader.GetDateTime(3),
-                            BodySide = (BodySide)sessionsReader.GetInt32(4),
-                            DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(5)
-                        };
-                        sessions.Add(session);
+                using (var sessionsCommand = m_dbConnector.CreateCommand(sessionsQuery, ("@PatientId", patientId))) {
+                    using (var sessionsReader = sessionsCommand.ExecuteReader()) {
+                        while (sessionsReader.Read()) {
+                            var session = new Session {
+                                Id = sessionsReader.GetInt32(0),
+                                PatientId = sessionsReader.GetInt32(1),
+                                StartDate = sessionsReader.GetDateTime(2),
+                                EndDate = sessionsReader.GetDateTime(3),
+                                BodySide = (BodySide)sessionsReader.GetInt32(4),
+                                DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(5)
+                            };
+                            sessions.Add(session);
+                        }
                     }
                 }
-            }
-            finally {
+            } finally {
                 m_dbConnector.CloseConnection();
             }
             return sessions;
@@ -121,10 +121,10 @@ namespace VirtualRecovery.DataAccess.Repositories {
                     if (reader.Read()) {
                         var patient = new Patient {
                             Id = reader.GetInt32(0),
-                            FirstName = reader.GetString(1),
-                            LastName = reader.GetString(2),
-                            WeakBodySide = (BodySide)reader.GetInt32(3),
-                            SessionsHistory = GetSessionsForPatient(id)
+                            IcdCode = reader.GetString(1),
+                            YearOfBirth = reader.GetInt32(2),
+                            Gender = (Gender)reader.GetInt32(3),
+                            WeakBodySide = (BodySide)reader.GetInt32(4)
                         };
 
                         return patient;
@@ -140,21 +140,21 @@ namespace VirtualRecovery.DataAccess.Repositories {
         public List<Patient> GetAll() {
             var query = $"SELECT * FROM {m_patientsTableName}";
             var patients = new List<Patient>();
-    
+
             m_dbConnector.OpenConnection();
             try {
-                using (var command = m_dbConnector.CreateCommand(query))
-                using (var reader = command.ExecuteReader()) {
-                    while (reader.Read()) {
-                        var patient = new Patient {
-                            Id = reader.GetInt32(0),
-                            FirstName = reader.GetString(1),
-                            LastName = reader.GetString(2),
-                            WeakBodySide = (BodySide)reader.GetInt32(3),
-                            SessionsHistory = GetSessionsForPatient(reader.GetInt32(0))
-                        };
-
-                        patients.Add(patient);
+                using (var command = m_dbConnector.CreateCommand(query)) {
+                    using (var reader = command.ExecuteReader()) {
+                        while (reader.Read()) {
+                            var patient = new Patient {
+                                Id = reader.GetInt32(0),
+                                IcdCode = reader.GetString(1),
+                                YearOfBirth = reader.GetInt32(2),
+                                Gender = (Gender)reader.GetInt32(3),
+                                WeakBodySide = (BodySide)reader.GetInt32(4),
+                            };
+                            patients.Add(patient);
+                        }
                     }
                 }
             }

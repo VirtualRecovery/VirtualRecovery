@@ -31,6 +31,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
         EditPatientButtonClicked,
         DeletePatientButtonClicked,
         SavePatientDataButtonClicked,
-        ConfirmPatientDeletionButton
+        ConfirmPatientDeletionButton,
+        ViewSessionsHistoryButtonClicked
     }
 }
