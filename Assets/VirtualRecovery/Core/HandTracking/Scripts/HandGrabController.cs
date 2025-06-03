@@ -72,6 +72,7 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
             if (m_thumbTipTouchedObject && mThumbTip) {
                 for (int i = 0; i < s_mfingerCount; i++) {
                     // save the proximal joint rotations of fingers touching the same object 
+                    /*Debug.Log("Change hand grab for finger: " + i);*/
                     if (m_fingerTouchedObjects[i] && m_fingerTouchedObjects[i] == m_thumbTipTouchedObject) {
                         objectGrabbed = true;
                         m_fingersRotationOnTouch[i] = m_fingersTransform[i].localRotation;
