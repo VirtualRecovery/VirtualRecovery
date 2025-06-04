@@ -20,6 +20,14 @@ namespace VirtualRecovery.Core.Managers {
             DontDestroyOnLoad(gameObject);
         }
 
+        void AddNextExcercise() {
+            
+        }
+
+        void StartNextExcercise() {
+            
+        }
+
         void Start() {
 
         }
