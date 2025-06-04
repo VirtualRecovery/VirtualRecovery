@@ -17,19 +17,21 @@ namespace VirtualRecovery.DataAccess.Repositories {
 
         public RoomRepository() {
             m_dbConnector = new DbConnector();
-            
+
             var config = Configuration.Instance;
             m_roomsTableName = config.configData.database.roomsTableName;
             m_activitiesTableName = config.configData.database.activitiesTableName;
         } 
 
         public void Insert(Room entity) {
-            var insertQuery = $"INSERT INTO {m_roomsTableName} (Name) VALUES (@Name)";
+            var insertQuery = $"INSERT INTO {m_roomsTableName} (Name, SceneName) VALUES (@Name, @SceneName)";
             var getIdQuery = "SELECT last_insert_rowid()";
 
             m_dbConnector.OpenConnection();
             try {
-                using (var command = m_dbConnector.CreateCommand(insertQuery, ("@Name", entity.Name))) {
+                using (var command = m_dbConnector.CreateCommand(insertQuery,
+                           ("@Name", entity.Name),
+                           ("@SceneName", entity.SceneName))) {
                     if (m_dbConnector.ExecuteNonQuery(command) == 0) {
                         throw new Exception("No rows were inserted.");
                     }
@@ -41,6 +43,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
                         entity.Id = Convert.ToInt32(reader[0]);
                     }
                 }
+
                 m_dbConnector.CloseConnection();
                 InsertActivitiesForRoom(entity);
             }
@@ -51,14 +54,14 @@ namespace VirtualRecovery.DataAccess.Repositories {
             }
         }
 
-
         public void Update(int id, Room entity) {
-            var query = $"UPDATE {m_roomsTableName} SET Name = @Name WHERE Id = @Id";
-            
+            var query = $"UPDATE {m_roomsTableName} SET Name = @Name, SceneName = @SceneName WHERE Id = @Id";
+
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query,
                            ("@Name", entity.Name),
+                           ("@SceneName", entity.SceneName),
                            ("@Id", id))) {
 
                     if (m_dbConnector.ExecuteNonQuery(command) == 0) {
@@ -73,7 +76,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
 
         public void Delete(int id) {
             var query = $"DELETE FROM {m_roomsTableName} WHERE Id = @Id";
-            
+
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query, ("@Id", id))) {
@@ -86,11 +89,11 @@ namespace VirtualRecovery.DataAccess.Repositories {
                 m_dbConnector.CloseConnection();
             }
         }
-        
+
         private List<Activity> GetActivitiesForRoom(int roomId) {
             var activities = new List<Activity>();
             var activitiesQuery = $"SELECT * FROM {m_activitiesTableName} WHERE RoomId = @RoomId";
-            
+
             m_dbConnector.OpenConnection();
             try {
                 using (var activitiesCommand = m_dbConnector.CreateCommand(activitiesQuery, ("@RoomId", roomId)))
@@ -114,7 +117,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
 
         public Room GetById(int id) {
             var query = $"SELECT * FROM {m_roomsTableName} WHERE Id = @Id";
-    
+
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query, ("@Id", id)))
@@ -123,6 +126,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
                         var room = new Room {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
+                            SceneName = reader.GetString(2),
                             Activities = GetActivitiesForRoom(id)
                         };
 
@@ -139,7 +143,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
         public List<Room> GetAll() {
             var query = $"SELECT * FROM {m_roomsTableName}";
             var rooms = new List<Room>();
-    
+
             m_dbConnector.OpenConnection();
             try {
                 using (var command = m_dbConnector.CreateCommand(query))
@@ -148,6 +152,7 @@ namespace VirtualRecovery.DataAccess.Repositories {
                         var room = new Room {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
+                            SceneName = reader.GetString(2),
                         };
 
                         rooms.Add(room);
@@ -157,16 +162,18 @@ namespace VirtualRecovery.DataAccess.Repositories {
             finally {
                 m_dbConnector.CloseConnection();
             }
+
             foreach (var room in rooms) {
                 room.Activities = GetActivitiesForRoom(room.Id);
             }
+
             return rooms;
         }
-        
+
         private void InsertActivitiesForRoom(Room room) {
             var query = $"INSERT INTO {m_activitiesTableName} (RoomId, Name, IsBodySideDifferentiated)" +
                         "VALUES (@RoomId, @Name, @IsBodySideDifferentiated)";
-        
+
             m_dbConnector.OpenConnection();
             try {
                 foreach (var activity in room.Activities) {

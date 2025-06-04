@@ -41,7 +41,7 @@ namespace VirtualRecovery.Core.Managers {
         }
 
         public void BeginSession() {
-            SceneManager.LoadScene(m_room.Name, LoadSceneMode.Single);
+            SceneManager.LoadScene(m_room.SceneName, LoadSceneMode.Single);
             
             // TODO: maybe use some different mechanism
             SceneManager.sceneLoaded += SetSessionStartTime;

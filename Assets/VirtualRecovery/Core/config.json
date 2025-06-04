@@ -10,6 +10,7 @@
     {
       "Id": 1,
       "Name": "Kuchnia",
+      "SceneName": "Kitchen",
       "Activities": [
         {
           "Id": 1,
@@ -52,6 +53,7 @@
     {
       "Id": 2,
       "Name": "Łazienka",
+      "SceneName": "Bathroom",
       "Activities": [
         {
           "Id": 7,
@@ -94,6 +96,7 @@
     {
       "Id": 3,
       "Name": "Pokój dzienny",
+      "SceneName": "LivingRoom",
       "Activities": [
         {
           "Id": 13,

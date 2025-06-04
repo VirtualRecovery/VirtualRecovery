@@ -93,13 +93,26 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
                 m_handHeldObject.GetComponent<Rigidbody>().useGravity = false;
                 // changing the object layer and saving the previous one
                 m_oldHandHeldObjectLayer = m_handHeldObject.layer;
-                m_handHeldObject.layer = LayerMask.NameToLayer(m_handHeldObjectsLayerName);
+                //m_handHeldObject.layer = LayerMask.NameToLayer(m_handHeldObjectsLayerName);
+                SetLayerRecursively(m_handHeldObject, LayerMask.NameToLayer(m_handHeldObjectsLayerName));
                 
                 // remember to change the state
                 m_state = State.ObjectGrabbed;
                 Debug.Log("Hand Grab Controller: Object Grabbed \nFingers grabbing object: " +
                           string.Join(",", m_fingersTouchingHandHeldObject));
                 
+            }
+        }
+
+        void SetLayerRecursively(GameObject obj, int newLayer)
+        {
+            if (obj == null) return;
+
+            obj.layer = newLayer;
+
+            foreach (Transform child in obj.transform)
+            {
+                SetLayerRecursively(child.gameObject, newLayer);
             }
         }
 
@@ -142,7 +155,8 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         {
             yield return new WaitForSeconds(0.5f);
             m_state = State.HandEmpty;
-            m_handHeldObject.layer = m_oldHandHeldObjectLayer;
+            //m_handHeldObject.layer = m_oldHandHeldObjectLayer;
+            SetLayerRecursively(m_handHeldObject, m_oldHandHeldObjectLayer);
             Debug.Log("Hand Grab Controller: Hand Empty");
         }
 
