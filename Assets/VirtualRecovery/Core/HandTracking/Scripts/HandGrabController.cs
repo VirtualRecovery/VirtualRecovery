@@ -34,8 +34,11 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         
         private static int s_mfingerCount = 4; 
         [SerializeField] private float mGrabSensitivity = 0.1f;
-        private GameObject mThumbTip;
         [SerializeField] private Rigidbody m_handPalmRigidBody;
+        [SerializeField] private Transform m_handWristTransform;
+        private Vector3 m_handOldPosition;
+        private Vector3 m_handPosition;
+        private GameObject mThumbTip;
         private Collision m_thumbTipCollision = null;
         private Collider m_thumbTipCollider = null;
         private GameObject m_thumbTipTouchedObject = null;
@@ -53,6 +56,10 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         }
 
         public void Update() {
+            
+            // tracking velocity for throwing
+            m_handOldPosition = m_handPosition;
+            m_handPosition = m_handWristTransform.position;
             
             // if the hand is empty, check whether it could grab an object
             if (m_state == State.HandEmpty) {
@@ -84,6 +91,8 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
             // if an object has been touched by both thumb and a finger
             // and attach a fixed joint to the object
             // and change the object layer to HandHeldObjects
+            
+            
             if (objectGrabbed) {
                 // attaching the joint
                 m_objectFixedJoint = m_handHeldObject.AddComponent<FixedJoint>();
@@ -144,11 +153,15 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
                 
                 
                 m_handHeldObject.GetComponent<Rigidbody>().useGravity = true;
+                m_handHeldObject.GetComponent<Rigidbody>().linearVelocity =
+                    (m_handPosition - m_handOldPosition)/0.02f;
+                
                 Destroy(m_objectFixedJoint);
                 m_state = State.ObjectReleased;
-                Debug.Log("Hand Grab Controller: Object released");
+                Debug.Log("Hand Grab Controller: Object released" + (m_handOldPosition - m_handPosition)/0.02f);
                 StartCoroutine(ChangeStateAfterDelay());
             }
+            
         }
         
         private IEnumerator ChangeStateAfterDelay()

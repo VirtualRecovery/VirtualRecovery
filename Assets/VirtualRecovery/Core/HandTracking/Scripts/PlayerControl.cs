@@ -3,9 +3,9 @@ using UnityEngine;
 namespace VirtualRecovery.Core.HandTracking.Scripts {
     internal class PlayerControl : MonoBehaviour {
 
-        public GameObject target;
-        public float moveSpeed;
-        public float rotationSpeed;
+        [SerializeField] private GameObject target;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float rotationSpeed;
         private Rigidbody m_rb;
 
         public void Start() {

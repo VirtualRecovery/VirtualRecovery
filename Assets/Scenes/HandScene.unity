@@ -1745,6 +1745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
   m_handPalmRigidBody: {fileID: 637344390}
+  m_handWristTransform: {fileID: 296377555}
 --- !u!1 &661651660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8804444453898582787, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -2271,6 +2272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
   m_handPalmRigidBody: {fileID: 661651662}
+  m_handWristTransform: {fileID: 1828253410}
 --- !u!1 &793992876 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2885524236602579363, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
@@ -3717,6 +3719,10 @@ PrefabInstance:
     - target: {fileID: 431247075847058747, guid: 56186ccf27ad7864681108ed88349071, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 431247075847058747, guid: 56186ccf27ad7864681108ed88349071, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.507
       objectReference: {fileID: 0}
     - target: {fileID: 503374621194592106, guid: 56186ccf27ad7864681108ed88349071, type: 3}
       propertyPath: m_Layer
@@ -5728,8 +5734,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2113951933}
-  moveSpeed: 0.25
-  rotationSpeed: 0.18
+  moveSpeed: 1
+  rotationSpeed: 1.1
 --- !u!54 &2124027200
 Rigidbody:
   m_ObjectHideFlags: 0
