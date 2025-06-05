@@ -1707,6 +1707,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3024329530019611795, guid: 8a549b2c1b2c1e249b67883f61ead015, type: 3}
   m_PrefabInstance: {fileID: 265436764}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &275773312 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 596008769270624510, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
+  m_PrefabInstance: {fileID: 896281122}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &294343284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,6 +3457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6698969bd241dab9b4f1bd6c41e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 0}
 --- !u!114 &752781403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3826,6 +3832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cebe7bed344dc8957512eed2995f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 0}
 --- !u!114 &776529041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4794,7 +4801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
       propertyPath: m_Name
-      value: countertop (3)
+      value: countertop (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4919,55 +4926,63 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1296795465873887991, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
+      propertyPath: m_Name
+      value: fridgeWithHinges
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.219
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.292
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.134
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+    - target: {fileID: 1924431460462250061, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
-      propertyPath: m_Name
-      value: fridge
+    - target: {fileID: 4502555151517595391, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7449142371321069919, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 275773312}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d25a4fc8962054b0a9a85806e0b8ee82, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
 --- !u!1 &921584732 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8874385841066437913, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -5483,6 +5498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293ad3c6576c44f8a3db30ecfa81e0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 0}
 --- !u!114 &1048136886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7541,6 +7557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
   m_handPalmRigidBody: {fileID: 1559116255}
+  m_handWristTransform: {fileID: 203067697}
 --- !u!4 &1304803586
 Transform:
   m_ObjectHideFlags: 0
@@ -8060,7 +8077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
       propertyPath: m_Name
-      value: countertop
+      value: countertop (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9620,6 +9637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mGrabSensitivity: 0.1
   m_handPalmRigidBody: {fileID: 1159846470}
+  m_handWristTransform: {fileID: 1573736900}
 --- !u!4 &1770386577
 Transform:
   m_ObjectHideFlags: 0
@@ -10142,32 +10160,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0af1cf1d40ce84985b5ec2a50548ae2f, type: 3}
---- !u!1 &1822291160 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2093304170256535564, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
-  m_PrefabInstance: {fileID: 1892780859}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1822291164
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822291160}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.02, z: 0.0016632936}
-  m_Center: {x: 0.0000000037252903, y: -1.934548e-10, z: 0.009168353}
 --- !u!1 &1881335063
 GameObject:
   m_ObjectHideFlags: 0
@@ -10385,7 +10377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
       propertyPath: m_Name
-      value: countertop (1)
+      value: countertop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10394,9 +10386,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1327278946}
-    - targetCorrespondingSourceObject: {fileID: 2093304170256535564, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1822291164}
   m_SourcePrefab: {fileID: 100100000, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
 --- !u!1 &1895217222 stripped
 GameObject:
@@ -11276,6 +11265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc51b498be64ede9e2fbaced862b042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasChanger: {fileID: 0}
 --- !u!114 &2111277187
 MonoBehaviour:
   m_ObjectHideFlags: 0
