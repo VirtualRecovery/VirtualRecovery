@@ -8,6 +8,7 @@ TagManager:
   - FingerTip
   - ThumbTip
   - Grabbable
+  - PlayerPauseCanvas
   layers:
   - Default
   - TransparentFX

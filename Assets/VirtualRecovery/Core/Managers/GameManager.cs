@@ -8,8 +8,6 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VirtualRecovery.Core.Scenes.BaseClasses;
-using VirtualRecovery.Core.Scenes.Interfaces;
-using VirtualRecovery.Core.Scenes.MainMenu;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
@@ -21,12 +19,15 @@ namespace VirtualRecovery.Core.Managers {
 
         private float m_sessionStartTime;
         private float m_sessionEndTime;
+        private float m_pauseStartTime;
 
         private Patient m_patient;
         private Room m_room;
         private Activity m_activity;
         private DifficultyLevel m_difficultyLevel;
         private BodySide m_bodySide;
+        
+        private bool m_isPaused = false;
 
         private void Awake() {
             if (Instance != null && Instance != this) {
@@ -47,8 +48,9 @@ namespace VirtualRecovery.Core.Managers {
             SceneManager.sceneLoaded += SetSessionStartTime;
             
             m_sessionEndTime = Time.time;
-            
+
             BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
+
             // TODO: change to the session report canvas
             // baseCanvasChanger.ChangeCanvas();
         }
@@ -58,6 +60,20 @@ namespace VirtualRecovery.Core.Managers {
                 return m_sessionEndTime - m_sessionStartTime;
             }
             return 0f;
+        }
+
+        public bool IsGamePaused() {
+            return m_isPaused;
+        }
+        
+        public void PauseGame() {
+            m_pauseStartTime = Time.time;
+            m_isPaused = true;
+        }
+
+        public void ResumeGame() {
+            m_sessionStartTime += m_pauseStartTime;
+            m_isPaused = false;
         }
 
         public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
