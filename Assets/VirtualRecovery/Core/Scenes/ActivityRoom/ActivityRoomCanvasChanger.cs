@@ -9,39 +9,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.Core.Scenes.Interfaces;
-using VirtualRecovery.Core.Scenes.Kitchen;
 
-namespace VirtualRecovery.Core.Scenes.Kitchen {
-    internal class KitchenCanvasChanger : BaseCanvasChanger {
+namespace VirtualRecovery.Core.Scenes.ActivityRoom {
+    internal class ActivityRoomCanvasChanger : BaseCanvasChanger {
         [SerializeField] private Canvas therapistViewCanvas;
         [SerializeField] private Canvas pauseMenuCanvas;
         [SerializeField] private Canvas settingsCanvas;
+        [SerializeField] private Canvas patientPauseCanvas;
         private void Awake() {
             var eventToCanvas = new Dictionary<Enum, Canvas> {
-                { KitchenEventType.PauseButtonClicked, pauseMenuCanvas },
-                { KitchenEventType.ResumeButtonClicked, therapistViewCanvas },
-                { KitchenEventType.SettingsButtonClicked, pauseMenuCanvas},
-                { KitchenEventType.RestartButtonClicked, therapistViewCanvas }, // TODO: Add restart of excercise
+                { ActivityRoomEventType.PauseButtonClicked, pauseMenuCanvas },
+                { ActivityRoomEventType.ResumeButtonClicked, therapistViewCanvas },
+                { ActivityRoomEventType.SettingsButtonClicked, pauseMenuCanvas },
+                { ActivityRoomEventType.RestartButtonClicked, therapistViewCanvas } // TODO: Add restart of excercise
             };
             
             Initialize(eventToCanvas, therapistViewCanvas);
         }
         
         internal override void ChangeCanvas(IEventTypeWrapper eventTypeWrapper) {
-            eventTypeWrapper = (KitchenEventTypeWrapper)eventTypeWrapper;
-            KitchenEventType eventType = (KitchenEventType)eventTypeWrapper.EventType;
-            /*if (eventType == KitchenEventType.ExitButtonClicked) {
+            eventTypeWrapper = (ActivityRoomEventTypeWrapper)eventTypeWrapper;
+            ActivityRoomEventType eventType = (ActivityRoomEventType)eventTypeWrapper.EventType;
+            /*if (eventType == ActivityRoomEventType.ExitButtonClicked) {
                 Application.Quit();
             }
             
             DisableCurrentCanvas();
-            if (eventType == KitchenEventType.BackToMainMenuButtonClicked) {
+            if (eventType == ActivityRoomEventType.BackToMainMenuButtonClicked) {
                 CurrentCanvas = titleScreenCanvas;
                 PreviousCanvases.Clear();
             }
-            if (eventType is KitchenEventType.ReturnButtonClicked 
-                or KitchenEventType.SavePatientDataButtonClicked 
-                or KitchenEventType.ConfirmPatientDeletionButton) {
+            if (eventType is ActivityRoomEventType.ReturnButtonClicked 
+                or ActivityRoomEventType.SavePatientDataButtonClicked 
+                or ActivityRoomEventType.ConfirmPatientDeletionButton) {
                 CurrentCanvas = PreviousCanvases.Pop();
             }
             else {

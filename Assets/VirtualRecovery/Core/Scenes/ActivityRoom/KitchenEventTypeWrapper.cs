@@ -7,16 +7,16 @@
 using System;
 using VirtualRecovery.Core.Scenes.Interfaces;
 
-namespace VirtualRecovery.Core.Scenes.Kitchen {
+namespace VirtualRecovery.Core.Scenes.ActivityRoom {
 
-    internal class KitchenEventTypeWrapper : IEventTypeWrapper {
+    internal class ActivityRoomEventTypeWrapper : IEventTypeWrapper {
         public Enum EventType { get; set; }
-        public KitchenEventTypeWrapper(KitchenEventType eventType) {
+        public ActivityRoomEventTypeWrapper(ActivityRoomEventType eventType) {
             EventType = eventType;
         }
     }
     
-    internal enum KitchenEventType {
+    internal enum ActivityRoomEventType {
         PauseButtonClicked,
         ResumeButtonClicked,
         SettingsButtonClicked,
