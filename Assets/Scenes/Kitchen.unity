@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1304803585}
+  mHandGrabDetector: {fileID: 1304803585}
   mFinger: 3
 --- !u!65 &41037418
 BoxCollider:
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1304803585}
+  mHandGrabDetector: {fileID: 1304803585}
   mFinger: 0
 --- !u!65 &41829844
 BoxCollider:
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1770386576}
+  mHandGrabDetector: {fileID: 1770386576}
   mFinger: 3
 --- !u!65 &95029416
 BoxCollider:
@@ -821,76 +821,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.010378262, y: 0.007418233, z: 0.007044969}
   m_Center: {x: -0.00057798455, y: -0.003037837, z: -0.0016058821}
---- !u!1 &98610083
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 98610084}
-  - component: {fileID: 98610085}
-  m_Layer: 0
-  m_Name: Right Hand Thumbs Up
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &98610084
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98610083}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2081966801}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &98610085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98610083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HandTrackingEvents: {fileID: 2081966802}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 7fdd2afa44a436446bdb55fa7872a77d, type: 2}
-  m_TargetTransform: {fileID: 0}
-  m_Background: {fileID: 0}
-  m_GesturePerformed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2014597937}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.HandTracking.Scripts.PatientGesturesDetection,
-          Assembly-CSharp
-        m_MethodName: OnThumbsUpPoseDetection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  m_GestureEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  m_MinimumHoldTime: 0.2
-  m_GestureDetectionInterval: 0.1
-  m_StaticGestures: []
 --- !u!1 &102715414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,7 +2463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1304803585}
+  mHandGrabDetector: {fileID: 1304803585}
   mFinger: 2
 --- !u!65 &490372673
 BoxCollider:
@@ -4990,6 +4920,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efcd98a8f5edf4c98b85340a562223cf, type: 3}
+--- !u!1 &869759782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 869759784}
+  - component: {fileID: 869759783}
+  m_Layer: 0
+  m_Name: PinchDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &869759783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869759782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d050314217b14283bd8d4881989d945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.02
+--- !u!4 &869759784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869759782}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1441535343}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &876236366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5165,67 +5140,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
---- !u!1 &909032795
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 909032796}
-  - component: {fileID: 909032797}
-  m_Layer: 0
-  m_Name: Left Hand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &909032796
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909032795}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2014597936}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &909032797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909032795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Handedness: 1
-  m_UpdateType: 1
-  m_PoseUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JointsUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingAcquired:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingLost:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &921584732 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8874385841066437913, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -5275,7 +5189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1770386576}
+  mHandGrabDetector: {fileID: 1770386576}
   mFinger: 2
 --- !u!65 &921584736
 BoxCollider:
@@ -7503,7 +7417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1304803585}
+  mHandGrabDetector: {fileID: 1304803585}
   mFinger: 1
 --- !u!65 &1254096228
 BoxCollider:
@@ -8590,6 +8504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1441535343}
+  - component: {fileID: 1441535344}
   m_Layer: 0
   m_Name: PlayerDoubleHandControlMechnic
   m_TagString: Untagged
@@ -8610,12 +8525,27 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2014597936}
   - {fileID: 1776513160}
+  - {fileID: 869759784}
   - {fileID: 833156244}
   - {fileID: 57029253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1441535344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441535342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647ee0e77e3e4d0bae8f1a24cfa86109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandGrabDetector: {fileID: 1304803585}
+  rightHandGrabDetector: {fileID: 1770386576}
+  patientPinchDetection: {fileID: 869759783}
 --- !u!1 &1465404708
 GameObject:
   m_ObjectHideFlags: 0
@@ -9755,7 +9685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16524d9e5a494fbdb33232e97830173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1770386576}
+  mHandGrabDetector: {fileID: 1770386576}
 --- !u!54 &1701961598
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10416,7 +10346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16524d9e5a494fbdb33232e97830173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1304803585}
+  mHandGrabDetector: {fileID: 1304803585}
 --- !u!54 &1805265101
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10819,7 +10749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1770386576}
+  mHandGrabDetector: {fileID: 1770386576}
   mFinger: 1
 --- !u!65 &1895217226
 BoxCollider:
@@ -11219,52 +11149,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5404835655438552035, guid: 54c72c5376c035b459cc0f7272ce7023, type: 3}
   m_PrefabInstance: {fileID: 1957765742}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2014597935
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2014597936}
-  - component: {fileID: 2014597937}
-  m_Layer: 0
-  m_Name: Hand Gesture Detection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2014597936
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014597935}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.96, y: 1.65, z: -1.79}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 909032796}
-  - {fileID: 2081966801}
-  m_Father: {fileID: 1441535343}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2014597937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014597935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d050314217b14283bd8d4881989d945b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2031848561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4025260990191858227, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
@@ -11611,68 +11495,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1359218568}
   m_SourcePrefab: {fileID: 100100000, guid: 1aa46002cfc5e4433a29aa568e7366b3, type: 3}
---- !u!1 &2081966800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2081966801}
-  - component: {fileID: 2081966802}
-  m_Layer: 0
-  m_Name: Right Hand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2081966801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081966800}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 98610084}
-  m_Father: {fileID: 2014597936}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2081966802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081966800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Handedness: 2
-  m_UpdateType: 1
-  m_PoseUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JointsUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingAcquired:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingLost:
-    m_PersistentCalls:
-      m_Calls: []
-  m_TrackingChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2102908206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5683470144434886223, guid: bf7151579c38e2a44be94ba8773876c1, type: 3}
@@ -12210,7 +12032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ad79825b5b43859cff17bc3644a813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHandGrabController: {fileID: 1770386576}
+  mHandGrabDetector: {fileID: 1770386576}
   mFinger: 0
 --- !u!65 &2124427547
 BoxCollider:

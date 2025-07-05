@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine.Serialization;
 
 namespace VirtualRecovery.Core.HandTracking.Scripts {
-    internal class HandGrabController : MonoBehaviour {
+    internal class HandGrabDetector : MonoBehaviour {
         public enum Fingers {
             IndexFinger,
             MiddleFinger,
@@ -55,7 +55,7 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         public void Awake() {
         }
 
-        public void Update() {
+        public bool CheckHandGrab() {
             
             // tracking velocity for throwing
             m_handOldPosition = m_handPosition;
@@ -69,7 +69,11 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
             else if (m_state == State.ObjectGrabbed) {
                 ReleaseObject();
             }
-            
+
+            if (m_state == State.ObjectGrabbed) {
+                return true;
+            }
+            return false;
         }
 
         private void GrabObject() {
