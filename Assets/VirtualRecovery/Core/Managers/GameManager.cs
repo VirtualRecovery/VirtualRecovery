@@ -5,18 +5,19 @@
 //  */
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VirtualRecovery.Core.Managers.Activities;
+using VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge;
+using VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf;
 using VirtualRecovery.Core.Scenes.BaseClasses;
-using VirtualRecovery.Core.Scenes.Interfaces;
-using VirtualRecovery.Core.Scenes.MainMenu;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        //private MainMenuModule m_mainMenuManager;
         private SessionManager m_sessionManager;
 
         private float m_sessionStartTime;
@@ -27,6 +28,11 @@ namespace VirtualRecovery.Core.Managers {
         private Activity m_activity;
         private DifficultyLevel m_difficultyLevel;
         private BodySide m_bodySide;
+        
+        private Dictionary<int, Func<AbstractActivity>> m_activities = new Dictionary<int, Func<AbstractActivity>> {
+            { 4, () => new FridgeActivity()},
+            { 1, () => new ShelfActivity()}
+        };
 
         private void Awake() {
             if (Instance != null && Instance != this) {
@@ -42,12 +48,18 @@ namespace VirtualRecovery.Core.Managers {
 
         public void BeginSession() {
             SceneManager.LoadScene(m_room.SceneName, LoadSceneMode.Single);
-            
-            // TODO: maybe use some different mechanism
-            SceneManager.sceneLoaded += SetSessionStartTime;
-            
+            SceneManager.sceneLoaded += SetUpSession;
+        }
+        
+        public void SetUpSession(Scene scene, LoadSceneMode mode) {
+            var activity = m_activities[m_activity.Id]();
+            activity.Load(m_difficultyLevel, m_bodySide);
+            m_sessionStartTime = Time.time; 
+        }
+
+        public void EndSession() {
             m_sessionEndTime = Time.time;
-            
+            Debug.Log($"SIEMANO czas to taki jest o: ");
             BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
             // TODO: change to the session report canvas
             // baseCanvasChanger.ChangeCanvas();
@@ -60,7 +72,7 @@ namespace VirtualRecovery.Core.Managers {
             return 0f;
         }
 
-        public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
+
         
         public void SetPatient(Patient patient) => m_patient = patient;
         

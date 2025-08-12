@@ -8,14 +8,14 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         [SerializeField] String objectName;
 
         private void OnTriggerEnter(Collider other) {
-            Debug.Log("PRZEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + other.gameObject.name);
+            //Debug.Log("PRZEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + other.gameObject.name);
             if (other.gameObject.name == objectName) {
-                Debug.Log("WYKRYTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + other.gameObject.name);
+                //Debug.Log("WYKRYTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + other.gameObject.name);
             }
         }
 
         private void OnTriggerExit(Collider other) {
-            Debug.Log("OPUSZCZONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + other.gameObject.name);
+            //Debug.Log("OPUSZCZONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + other.gameObject.name);
         }
     }
 }
