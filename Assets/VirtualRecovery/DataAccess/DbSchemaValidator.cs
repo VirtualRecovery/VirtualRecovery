@@ -42,7 +42,8 @@ namespace VirtualRecovery.DataAccess {
         private string GenerateCreateRoomsTableQuery() {
             return $"CREATE TABLE {m_roomsTableName} (" +
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                   "Name TEXT NOT NULL" +
+                   "Name TEXT NOT NULL," +
+                   "SceneName TEXT NOT NULL" +
                    ")";
         }
     

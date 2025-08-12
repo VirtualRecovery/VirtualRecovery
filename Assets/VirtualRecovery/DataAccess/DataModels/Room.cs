@@ -11,6 +11,7 @@ namespace VirtualRecovery.DataAccess.DataModels {
     internal class Room {
         public int Id;
         public string Name;
+        public string SceneName;
         public List<Activity> Activities;
     }
 }
