@@ -20,7 +20,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
 
             var selectedValue = dropdown.value;
             var bodySide = (BodySide)selectedValue;
-            GameManager.Instance.SetBodyside(bodySide);
+            GameManager.Instance.AddBodyside(bodySide);
         }
     }
 }

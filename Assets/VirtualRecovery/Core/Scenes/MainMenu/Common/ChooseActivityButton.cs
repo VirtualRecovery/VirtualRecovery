@@ -25,8 +25,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.Common {
             var button = GetComponent<Button>();
             if (button != null && m_mainMenuCanvasChanger != null) {
                 var activityData = GetComponentInParent<ActivityData>();
-                GameManager.Instance.SetActivity(activityData.activity);
-                GameManager.Instance.SetRoom(activityData.room);
+                GameManager.Instance.AddActivity(activityData.activity);
+                GameManager.Instance.AddRoom(activityData.room);
                 
                 m_mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
                     MainMenuEventType.ActivityChosenButtonClicked));

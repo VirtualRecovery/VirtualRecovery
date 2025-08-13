@@ -11,12 +11,15 @@ using VirtualRecovery.Core.Managers;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
-    internal class BeginSessionButton : MonoBehaviour, IButton {
+    internal class AddNewActivityButton : MonoBehaviour, IButton {
+        [SerializeField] private MainMenuCanvasChanger m_mainMenuCanvasChanger;
+        
         public void OnButtonClicked() {
             GetSessionConfig();
 
             GameManager.Instance.ClearSelectionFlags();
-            GameManager.Instance.BeginSession();
+            m_mainMenuCanvasChanger.ClearQueue();
+            m_mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(MainMenuEventType.AddNewActivityButtonClicked));
         }
         
         private void GetSessionConfig() {
