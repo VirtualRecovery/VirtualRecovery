@@ -11,15 +11,12 @@ using UnityEngine.SceneManagement;
 using VirtualRecovery.Core.Managers.Activities;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf;
-using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        private SessionManager m_sessionManager;
-
         private float m_sessionStartTime;
         private float m_sessionEndTime;
 
@@ -29,7 +26,7 @@ namespace VirtualRecovery.Core.Managers {
         private DifficultyLevel m_difficultyLevel;
         private BodySide m_bodySide;
         
-        private Dictionary<int, Func<AbstractActivity>> m_activities = new Dictionary<int, Func<AbstractActivity>> {
+        private readonly Dictionary<int, Func<BaseActivity>> m_activities = new() {
             { 4, () => new FridgeActivity()},
             { 1, () => new ShelfActivity()}
         };
@@ -42,8 +39,6 @@ namespace VirtualRecovery.Core.Managers {
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            m_sessionManager = SessionManager.Instance;
         }
 
         public void BeginSession() {
@@ -59,9 +54,10 @@ namespace VirtualRecovery.Core.Managers {
 
         public void EndSession() {
             m_sessionEndTime = Time.time;
-            Debug.Log($"SIEMANO czas to taki jest o: ");
-            BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
+            Debug.Log($"SIEMANO czas to taki jest o: {GetSessionDurationTime()}");
+            
             // TODO: change to the session report canvas
+            // BaseCanvasChanger baseCanvasChanger = FindFirstObjectByType<BaseCanvasChanger>();
             // baseCanvasChanger.ChangeCanvas();
         }
 
@@ -71,8 +67,6 @@ namespace VirtualRecovery.Core.Managers {
             }
             return 0f;
         }
-
-
         
         public void SetPatient(Patient patient) => m_patient = patient;
         

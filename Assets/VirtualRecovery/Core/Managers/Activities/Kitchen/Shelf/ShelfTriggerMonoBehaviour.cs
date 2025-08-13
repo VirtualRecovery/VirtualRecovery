@@ -11,10 +11,8 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf {
     public class ShelfTriggerMonoBehaviour : MonoBehaviour {
         private void OnTriggerEnter(Collider other) {
             if (other.name == "plate") {
-                Debug.Log("woooooooooooooooooooooooooooooo");
                 GameManager.Instance.EndSession();
             }
-            Debug.Log(other.name);
         }
     }
 }
