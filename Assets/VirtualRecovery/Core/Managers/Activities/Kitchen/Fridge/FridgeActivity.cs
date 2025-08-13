@@ -10,73 +10,111 @@ using UnityEngine;
 using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge {
-    internal class FridgeActivity : AbstractActivity {
+    internal class FridgeActivity : BaseActivity {
         
-        private float m_easyLevelHeight = -0.00405f;
-        private float m_mediumLevelHeight = 0.00059f;
-        private float m_hardLevelHeight = 0.00417f;
-        private Vector3 m_startPosition = new Vector3(-2.26399994f,-1.64999998f,0.996999979f);
-        private Quaternion m_startRotation = new Quaternion(0,-1,0,0);
-        
-        public override void Load(DifficultyLevel difficultyLevel, BodySide bodySide) {
-            var actions = new Dictionary<DifficultyLevel, Action> {
-                { DifficultyLevel.Łatwy, () => LoadEasy(bodySide) },
-                { DifficultyLevel.Średni, () => LoadMedium(bodySide) },
-                { DifficultyLevel.Trudny, () => LoadHard(bodySide) }
-            };
+        private const float k_easyLevelHeight = -0.00405f;
+        private const float k_mediumLevelHeight = 0.00059f;
+        private const float k_hardLevelHeight = 0.00417f;
 
-            if (actions.TryGetValue(difficultyLevel, out var action)) {
-                action();
-            }
-            else {
-                throw new ArgumentException($"Invalid difficulty level: {difficultyLevel}");
-            }
-        }
+        private const float k_leftHingeLimitMin = 0;
+        private const float k_leftHingeLimitMax = 90;
+        private static readonly Vector3 s_leftHingeAnchor = new Vector3(0f, -0.00600000005f, 0f);
+        private const float k_leftHandleY = -0.00065f;
+        
+        private const float k_rightHingeLimitMin = -90;
+        private const float k_rightHingeLimitMax = 0;
+        private static readonly Vector3 s_rightHingeAnchor = new Vector3(0f,1.86264515e-09f,0f);
+        private const float k_rightHandleY = -0.00539f;
+
+        private GameObject fridgeHandle => GameObject.Find("Uchwyt góra")
+                                           ?? throw new InvalidOperationException("No Fridge Handle found.");
+        
+        public FridgeActivity() 
+            : base(
+                "FridgeOpenTriggerCollider", 
+                typeof(FridgeTriggerMonoBehaviour), 
+                new Vector3(-2.26399994f,-1.64999998f,0.996999979f), 
+                new Quaternion(0,-1,0,0)) 
+        { }
         
         private void ChangeHandleHeight(float height) {
-            var fridgeHandle = GameObject.Find("Uchwyt góra");
-            if (fridgeHandle == null) {
-                Debug.LogError($"No fridge handle found");
-                return;
-            }
-            var fridgDoorCollider = GameObject.Find("FridgeOpenTriggerCollider");
-            if (fridgDoorCollider == null) {
-                Debug.LogError($"No fridge collider found");
-                return;
-            }
-            
-            var player = GameObject.Find("PlayerDoubleHandControlMechnic");
-            if (player == null) {
-                Debug.LogError($"No player collider found");
-                return;
-            }
-            player.transform.position = m_startPosition;
-            
-            var vr = GameObject.Find("XR Origin (XR Rig)");
-            if (vr == null) {
-                Debug.LogError($"No player vr found");
-                return;
-            }
-            vr.transform.rotation = m_startRotation;
-            
-            
             var connectedBody = fridgeHandle.GetComponent<FixedJoint>().connectedBody;
             fridgeHandle.GetComponent<FixedJoint>().connectedBody = null;
-            fridgeHandle.transform.localPosition  = new Vector3(fridgeHandle.transform.localPosition .x, fridgeHandle.transform.localPosition .y, height);
+            fridgeHandle.transform.localPosition  = new Vector3(fridgeHandle.transform.localPosition .x, 
+                fridgeHandle.transform.localPosition .y, height);
             fridgeHandle.GetComponent<FixedJoint>().connectedBody = connectedBody;
-            fridgDoorCollider.AddComponent<FridgeTriggerMonoBehaviour>();
         }
         
-        protected override void LoadEasy(BodySide bodySide) {
-            ChangeHandleHeight(m_easyLevelHeight);
+        protected override void LoadEasy() {
+            ChangeHandleHeight(k_easyLevelHeight);
         }
 
-        protected override void LoadMedium(BodySide bodySide) {
-            ChangeHandleHeight(m_mediumLevelHeight);
+        protected override void LoadMedium() {
+            ChangeHandleHeight(k_mediumLevelHeight);
         }
 
-        protected override void LoadHard(BodySide bodySide) {
-            ChangeHandleHeight(m_hardLevelHeight);
+        protected override void LoadHard() {
+            ChangeHandleHeight(k_hardLevelHeight);
+        }
+
+        private struct BodySideConfig {
+            public readonly float HingeLimitMin;
+            public readonly float HingeLimitMax;
+            public readonly Vector3 HingeAnchor;
+            public readonly float HandleY;
+
+            public BodySideConfig(
+                float hingeLimitMin,
+                float hingeLimitMax,
+                Vector3 hingeAnchor,
+                float handleY)
+            {
+                HingeLimitMin = hingeLimitMin;
+                HingeLimitMax = hingeLimitMax;
+                HingeAnchor   = hingeAnchor;
+                HandleY       = handleY;
+            }
+        }
+
+        private readonly Dictionary<BodySide, BodySideConfig> m_bodySideConfigs = new() {
+            {
+                BodySide.Lewa, new BodySideConfig(
+                    hingeLimitMin: k_leftHingeLimitMin,
+                    hingeLimitMax: k_leftHingeLimitMax,
+                    hingeAnchor: s_leftHingeAnchor,
+                    handleY: k_leftHandleY
+                )
+            }, {
+                BodySide.Prawa, new BodySideConfig(
+                    hingeLimitMin: k_rightHingeLimitMin,
+                    hingeLimitMax: k_rightHingeLimitMax,
+                    hingeAnchor: s_rightHingeAnchor,
+                    handleY: k_rightHandleY
+                )
+            }
+        };
+
+        protected override void SetupBodySide(BodySide bodySide) {
+            GameObject fridgeDoor = GameObject.Find("fridgeDoor")
+                ?? throw new InvalidOperationException("No Fridge Door found.");
+
+            if(!m_bodySideConfigs.TryGetValue(bodySide, out var bodySideConfig))
+                throw new ArgumentException($"Unknown body side: {bodySide}.");
+            
+            var doorHinge = fridgeDoor.GetComponent<HingeJoint>();
+            
+            var limits = doorHinge.limits;
+            limits.min = bodySideConfig.HingeLimitMin;
+            limits.max = bodySideConfig.HingeLimitMax;
+            doorHinge.limits = limits;
+            doorHinge.anchor = bodySideConfig.HingeAnchor;
+
+            var connectedBody = fridgeHandle.GetComponent<FixedJoint>().connectedBody;
+            fridgeHandle.GetComponent<FixedJoint>().connectedBody = null;
+            fridgeHandle.transform.localPosition  = new Vector3(fridgeHandle.transform.localPosition .x, 
+                bodySideConfig.HandleY, fridgeHandle.transform.localPosition .z);
+            fridgeHandle.GetComponent<FixedJoint>().connectedBody = connectedBody;
+
         }
     }
 }
