@@ -20,7 +20,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
 
             var selectedValue = dropdown.value;
             var difficulty = (DifficultyLevel)selectedValue;
-            GameManager.Instance.SetDifficulty(difficulty);
+            GameManager.Instance.AddDifficulty(difficulty);
         }
     }
 }

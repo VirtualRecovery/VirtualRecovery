@@ -39,7 +39,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 { MainMenuEventType.AddPatientButtonClicked, addPatientCanvas},
                 { MainMenuEventType.EditPatientButtonClicked, editPatientCanvas},
                 { MainMenuEventType.DeletePatientButtonClicked, deletePatientCanvas},
-                { MainMenuEventType.ViewSessionsHistoryButtonClicked, sessionsHistoryCanvas }
+                { MainMenuEventType.ViewSessionsHistoryButtonClicked, sessionsHistoryCanvas },
+                { MainMenuEventType.AddNewActivityButtonClicked, activitySelectionCanvas }
             };
             
             Initialize(eventToCanvas, titleScreenCanvas);
@@ -63,10 +64,19 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 CurrentCanvas = PreviousCanvases.Pop();
             }
             else {
-                PreviousCanvases.Push(CurrentCanvas);
+                if (eventType == MainMenuEventType.AddNewActivityButtonClicked) {
+                    PreviousCanvases.Push(titleScreenCanvas);
+                }
+                else {
+                    PreviousCanvases.Push(CurrentCanvas);
+                }
                 CurrentCanvas = EventToCanvas[eventType];
             }
             EnableCurrentCanvas();
+        }
+
+        public void ClearQueue() {
+            PreviousCanvases.Clear();
         }
     }
 }

@@ -195,9 +195,9 @@ GameObject:
   - component: {fileID: 20827264}
   - component: {fileID: 20827263}
   - component: {fileID: 20827262}
-  - component: {fileID: 20827261}
+  - component: {fileID: 20827265}
   m_Layer: 5
-  m_Name: ChooseNextActivityButton
+  m_Name: NextActivityButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,18 +223,6 @@ RectTransform:
   m_AnchoredPosition: {x: 300, y: 0}
   m_SizeDelta: {x: 500, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &20827261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20827259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de636608babd7a140861f69221e58d65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &20827262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +267,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.Common.BeginSessionButton,
+      - m_Target: {fileID: 20827265}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.AbstractActivity.SessionEndScreen.NextActivityButton,
           Assembly-CSharp
         m_MethodName: OnButtonClicked
         m_Mode: 1
@@ -330,6 +318,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20827259}
   m_CullTransparentMesh: 1
+--- !u!114 &20827265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20827259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63692e0c18d479c9a368ce0e3663f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &38595536 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7879881099197629671, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -698,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 75690777}
   m_Layer: 5
-  m_Name: ExcerciseInfo
+  m_Name: ExerciseInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1088,6 +1088,51 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3193487441404976626, guid: fdaa26ac50f5faa44b9e53f7c19745b9, type: 3}
   m_PrefabInstance: {fileID: 104043091}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &114316427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114316429}
+  - component: {fileID: 114316428}
+  m_Layer: 0
+  m_Name: ActivityCanvasChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &114316428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114316427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dcac8697ba1456d8445f730c7c8267e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sessionEndCanvas: {fileID: 1018217241}
+--- !u!4 &114316429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114316427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.753707, y: -0.40010664, z: 1.896181}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &124294688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1090203833553747078, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -5494,8 +5539,9 @@ GameObject:
   - component: {fileID: 1018217241}
   - component: {fileID: 1018217240}
   - component: {fileID: 1018217239}
+  - component: {fileID: 1018217243}
   m_Layer: 5
-  m_Name: ExcerciseEndCanvas
+  m_Name: ExerciseEndCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5550,7 +5596,7 @@ Canvas:
   m_GameObject: {fileID: 1018217238}
   m_Enabled: 0
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -5571,9 +5617,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018217238}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.48333332, y: 0.48333332, z: 0.48333332}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 680337996}
@@ -5584,9 +5630,21 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 547.9048, y: 259.2362}
+  m_SizeDelta: {x: 2275.862, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1018217243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018217238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ce3ead0db641dc8138653632a7bbe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1036048562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5646615596051819590, guid: 56186ccf27ad7864681108ed88349071, type: 3}
@@ -7142,7 +7200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Wybierz \u0107wiczenie"
+  m_text: "Nast\u0119pne \u0107wiczenie"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7757,6 +7815,7 @@ GameObject:
   - component: {fileID: 1343947281}
   - component: {fileID: 1343947280}
   - component: {fileID: 1343947279}
+  - component: {fileID: 1343947282}
   m_Layer: 5
   m_Name: ReturnToMenuButton
   m_TagString: Untagged
@@ -7828,10 +7887,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.MainMenu.Common.ReturnButton,
+      - m_Target: {fileID: 1343947282}
+        m_TargetAssemblyTypeName: VirtualRecovery.Core.Scenes.AbstractActivity.ReturnToMainMenuButton,
           Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7879,6 +7938,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343947277}
   m_CullTransparentMesh: 1
+--- !u!114 &1343947282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343947277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b7b6ec3e1e459284c86a25597fc384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1349300472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8758,7 +8829,7 @@ GameObject:
   - component: {fileID: 1592301689}
   - component: {fileID: 1592301688}
   m_Layer: 5
-  m_Name: ExcerciseHintCanvas
+  m_Name: ExerciseHintCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10972,6 +11043,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "otwieranie lod\xF3wki"
       objectReference: {fileID: 0}
+    - target: {fileID: 8351748194442508249, guid: 54c72c5376c035b459cc0f7272ce7023, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11907,6 +11982,7 @@ SceneRoots:
   - {fileID: 245525113}
   - {fileID: 1147882854}
   - {fileID: 1592301691}
-  - {fileID: 1018217242}
   - {fileID: 102715418}
   - {fileID: 463483014}
+  - {fileID: 114316429}
+  - {fileID: 1018217242}

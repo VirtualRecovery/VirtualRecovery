@@ -41,13 +41,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
             }
 
             if (activity != null) {
-                activity.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.GetActivity().Name;
+                activity.GetComponent<TextMeshProUGUI>().text = GameManager.Instance.GetLatestActivity().Name;
             }
 
             if (bodySide != null) {
                 var tmpDropdown = bodySide.GetComponent<TMP_Dropdown>();
                 if (tmpDropdown != null) {
-                    if (!GameManager.Instance.GetActivity().IsBodySideDifferentiated) {
+                    if (!GameManager.Instance.GetLatestActivity().IsBodySideDifferentiated) {
                         tmpDropdown.interactable = false;
                         tmpDropdown.options = new List<TMP_Dropdown.OptionData>(m_oneSideOptions);
                     }

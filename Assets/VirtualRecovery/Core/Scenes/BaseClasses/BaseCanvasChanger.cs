@@ -22,10 +22,12 @@ namespace VirtualRecovery.Core.Scenes.BaseClasses {
         }
         
         protected virtual void EnableCurrentCanvas() {
+            if (CurrentCanvas == null) return;
             CurrentCanvas.enabled = true;
         }
 
         protected virtual void DisableCurrentCanvas() {
+            if (CurrentCanvas == null) return;
             CurrentCanvas.enabled = false;
         }
 
