@@ -14,6 +14,8 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf {
         private const float k_easyLevelHeight = -0.05f;
         private const float k_mediumLevelHeight = 0.05f;
         private const float k_hardLevelHeight = 0.2f;
+
+        private static readonly Vector3 s_defaultPlatePosition = new Vector3(-1.09979999f, -0.373299986f, 1.26800001f);
         
         public ShelfActivity() 
             : base(
@@ -43,7 +45,10 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf {
         }
 
         protected override void SetupBodySide(BodySide bodySide) {
-            return;
+            var plate = GameObject.Find("plate")
+                        ?? throw new InvalidOperationException("No plate found.");
+            
+            plate.transform.position = s_defaultPlatePosition;
         }
     }
 }
