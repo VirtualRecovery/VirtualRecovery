@@ -18,8 +18,8 @@ TagManager:
   - LeftHandPhisical
   - RightHandPhisical
   - HandHeldObjects
-  - 
-  - 
+  - PlayerView
+  - TherapistView
   - 
   - 
   - 
