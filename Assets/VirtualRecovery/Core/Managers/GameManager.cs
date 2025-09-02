@@ -34,7 +34,7 @@ namespace VirtualRecovery.Core.Managers {
         private List<Activity> m_activities = new List<Activity>();
         private List<DifficultyLevel> m_difficultyLevels = new List<DifficultyLevel>();
         private List<BodySide> m_bodySides = new List<BodySide>();
-        
+
         private Room m_currentRoom;
         private Activity m_currentActivity;
         private DifficultyLevel m_currentDifficultyLevel;
@@ -99,6 +99,10 @@ namespace VirtualRecovery.Core.Managers {
                 return m_sessionEndTime - m_sessionStartTime;
             }
             return 0f;
+        }
+
+        public float GetCurrentActivityDurationTime() {
+            return Time.time - m_sessionStartTime;
         }
         
         public void SetPatient(Patient patient) => m_patient = patient;
