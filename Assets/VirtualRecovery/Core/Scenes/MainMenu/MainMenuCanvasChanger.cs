@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.Core.Scenes.Interfaces;
@@ -50,7 +51,12 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             eventTypeWrapper = (MainMenuEventTypeWrapper)eventTypeWrapper;
             MainMenuEventType eventType = (MainMenuEventType)eventTypeWrapper.EventType;
             if (eventType == MainMenuEventType.ExitButtonClicked) {
-                Application.Quit();
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+                return;
             }
             
             DisableCurrentCanvas();

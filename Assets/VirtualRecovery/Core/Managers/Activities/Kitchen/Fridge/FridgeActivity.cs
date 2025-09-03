@@ -26,6 +26,8 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge {
         private static readonly Vector3 s_rightHingeAnchor = new Vector3(0f,1.86264515e-09f,0f);
         private const float k_rightHandleY = -0.00539f;
 
+        private static readonly Vector3 s_doorDefaultPosition = new Vector3(-0.25f, 0.380690038f, -0.300000012f);
+
         private GameObject fridgeHandle => GameObject.Find("Uchwyt góra")
                                            ?? throw new InvalidOperationException("No Fridge Handle found.");
         
@@ -100,6 +102,8 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge {
 
             if(!m_bodySideConfigs.TryGetValue(bodySide, out var bodySideConfig))
                 throw new ArgumentException($"Unknown body side: {bodySide}.");
+            
+            fridgeDoor.transform.localPosition = s_doorDefaultPosition;
             
             var doorHinge = fridgeDoor.GetComponent<HingeJoint>();
             
