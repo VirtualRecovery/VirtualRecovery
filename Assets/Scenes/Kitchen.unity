@@ -12774,6 +12774,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8066093836911846287, guid: 537828d39f56d4615a73296b991e2c50, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8717591768221996730, guid: 537828d39f56d4615a73296b991e2c50, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -12798,6 +12802,10 @@ PrefabInstance:
     - target: {fileID: 993397920985718907, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_TagString
       value: Spoon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274537174664907887, guid: a01356409cae547d089437255a7c3557, type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5041073397931120506, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_Name
