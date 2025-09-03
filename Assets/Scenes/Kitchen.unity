@@ -2428,6 +2428,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000030517578, y: -109.99997}
   m_SizeDelta: {x: 550, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &432593153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5682468252878360025, guid: df2fa671a3177493e9fb6d301b5bf123, type: 3}
+  m_PrefabInstance: {fileID: 764615826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &432593155
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432593153}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.032976113, y: 0.029999994, z: 0.00010000075}
+  m_Center: {x: -0.0014880565, y: 0, z: -0.012549998}
 --- !u!1001 &437192622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4068,7 +4094,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5682468252878360025, guid: df2fa671a3177493e9fb6d301b5bf123, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 432593155}
   m_SourcePrefab: {fileID: 100100000, guid: df2fa671a3177493e9fb6d301b5bf123, type: 3}
 --- !u!1001 &765315084
 PrefabInstance:
@@ -12799,21 +12828,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 993397920985718907, guid: a01356409cae547d089437255a7c3557, type: 3}
-      propertyPath: m_TagString
-      value: Spoon
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274537174664907887, guid: a01356409cae547d089437255a7c3557, type: 3}
-      propertyPath: m_Convex
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5041073397931120506, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_Name
       value: spoon
-      objectReference: {fileID: 0}
-    - target: {fileID: 5041073397931120506, guid: a01356409cae547d089437255a7c3557, type: 3}
-      propertyPath: m_TagString
-      value: Spoon
       objectReference: {fileID: 0}
     - target: {fileID: 5674162965308984768, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_LocalPosition.x
