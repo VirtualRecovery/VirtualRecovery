@@ -12,7 +12,7 @@ using VirtualRecovery.DataAccess.DataModels;
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
     internal class SaladActivity : BaseActivity {
         
-        private Dictionary<DifficultyLevel, float> k_triggerCreationRadiusByDifficultyLevel = new() {
+        private Dictionary<DifficultyLevel, float> m_triggerCreationRadiusByDifficultyLevel = new() {
             { DifficultyLevel.Łatwy, 0.053f },
             { DifficultyLevel.Średni, 0.095f },
             { DifficultyLevel.Trudny, 0.142f }
@@ -59,17 +59,17 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
         }
         
         protected override void LoadEasy() {
-            m_triggerCreationRadius = k_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Łatwy];
+            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Łatwy];
             CreateNextTrigger();
         }
 
         protected override void LoadMedium() {
-            m_triggerCreationRadius = k_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Średni];
+            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Średni];
             CreateNextTrigger();
         }
 
         protected override void LoadHard() {
-            m_triggerCreationRadius = k_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Trudny];
+            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Trudny];
             CreateNextTrigger();
         }
         
