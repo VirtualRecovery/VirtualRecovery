@@ -16,10 +16,10 @@ namespace VirtualRecovery.Core.Managers.Activities {
         private static GameObject VROrig => GameObject.Find("XR Origin (XR Rig)")
                                            ?? throw new InvalidOperationException("No VR rig found.");
         
-        private readonly string m_sessionEndingObjectName;
-        private readonly Type m_sessionEndingObjectType;
-        private readonly Vector3 m_playerStartPosition;
-        private readonly Quaternion m_playerStartRotation;
+        protected string m_sessionEndingObjectName;
+        protected Type m_sessionEndingObjectType;
+        protected Vector3 m_playerStartPosition;
+        protected Quaternion m_playerStartRotation;
 
         protected BaseActivity(
             string sessionEndingObjectName,
@@ -47,8 +47,8 @@ namespace VirtualRecovery.Core.Managers.Activities {
                 throw new ArgumentException($"Invalid difficulty level: {difficultyLevel}");
             }
 
-            SetupCameraPosition();
             SetupBodySide(bodySide);
+            SetupCameraPosition();
             AttachTrigger();
         }
         
