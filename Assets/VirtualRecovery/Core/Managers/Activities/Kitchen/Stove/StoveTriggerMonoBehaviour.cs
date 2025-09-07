@@ -10,7 +10,7 @@ using UnityEngine;
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Stove {
     public class StoveTriggerMonoBehaviour : MonoBehaviour {
         private void OnTriggerEnter(Collider other) {
-            if (other.name == "pot") {
+            if (other.CompareTag("Pot")) {
                 GameManager.Instance.EndSession();
             }
         }

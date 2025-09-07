@@ -60,7 +60,22 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Stove {
             }
 
             m_sessionEndingObjectName = m_leftOrRight + m_upOrDown + "Burner";
-
+            var burner = FindBurner(m_sessionEndingObjectName);
+            if (burner == null) {
+                throw new InvalidOperationException($"No {m_sessionEndingObjectName} found.");
+            }
+            burner.SetActive(true);
         }
+
+        private GameObject FindBurner(string burnerName) {
+            var burners = GameObject.Find("Burners");
+            foreach (Transform burner in burners.transform) {
+                if (burner.name == burnerName) {
+                    return burner.gameObject;
+                }
+            }
+            return null;
+        }
+
     }
 }

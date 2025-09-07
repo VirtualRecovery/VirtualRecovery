@@ -14,6 +14,7 @@ using VirtualRecovery.Core.Managers.Activities.Kitchen.Bread;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Salad;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf;
+using VirtualRecovery.Core.Managers.Activities.Kitchen.Stove;
 using VirtualRecovery.Core.Scenes.AbstractActivity;
 using VirtualRecovery.DataAccess.DataModels;
 
@@ -46,7 +47,8 @@ namespace VirtualRecovery.Core.Managers {
             { 4, () => new FridgeActivity()},
             { 1, () => new ShelfActivity()},
             { 5, () => new SaladActivity()},
-            { 3, () => new BreadActivity()}
+            { 3, () => new BreadActivity()},
+            { 2, () => new StoveActivity()},
         };
 
         private void Awake() {
