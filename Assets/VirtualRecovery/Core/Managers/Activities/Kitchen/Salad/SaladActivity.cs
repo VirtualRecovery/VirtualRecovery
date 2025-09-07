@@ -32,7 +32,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
 
         private GameObject saladTrigerPrefab => GameObject.Find("SaladTrigger")
                                       ?? throw new InvalidOperationException("No Salad Trigger placeholder found.");
-
+        
         public SaladActivity()
             : base(
                 "FinalSaladTrigger",

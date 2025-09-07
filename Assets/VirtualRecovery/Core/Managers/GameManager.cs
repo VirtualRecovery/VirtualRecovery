@@ -10,6 +10,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VirtualRecovery.Core.Managers.Activities;
+using VirtualRecovery.Core.Managers.Activities.Kitchen.Bread;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Salad;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf;
@@ -44,7 +45,8 @@ namespace VirtualRecovery.Core.Managers {
         private readonly Dictionary<int, Func<BaseActivity>> m_activityClasses = new() {
             { 4, () => new FridgeActivity()},
             { 1, () => new ShelfActivity()},
-            { 5, () => new SaladActivity()}
+            { 5, () => new SaladActivity()},
+            { 3, () => new BreadActivity()}
         };
 
         private void Awake() {

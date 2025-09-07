@@ -9,6 +9,7 @@ TagManager:
   - ThumbTip
   - Grabbable
   - Spoon
+  - Knife
   layers:
   - Default
   - TransparentFX
