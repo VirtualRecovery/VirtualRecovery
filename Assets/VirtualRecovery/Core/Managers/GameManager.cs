@@ -193,6 +193,18 @@ namespace VirtualRecovery.Core.Managers {
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
             m_activityEnded = false;
         }
+        
+        public void ClearData() {
+            ClearSelectionFlags();
+            m_rooms.Clear();
+            m_activities.Clear();
+            m_difficultyLevels.Clear();
+            m_bodySides.Clear();
+            m_patient = null;
+            m_currentRoom = null;
+            m_currentActivity = null;
+            m_activityEnded = false;
+        }
 
         private void Start() {
 

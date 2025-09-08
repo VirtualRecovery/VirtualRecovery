@@ -7,6 +7,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using VirtualRecovery.Core.Managers;
 using VirtualRecovery.Core.Scenes.Interfaces;
 
 namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
@@ -16,6 +17,7 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
         public void OnButtonClicked() {
             var button = GetComponent<Button>();
             if (button != null && mainMenuCanvasChanger != null) {
+                GameManager.Instance.ClearData();
                 mainMenuCanvasChanger.ChangeCanvas(new MainMenuEventTypeWrapper(
                     MainMenuEventType.ActivitySelectionButtonClicked)
                 );

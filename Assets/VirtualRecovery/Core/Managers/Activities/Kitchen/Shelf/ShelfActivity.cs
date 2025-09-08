@@ -21,7 +21,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf {
             : base(
                 "shelf", 
                 typeof(ShelfTriggerMonoBehaviour), 
-                new Vector3(-1.96000004f,-1.64999998f,1.78999996f), 
+                new Vector3(-2.20600009f,-1.89f,1.88800001f), 
                 new Quaternion(0,0,0,1)) 
         { }
 

@@ -10,14 +10,9 @@ using VirtualRecovery.DataAccess.DataModels;
 
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Stove {
     internal class StoveActivity : BaseActivity {
-
-        private static readonly Vector3 s_leftPotPosition = new Vector3(-0.5f, -0.334500015f, 1.07799995f);
-        private static readonly Vector3 s_rightPotPosition = new Vector3(0.532000005f,-0.334500015f,1.07799995f);
-
-        private static readonly Vector3 s_leftPlayerStartPosition =
-            new Vector3(1.79700005f, 0.364356041f, -1.26800001f);
-        private static readonly Vector3 s_rightPlayerStartPosition =
-            new Vector3(2.26399994f,0.364356041f,-1.26800001f);
+        
+        private GameObject pot => GameObject.Find("pot")
+                                      ?? throw new InvalidOperationException("No Pot found.");
         
         private bool m_flipToOppositeSide = false;
         private string m_upOrDown = "Down";
@@ -27,7 +22,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Stove {
             : base(
                 "", 
                 typeof(StoveTriggerMonoBehaviour), 
-                new Vector3(1.79700005f,0.364356041f,-1.26800001f), 
+                new Vector3(-1.10699999f,-1.74000001f,1.93099999f), 
                 new Quaternion(0,0,0,1)) 
         { }
 
@@ -50,12 +45,12 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Stove {
         protected override void SetupBodySide(BodySide bodySide) {
             switch (bodySide) {
                 case BodySide.Lewa:
-                    m_playerStartPosition = s_leftPlayerStartPosition;
-                    m_leftOrRight = m_flipToOppositeSide ? "Left" : "Right";
+                    pot.transform.position = new Vector3(-0.463999987f, -0.334500015f, 1.18200004f);
+                    m_leftOrRight = m_flipToOppositeSide ? "Right" : "Left";
                     break;
                 case BodySide.Prawa:
-                    m_playerStartPosition = s_rightPlayerStartPosition;
-                    m_leftOrRight = m_flipToOppositeSide ? "Right" : "Left";
+                    pot.transform.position = new Vector3(0.442000002f,-0.334500015f,1.18200004f);
+                    m_leftOrRight = m_flipToOppositeSide ? "Left" : "Right";
                     break;
             }
 

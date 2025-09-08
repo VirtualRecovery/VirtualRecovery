@@ -35,7 +35,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge {
             : base(
                 "FridgeOpenTriggerCollider", 
                 typeof(FridgeTriggerMonoBehaviour), 
-                new Vector3(-2.26399994f,-1.64999998f,0.996999979f), 
+                new Vector3(-0.0909999982f,-1.47000003f,-1.63600004f), 
                 new Quaternion(0,-1,0,0)) 
         { }
         

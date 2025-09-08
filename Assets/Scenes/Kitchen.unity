@@ -4794,6 +4794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: kitchen
       objectReference: {fileID: 0}
+    - target: {fileID: 5682468252878360025, guid: df2fa671a3177493e9fb6d301b5bf123, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6353,6 +6357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fridgeDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 4205934173851772917, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4502555151517595391, guid: 3fbc72b94f607154384df48c67257ec9, type: 3}
       propertyPath: m_UseGravity
       value: 1
@@ -6482,7 +6490,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4694843649466790192, guid: c44219e05cd2b4a1ba45b0176c40f70d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.517
+      value: 1.057
       objectReference: {fileID: 0}
     - target: {fileID: 4694843649466790192, guid: c44219e05cd2b4a1ba45b0176c40f70d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10419,8 +10427,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441535342}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0.00017470751}
-  m_LocalPosition: {x: 2.019, y: -1.65, z: -1.841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.206, y: -1.74, z: 1.931}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10428,7 +10436,7 @@ Transform:
   - {fileID: 833156244}
   - {fileID: 57029253}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 179.98, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1449663317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15654,7 +15662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3497628297633593095, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.585
+      value: 0.442
       objectReference: {fileID: 0}
     - target: {fileID: 3497628297633593095, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_LocalPosition.y
