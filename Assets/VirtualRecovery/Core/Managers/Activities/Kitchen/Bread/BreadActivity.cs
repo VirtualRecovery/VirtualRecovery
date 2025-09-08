@@ -37,7 +37,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Bread {
 
         public BreadActivity()
             : base(
-                "BreadTriggerCollider",
+                "Tylna ściana",
                 typeof(BreadTriggerMonoBehaviour),
                 new Vector3(2.01900005f, -1.64999998f, -1.84099996f),
                 new Quaternion(0, -1, 0, 0)) {

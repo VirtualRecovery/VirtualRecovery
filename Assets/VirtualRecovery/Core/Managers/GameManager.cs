@@ -73,6 +73,8 @@ namespace VirtualRecovery.Core.Managers {
         }
         
         public void SetUpSession(Scene scene, LoadSceneMode mode) {
+            if (m_activities.Count == 0)
+                return;
             var activity = m_activities[0];
             m_currentActivity = activity;
             m_activities.RemoveAt(0);

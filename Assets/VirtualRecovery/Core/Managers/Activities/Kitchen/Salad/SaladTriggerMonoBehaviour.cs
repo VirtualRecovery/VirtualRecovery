@@ -10,7 +10,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
     internal class SaladTriggerMonoBehaviour : MonoBehaviour {
         private SaladActivity m_saladActivity;
         public void OnTriggerEnter(Collider other) {
-            if (other.CompareTag("Spoon")) {
+            if (other.name == "spoon_head") {
                 m_saladActivity.CreateNextTrigger();
                 GameObject.Destroy(this.gameObject);
             }

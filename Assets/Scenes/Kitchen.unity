@@ -15151,6 +15151,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3198499237020777836, guid: 82b2799cc1496425abc1982808c43d2b, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     - target: {fileID: 5998672553140361879, guid: 82b2799cc1496425abc1982808c43d2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.315
@@ -15297,9 +15301,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 993397920985718907, guid: a01356409cae547d089437255a7c3557, type: 3}
+      propertyPath: m_Name
+      value: spoon_head
+      objectReference: {fileID: 0}
     - target: {fileID: 5041073397931120506, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_Name
       value: spoon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041073397931120506, guid: a01356409cae547d089437255a7c3557, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 5674162965308984768, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15340,6 +15352,14 @@ PrefabInstance:
     - target: {fileID: 5674162965308984768, guid: a01356409cae547d089437255a7c3557, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5803438529565539458, guid: a01356409cae547d089437255a7c3557, type: 3}
+      propertyPath: m_Name
+      value: spoon_butt
+      objectReference: {fileID: 0}
+    - target: {fileID: 5803438529565539458, guid: a01356409cae547d089437255a7c3557, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15660,6 +15680,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 412502144239509228, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
+      propertyPath: m_Name
+      value: pot_base1
+      objectReference: {fileID: 0}
     - target: {fileID: 3497628297633593095, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.442
@@ -15706,11 +15730,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4305936897328131517, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_TagString
-      value: Pot
+      value: Grabbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336876521399823721, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
+      propertyPath: m_Name
+      value: pot_base
       objectReference: {fileID: 0}
     - target: {fileID: 4336876521399823721, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_TagString
       value: Pot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363082688671949448, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 6158083861339388126, guid: 29fcf154b804440758b6b2620f46307f, type: 3}
       propertyPath: m_Enabled
