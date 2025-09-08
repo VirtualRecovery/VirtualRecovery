@@ -54,11 +54,13 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionsHistoryListScreen {
             var difficultyLevel = newGameObject.GetNamedChild("DifficultyLevel").GetNamedChild("Text");
             
             if (activity != null) {
-                //activity.GetComponent<TextMeshProUGUI>().text = patient.Id.ToString();
+                var roomRepository = new RoomRepository();
+                var activityObj = roomRepository.GetActivityById(session.ActivityId);
+                activity.GetComponent<TextMeshProUGUI>().text = activityObj.Name;
             }
             
             if (date != null) {
-                date.GetComponent<TextMeshProUGUI>().text = session.Date.ToString("dd.MM.yyyy");
+                date.GetComponent<TextMeshProUGUI>().text = session.Date.ToString("dd-MM-yyyy");
             }
             
             if (time != null) {
