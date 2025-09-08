@@ -11,6 +11,7 @@ TagManager:
   - Spoon
   - Knife
   - Pot
+  - Soup
   layers:
   - Default
   - TransparentFX

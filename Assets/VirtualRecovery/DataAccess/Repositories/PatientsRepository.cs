@@ -96,10 +96,11 @@ namespace VirtualRecovery.DataAccess.Repositories {
                             var session = new Session {
                                 Id = sessionsReader.GetInt32(0),
                                 PatientId = sessionsReader.GetInt32(1),
-                                StartDate = sessionsReader.GetDateTime(2),
-                                EndDate = sessionsReader.GetDateTime(3),
-                                BodySide = (BodySide)sessionsReader.GetInt32(4),
-                                DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(5)
+                                ActivityId = sessionsReader.GetInt32(2),
+                                Date = sessionsReader.GetDateTime(3),
+                                Time = sessionsReader.GetInt32(4),
+                                BodySide = (BodySide)sessionsReader.GetInt32(5),
+                                DifficultyLevel = (DifficultyLevel)sessionsReader.GetInt32(6)
                             };
                             sessions.Add(session);
                         }
@@ -109,6 +110,29 @@ namespace VirtualRecovery.DataAccess.Repositories {
                 m_dbConnector.CloseConnection();
             }
             return sessions;
+        }
+        
+        public void InsertSessionForPatient(int patientId, Session session) {
+            var query = $"INSERT INTO {m_sessionsTableName} (PatientId, ActivityId, Date, Time, BodySide, DifficultyLevel) " +
+                        "VALUES (@PatientId, @ActivityId, @Date, @Time, @BodySide, @DifficultyLevel)";
+
+            m_dbConnector.OpenConnection();
+            try {
+                using (var command = m_dbConnector.CreateCommand(query,
+                           ("@PatientId", patientId),
+                           ("@ActivityId", session.ActivityId),
+                           ("@Date", session.Date.ToString("yyyy-MM-dd")),
+                           ("@Time", session.Time),
+                           ("@BodySide", (int)session.BodySide),
+                           ("@DifficultyLevel", (int)session.DifficultyLevel))) {
+                    if (m_dbConnector.ExecuteNonQuery(command) == 0) {
+                        throw new Exception("No rows were updated.");
+                    }
+                }
+            }
+            finally {
+                m_dbConnector.CloseConnection();
+            }
         }
 
         public Patient GetById(int id) {

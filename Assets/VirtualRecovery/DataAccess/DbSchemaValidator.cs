@@ -72,8 +72,8 @@ namespace VirtualRecovery.DataAccess {
                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                    "PatientId INTEGER NOT NULL," +
                    "ActivityId INTEGER NOT NULL," +
-                   "StartDate TEXT NOT NULL," +
-                   "EndDate TEXT NOT NULL," +
+                   "Date DATE NOT NULL," +
+                   "Time INTEGER NOT NULL," +
                    "BodySide INTEGER NOT NULL," +
                    "DifficultyLevel INTEGER NOT NULL," +
                    $"FOREIGN KEY(PatientId) REFERENCES {m_patientsTableName}(Id)," +

@@ -4,6 +4,7 @@
 //  * Created on: 26/04/2025
 //  */
 
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.XR.CoreUtils;
@@ -47,8 +48,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionsHistoryListScreen {
 
         private void FillSessionData(GameObject newGameObject, Session session) {
             var activity = newGameObject.GetNamedChild("Activity").GetNamedChild("Text");
-            var beginDate = newGameObject.GetNamedChild("BeginDate").GetNamedChild("Text");
-            var endDate = newGameObject.GetNamedChild("EndDate").GetNamedChild("Text");
+            var date = newGameObject.GetNamedChild("Date").GetNamedChild("Text");
+            var time = newGameObject.GetNamedChild("Time").GetNamedChild("Text");
             var bodySide = newGameObject.GetNamedChild("BodySide").GetNamedChild("Text");
             var difficultyLevel = newGameObject.GetNamedChild("DifficultyLevel").GetNamedChild("Text");
             
@@ -56,12 +57,12 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionsHistoryListScreen {
                 //activity.GetComponent<TextMeshProUGUI>().text = patient.Id.ToString();
             }
             
-            if (beginDate != null) {
-                beginDate.GetComponent<TextMeshProUGUI>().text = session.StartDate.ToString(System.Globalization.CultureInfo.CurrentCulture);
+            if (date != null) {
+                date.GetComponent<TextMeshProUGUI>().text = session.Date.ToString("dd.MM.yyyy");
             }
             
-            if (endDate != null) {
-                endDate.GetComponent<TextMeshProUGUI>().text = session.EndDate.ToString(System.Globalization.CultureInfo.CurrentCulture);
+            if (time != null) {
+                time.GetComponent<TextMeshProUGUI>().text = TimeSpan.FromSeconds(session.Time).ToString(@"hh\:mm\:ss");
             }
 
             if (bodySide != null) {

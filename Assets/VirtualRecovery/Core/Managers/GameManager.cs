@@ -14,9 +14,11 @@ using VirtualRecovery.Core.Managers.Activities.Kitchen.Bread;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Fridge;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Salad;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Shelf;
+using VirtualRecovery.Core.Managers.Activities.Kitchen.Soup;
 using VirtualRecovery.Core.Managers.Activities.Kitchen.Stove;
 using VirtualRecovery.Core.Scenes.AbstractActivity;
 using VirtualRecovery.DataAccess.DataModels;
+using VirtualRecovery.DataAccess.Repositories;
 
 namespace VirtualRecovery.Core.Managers {
     internal class GameManager : MonoBehaviour {
@@ -49,6 +51,7 @@ namespace VirtualRecovery.Core.Managers {
             { 5, () => new SaladActivity()},
             { 3, () => new BreadActivity()},
             { 2, () => new StoveActivity()},
+            { 6, () => new SoupActivity()},
         };
 
         private void Awake() {
@@ -94,19 +97,31 @@ namespace VirtualRecovery.Core.Managers {
 
         public void EndSession() {
             if (m_activityEnded) return;
-            
             m_activityEnded = true;
+            
             m_sessionEndTime = Time.time;
+            
+            Session session = new Session {
+                PatientId = m_patient.Id,
+                ActivityId = m_currentActivity.Id,
+                Date = DateTime.Now,
+                Time = GetSessionDurationTime(),
+                BodySide = m_currentBodySide,
+                DifficultyLevel = m_currentDifficultyLevel
+            };
+            PatientsRepository patientsRepository = new PatientsRepository();
+            patientsRepository.InsertSessionForPatient(m_patient.Id, session);
+            
             Debug.Log($"SIEMANO czas to taki jest o: ");
             ActivityCanvasChanger canvasChanger = FindFirstObjectByType<ActivityCanvasChanger>();
             canvasChanger.ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.SessionEnded));
         }
 
-        public float GetSessionDurationTime() {
+        public int GetSessionDurationTime() {
             if (m_sessionStartTime > 0f) {
-                return m_sessionEndTime - m_sessionStartTime;
+                return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime);
             }
-            return 0f;
+            return 0;
         }
         
         public void SetPatient(Patient patient) => m_patient = patient;
