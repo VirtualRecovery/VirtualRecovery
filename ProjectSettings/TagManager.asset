@@ -8,7 +8,10 @@ TagManager:
   - FingerTip
   - ThumbTip
   - Grabbable
-  - PlayerPauseCanvas
+  - Spoon
+  - Knife
+  - Pot
+  - Soup
   layers:
   - Default
   - TransparentFX
@@ -19,8 +22,8 @@ TagManager:
   - LeftHandPhisical
   - RightHandPhisical
   - HandHeldObjects
-  - 
-  - 
+  - Countertop
+  - Floor
   - 
   - 
   - 

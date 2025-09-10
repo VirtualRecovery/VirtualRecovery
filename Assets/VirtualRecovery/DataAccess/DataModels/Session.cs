@@ -11,8 +11,8 @@ namespace VirtualRecovery.DataAccess.DataModels {
         public int Id { get; set; }
         public int PatientId { get; set; }
         public int ActivityId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime Date { get; set; }
+        public int Time { get; set; }
         public BodySide BodySide { get; set; }
         public DifficultyLevel DifficultyLevel { get; set; }
     }

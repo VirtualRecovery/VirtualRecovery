@@ -192,5 +192,27 @@ namespace VirtualRecovery.DataAccess.Repositories {
                 m_dbConnector.CloseConnection();
             }
         }
+        
+        public Activity GetActivityById(int activityId) { 
+            var query = $"SELECT * FROM {m_activitiesTableName} WHERE Id = @Id";
+            m_dbConnector.OpenConnection();
+            try {
+                using (var command = m_dbConnector.CreateCommand(query, ("@Id", activityId)))
+                using (var reader = command.ExecuteReader()) {
+                    if (reader.Read()) {
+                        return new Activity {
+                            Id = reader.GetInt32(0),
+                            RoomId = reader.GetInt32(1),
+                            Name = reader.GetString(2),
+                            IsBodySideDifferentiated = reader.GetBoolean(3)
+                        };
+                    }
+                }
+            }
+            finally {
+                m_dbConnector.CloseConnection();
+            }
+            return null;
+        }
     }
 }

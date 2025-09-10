@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.Core.Scenes.Interfaces;
@@ -39,7 +40,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 { MainMenuEventType.AddPatientButtonClicked, addPatientCanvas},
                 { MainMenuEventType.EditPatientButtonClicked, editPatientCanvas},
                 { MainMenuEventType.DeletePatientButtonClicked, deletePatientCanvas},
-                { MainMenuEventType.ViewSessionsHistoryButtonClicked, sessionsHistoryCanvas }
+                { MainMenuEventType.ViewSessionsHistoryButtonClicked, sessionsHistoryCanvas },
+                { MainMenuEventType.AddNewActivityButtonClicked, activitySelectionCanvas }
             };
             
             Initialize(eventToCanvas, titleScreenCanvas);
@@ -49,7 +51,12 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
             eventTypeWrapper = (MainMenuEventTypeWrapper)eventTypeWrapper;
             MainMenuEventType eventType = (MainMenuEventType)eventTypeWrapper.EventType;
             if (eventType == MainMenuEventType.ExitButtonClicked) {
-                Application.Quit();
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+                return;
             }
             
             DisableCurrentCanvas();
@@ -63,10 +70,19 @@ namespace VirtualRecovery.Core.Scenes.MainMenu {
                 CurrentCanvas = PreviousCanvases.Pop();
             }
             else {
-                PreviousCanvases.Push(CurrentCanvas);
+                if (eventType == MainMenuEventType.AddNewActivityButtonClicked) {
+                    PreviousCanvases.Push(titleScreenCanvas);
+                }
+                else {
+                    PreviousCanvases.Push(CurrentCanvas);
+                }
                 CurrentCanvas = EventToCanvas[eventType];
             }
             EnableCurrentCanvas();
+        }
+
+        public void ClearQueue() {
+            PreviousCanvases.Clear();
         }
     }
 }

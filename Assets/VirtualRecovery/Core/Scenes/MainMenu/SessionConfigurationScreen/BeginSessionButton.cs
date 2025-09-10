@@ -14,6 +14,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
     internal class BeginSessionButton : MonoBehaviour, IButton {
         public void OnButtonClicked() {
             GetSessionConfig();
+
+            GameManager.Instance.ClearSelectionFlags();
             GameManager.Instance.BeginSession();
         }
         
@@ -32,8 +34,8 @@ namespace VirtualRecovery.Core.Scenes.MainMenu.SessionConfigurationScreen {
                 return;
             }
             
-            GameManager.Instance.SetDifficulty((DifficultyLevel)difficultyLevel.value);
-            GameManager.Instance.SetBodyside((BodySide)bodySide.value);
+            GameManager.Instance.AddDifficulty((DifficultyLevel)difficultyLevel.value);
+            GameManager.Instance.AddBodyside((BodySide)bodySide.value);
         }
     }
 }
