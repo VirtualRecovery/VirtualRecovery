@@ -70,6 +70,19 @@ namespace VirtualRecovery.Core.Managers {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        
+        public void RestartActivity() {
+            if (m_currentRoom == null || m_currentActivity == null || m_currentDifficultyLevel == null || m_currentBodySide == null) {
+                Debug.LogError("Cannot restart activity. Current room, activity, difficulty level or body side is null.");
+                return;
+            }
+            
+            var activityClass = m_activityClasses[m_currentActivity.Id]();
+            activityClass.Load(m_currentDifficultyLevel, m_currentBodySide);
+            m_sessionStartTime = Time.time; 
+            m_activityEnded = false;
+            SceneManager.LoadScene(m_currentRoom.SceneName, LoadSceneMode.Single);
+        }
 
         public void BeginSession() {
             m_activityEnded = false;

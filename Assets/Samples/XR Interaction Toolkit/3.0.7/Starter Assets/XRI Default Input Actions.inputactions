@@ -2482,7 +2482,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "eba98c2e-6268-4233-bb88-946287bc753c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -2810,7 +2810,7 @@
                 {
                     "name": "up",
                     "id": "ef33431d-17d0-4e1c-90f2-bbaa2ef9a8b7",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

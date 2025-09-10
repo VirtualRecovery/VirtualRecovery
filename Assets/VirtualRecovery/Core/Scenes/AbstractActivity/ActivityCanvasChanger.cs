@@ -8,16 +8,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VirtualRecovery.Core.Managers;
 using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.Core.Scenes.Interfaces;
 
 namespace VirtualRecovery.Core.Scenes.AbstractActivity {
     internal class ActivityCanvasChanger : BaseCanvasChanger {
         [SerializeField] private Canvas sessionEndCanvas;
+        [SerializeField] private Canvas therapistViewCanvas;
+        [SerializeField] private Canvas pauseMenuCanvas;
 
         private void Awake() {
             var eventToCanvas = new Dictionary<Enum, Canvas> {
                 { ActivityEventType.SessionEnded, sessionEndCanvas },
+                { ActivityEventType.ResumeButtonClicked, therapistViewCanvas },
+                { ActivityEventType.RestartButtonClicked, therapistViewCanvas },
+                { ActivityEventType.PauseTriggered, pauseMenuCanvas }
             };
             Initialize(eventToCanvas, null);
         }
@@ -25,16 +31,17 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
         internal override void ChangeCanvas(IEventTypeWrapper eventTypeWrapper) {
             eventTypeWrapper = (ActivityEventTypeWrapper)eventTypeWrapper;
             ActivityEventType eventType = (ActivityEventType)eventTypeWrapper.EventType;
-            if (eventType == ActivityEventType.ExitButtonClicked) {
-                Application.Quit();
-            }
-            
             DisableCurrentCanvas();
+            
             if (eventType == ActivityEventType.BackToMainMenuButtonClicked) {
-                SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+                GameManager.Instance.BackToMainMenu();
             }
-            if (eventType is ActivityEventType.ReturnButtonClicked) {
-                CurrentCanvas = PreviousCanvases.Pop();
+            if (eventType is ActivityEventType.ResumeButtonClicked) {
+                GameManager.Instance.ResumeGame();
+                DisableCurrentCanvas();
+            }
+            if (eventType is ActivityEventType.RestartButtonClicked) {
+                GameManager.Instance.RestartActivity();
             }
             else {
                 if (CurrentCanvas == null) {
@@ -42,7 +49,20 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 }
                 PreviousCanvases.Push(CurrentCanvas);
             }
+            
             EnableCurrentCanvas();
+        }
+
+        private void Update() {
+            if (UnityEngine.InputSystem.Keyboard.current.upArrowKey.wasPressedThisFrame && SceneManager.GetActiveScene().name != "MainMenu") {
+                if (CurrentCanvas == pauseMenuCanvas) {
+                    ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.ResumeButtonClicked));
+                }
+                else {
+                    ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.PauseTriggered));
+                    GameManager.Instance.PauseGame();
+                }
+            }
         }
     }
 }

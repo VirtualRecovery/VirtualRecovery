@@ -18,8 +18,9 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
     
     internal enum ActivityEventType {
         SessionEnded,
-        ExitButtonClicked,
         BackToMainMenuButtonClicked,
-        ReturnButtonClicked,
+        ResumeButtonClicked,
+        RestartButtonClicked,
+        PauseTriggered
     }
 }
