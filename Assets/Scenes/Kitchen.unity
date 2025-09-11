@@ -5520,8 +5520,8 @@ MonoBehaviour:
   pinchThreshold: 0.025
   releaseThreshold: 0.035
   toggleCooldownSeconds: 0.35
-  nonPinchSeparationStart: 0.045
-  nonPinchSeparationRelease: 0.035
+  nonPinchSeparationStart: 0.09
+  nonPinchSeparationRelease: 0.08
   activityCanvasChanger: {fileID: 114316428}
 --- !u!4 &869759784
 Transform:
@@ -6664,6 +6664,7 @@ GameObject:
   - component: {fileID: 1018217239}
   - component: {fileID: 1018217243}
   - component: {fileID: 1018217244}
+  - component: {fileID: 1018217245}
   m_Layer: 12
   m_Name: ExerciseEndCanvas
   m_TagString: Untagged
@@ -6787,6 +6788,25 @@ MonoBehaviour:
   posLerp: 12
   rotLerp: 12
   followContinuously: 1
+--- !u!114 &1018217245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018217238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!1001 &1032442557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14927,6 +14947,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 85152333731770066, guid: 14d91dbf734f8402a84ad7e495f11875, type: 3}
+      propertyPath: m_Size.z
+      value: 0.0005361382
+      objectReference: {fileID: 0}
+    - target: {fileID: 85152333731770066, guid: 14d91dbf734f8402a84ad7e495f11875, type: 3}
+      propertyPath: m_Center.x
+      value: -3.5960763e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 85152333731770066, guid: 14d91dbf734f8402a84ad7e495f11875, type: 3}
+      propertyPath: m_Center.z
+      value: -0.000118069074
+      objectReference: {fileID: 0}
     - target: {fileID: 3211023587442770210, guid: 14d91dbf734f8402a84ad7e495f11875, type: 3}
       propertyPath: m_IsKinematic
       value: 1
