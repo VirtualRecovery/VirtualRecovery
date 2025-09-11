@@ -28,8 +28,8 @@ namespace VirtualRecovery.Core.Scenes {
 
         private System.Collections.IEnumerator UpdateExcerciseInfo() {
             while (true) {
-                float secondsFromStart = GameManager.Instance.GetCurrentActivityDurationTime();
-                time.text = $"{Mathf.FloorToInt(secondsFromStart / 60f)}:{Mathf.FloorToInt(secondsFromStart % 60f)}";
+                int secondsFromStart = GameManager.Instance.GetCurrentActivityDurationTime();
+                time.text = $"{Mathf.FloorToInt(secondsFromStart / 60f):00}:{secondsFromStart % 60f:00}";
                 patientID.text = (GameManager.Instance.GetPatient().Id).ToString();
                 activityName.text = GameManager.Instance.GetCurrentActivity().Name;
                 difficultyLevel.text = GameManager.Instance.GetCurrentDifficultyLevel().ToString();

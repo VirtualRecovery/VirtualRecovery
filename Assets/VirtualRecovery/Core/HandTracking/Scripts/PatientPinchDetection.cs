@@ -18,7 +18,6 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         private bool m_isPinchingRightHand = false;
         
         private void Start() {
-            m_pauseCanvas =  GameObject.FindWithTag("PlayerPauseCanvas").GetComponent<Canvas>();
             if (m_handSubsystem == null)
             {
                 var subsystems = new List<XRHandSubsystem>();

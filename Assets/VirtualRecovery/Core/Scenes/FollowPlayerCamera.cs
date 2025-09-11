@@ -12,6 +12,7 @@ namespace VirtualRecovery.Core.Scenes {
         void LateUpdate() {
             transform.position = playerCamera.transform.position;
             transform.rotation = playerCamera.transform.rotation;
+            GetComponent<Camera>().fieldOfView = playerCamera.fieldOfView;
         }
     }
 }

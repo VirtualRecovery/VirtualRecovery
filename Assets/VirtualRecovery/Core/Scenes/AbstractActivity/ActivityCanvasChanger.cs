@@ -25,7 +25,7 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 { ActivityEventType.RestartButtonClicked, therapistViewCanvas },
                 { ActivityEventType.PauseTriggered, pauseMenuCanvas }
             };
-            Initialize(eventToCanvas, null);
+            Initialize(eventToCanvas, therapistViewCanvas);
         }
         
         internal override void ChangeCanvas(IEventTypeWrapper eventTypeWrapper) {
@@ -44,25 +44,16 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 GameManager.Instance.RestartActivity();
             }
             else {
-                if (CurrentCanvas == null) {
-                    CurrentCanvas = EventToCanvas[eventType];
-                }
                 PreviousCanvases.Push(CurrentCanvas);
+                CurrentCanvas = EventToCanvas[eventType];
             }
-            
+            if (CurrentCanvas != null && CurrentCanvas.transform.parent != null) {
+                var faceXRCamera = CurrentCanvas.transform.parent.GetComponent<FaceXRCamera>();
+                if (faceXRCamera != null) {
+                    faceXRCamera.RepositionNow();
+                }
+            }
             EnableCurrentCanvas();
-        }
-
-        private void Update() {
-            if (UnityEngine.InputSystem.Keyboard.current.upArrowKey.wasPressedThisFrame && SceneManager.GetActiveScene().name != "MainMenu") {
-                if (CurrentCanvas == pauseMenuCanvas) {
-                    ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.ResumeButtonClicked));
-                }
-                else {
-                    ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.PauseTriggered));
-                    GameManager.Instance.PauseGame();
-                }
-            }
         }
     }
 }

@@ -24,8 +24,8 @@ TagManager:
   - HandHeldObjects
   - Countertop
   - Floor
-  - 
-  - 
+  - MonitorOnly
+  - WorldUI
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 3499709469
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

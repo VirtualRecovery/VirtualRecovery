@@ -26,7 +26,8 @@ namespace VirtualRecovery.Core.Managers {
         
         private float m_sessionStartTime;
         private float m_sessionEndTime;
-        private float m_pauseStartTime;
+        private float m_totalPauseTime = 0f;
+        private float m_pauseStartTime = 0f;
         
         private bool m_wasRoomAddedd = false;
         private bool m_wasActivityAdded = false;
@@ -77,11 +78,15 @@ namespace VirtualRecovery.Core.Managers {
                 return;
             }
             
-            var activityClass = m_activityClasses[m_currentActivity.Id]();
-            activityClass.Load(m_currentDifficultyLevel, m_currentBodySide);
+            SceneManager.LoadScene(m_currentRoom.SceneName, LoadSceneMode.Single);
+            SceneManager.sceneLoaded += SetUpRestartedSession;
+        }
+
+        public void SetUpRestartedSession(Scene scene, LoadSceneMode mode) {
             m_sessionStartTime = Time.time; 
             m_activityEnded = false;
-            SceneManager.LoadScene(m_currentRoom.SceneName, LoadSceneMode.Single);
+            var activityClass = m_activityClasses[m_currentActivity.Id]();
+            activityClass.Load(m_currentDifficultyLevel, m_currentBodySide);
         }
 
         public void BeginSession() {
@@ -93,6 +98,7 @@ namespace VirtualRecovery.Core.Managers {
             
             SceneManager.LoadScene(room.SceneName, LoadSceneMode.Single);
             SceneManager.sceneLoaded += SetUpSession;
+            Display.displays[1].Activate();
         }
         
         public void SetUpSession(Scene scene, LoadSceneMode mode) {
@@ -139,13 +145,13 @@ namespace VirtualRecovery.Core.Managers {
 
         public int GetSessionDurationTime() {
             if (m_sessionStartTime > 0f) {
-                return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime);
+                return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime - m_totalPauseTime);
             }
             return 0;
         }
 
         public int GetCurrentActivityDurationTime() {
-            return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime);
+            return Mathf.RoundToInt(Time.time - m_sessionStartTime - m_totalPauseTime);
         }
 
         public bool IsGamePaused() {
@@ -153,17 +159,19 @@ namespace VirtualRecovery.Core.Managers {
         }
         
         public void PauseGame() {
-            m_pauseStartTime = Time.time;
-            m_isPaused = true;
+            if (!m_isPaused) {
+                m_pauseStartTime = Time.time;
+                m_isPaused = true;
+            }
         }
 
         public void ResumeGame() {
-            m_sessionStartTime += m_pauseStartTime;
-            m_isPaused = false;
+            if (m_isPaused) {
+                m_totalPauseTime += Time.time - m_pauseStartTime;
+                m_isPaused = false;
+            }
         }
 
-        public void SetSessionStartTime(Scene scene, LoadSceneMode mode) => m_sessionStartTime = Time.time;
-        
         public void SetPatient(Patient patient) => m_patient = patient;
         
         public Patient GetPatient() => m_patient;
