@@ -39,7 +39,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Bread {
             : base(
                 "Tylna ściana",
                 typeof(BreadTriggerMonoBehaviour),
-                new Vector3(2.01900005f, -1.64999998f, -1.84099996f),
+                new Vector3(-0.143999994f,-1.64999998f,0.763000011f),
                 new Quaternion(0, -1, 0, 0)) {
             foreach (var breadTrigger in breadTriggers) {
                 breadTrigger.GetComponent<BreadTriggerMonoBehaviour>().SetBreadActivity(this);

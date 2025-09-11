@@ -245,6 +245,7 @@ namespace VirtualRecovery.Core.Managers {
 
         public void BackToMainMenu() {
             SceneManager.sceneLoaded -= SetUpSession;
+            SceneManager.sceneLoaded -= SetUpRestartedSession;
             
             ClearSelectionFlags();
             m_rooms.Clear();

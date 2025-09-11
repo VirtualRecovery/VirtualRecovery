@@ -37,7 +37,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
             : base(
                 "FinalSaladTrigger",
                 typeof(SaladTriggerMonoBehaviour),
-                new Vector3(0.754000008f, -1.64999998f, -1.84000003f),
+                new Vector3(-1.41400003f,-1.64999998f,0.753000021f),
                 new Quaternion(0, -1, 0, 0)) {
         }
         
