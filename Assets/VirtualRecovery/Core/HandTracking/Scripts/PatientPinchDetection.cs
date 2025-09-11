@@ -7,75 +7,126 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Hands;
-using VirtualRecovery.Core.Managers;
+using VirtualRecovery.Core.Scenes.AbstractActivity;
 
 namespace VirtualRecovery.Core.HandTracking.Scripts {
     public class PatientPinchDetection : MonoBehaviour {
-        [SerializeField] private float threshold;
-        private XRHandSubsystem m_handSubsystem;
-        private Canvas m_pauseCanvas;
-        private bool m_isPinchingLeftHand = false;
-        private bool m_isPinchingRightHand = false;
+        [Header("Pinch Settings")]
+        [SerializeField, Min(0f)] private float pinchThreshold = 0.025f;
+        [SerializeField, Min(0f)] private float releaseThreshold = 0.035f;
+        [SerializeField, Min(0f)] private float toggleCooldownSeconds = 0.35f;
         
-        private void Start() {
-            if (m_handSubsystem == null)
-            {
-                var subsystems = new List<XRHandSubsystem>();
-                SubsystemManager.GetSubsystems(subsystems);
-                if (subsystems.Count > 0)
-                {
-                    m_handSubsystem = subsystems[0];
-                }
-            }
+        [SerializeField, Min(0f)] private float nonPinchSeparationStart = 0.045f;
+        [SerializeField, Min(0f)] private float nonPinchSeparationRelease = 0.035f;
+
+        [SerializeField] private ActivityCanvasChanger activityCanvasChanger;
+
+        private XRHandSubsystem m_handSubsystem;
+
+        private bool m_leftPinching;
+        private bool m_rightPinching;
+
+        private bool m_leftWasPinching;
+        private bool m_rightWasPinching;
+
+        private float m_lastToggleTime = -10f;
+
+        private void Awake() {
+            if (releaseThreshold <= pinchThreshold)
+                releaseThreshold = pinchThreshold + 0.01f;
+
+            if (nonPinchSeparationRelease > nonPinchSeparationStart)
+                nonPinchSeparationRelease = Mathf.Max(0f, nonPinchSeparationStart - 0.01f);
+
+            TryGetHandSubsystem();
         }
 
         public bool CheckPinch() {
-            if (m_handSubsystem == null) {
+            if (m_handSubsystem == null || (!m_handSubsystem.leftHand.isTracked && !m_handSubsystem.rightHand.isTracked))
                 return false;
-            }
-            
-            XRHand leftHand = m_handSubsystem.leftHand;
-            XRHand rightHand = m_handSubsystem.rightHand;
 
-            m_isPinchingLeftHand = CheckHand(leftHand, m_isPinchingLeftHand);
-            m_isPinchingRightHand = CheckHand(rightHand, m_isPinchingRightHand);
-            if (m_isPinchingLeftHand || m_isPinchingRightHand) {
+            m_leftWasPinching = m_leftPinching;
+            m_rightWasPinching = m_rightPinching;
+
+            m_leftPinching  = GetPinchState(m_handSubsystem.leftHand,  m_leftWasPinching);
+            m_rightPinching = GetPinchState(m_handSubsystem.rightHand, m_rightWasPinching);
+
+            bool leftRising  = m_leftPinching  && !m_leftWasPinching;
+            bool rightRising = m_rightPinching && !m_rightWasPinching;
+
+            if ((leftRising || rightRising) && (Time.unscaledTime - m_lastToggleTime) >= toggleCooldownSeconds) {
+                TogglePause();
+                m_lastToggleTime = Time.unscaledTime;
                 return true;
             }
+
             return false;
         }
 
-        private bool CheckHand(XRHand hand, bool isPinching) {
-            if (hand.isTracked) {
-                XRHandJoint thumbTip = hand.GetJoint(XRHandJointID.ThumbTip);
-                XRHandJoint indexTip = hand.GetJoint(XRHandJointID.IndexTip);
-                if (
-                    thumbTip.TryGetPose(out Pose thumbPose) &&
-                    indexTip.TryGetPose(out Pose indexPose)
-                ) {
-                    float distance = Vector3.Distance(thumbPose.position, indexPose.position);
-                    if (distance < threshold && isPinching) {
-                        Debug.Log("Pinch detected!");
-                        OnPinchDetection();
-                        return true;
-                    }
-                    Debug.Log("Pinch ended!");
-                    return false;
-                }
-            }
+        private bool GetPinchState(XRHand hand, bool wasPinching) {
+            if (!hand.isTracked)
+                return false;
+
+            if (!TryGetPose(hand, XRHandJointID.ThumbTip, out var thumbPose) ||
+                !TryGetPose(hand, XRHandJointID.IndexTip, out var indexPose))
+                return false;
+
+            float indexThumb = Vector3.Distance(thumbPose.position, indexPose.position);
+
+            bool basePinch = wasPinching
+                ? indexThumb <= releaseThreshold
+                : indexThumb <  pinchThreshold;
+
+            if (!basePinch)
+                return false;
+
+            float sepStart   = nonPinchSeparationStart;
+            float sepRelease = nonPinchSeparationRelease;
+
+            float requiredSeparation = wasPinching ? sepRelease : sepStart;
+
+            bool othersApart = OtherFingersClearlyApart(hand, thumbPose.position, requiredSeparation);
+
+            return othersApart;
+        }
+
+        private static bool OtherFingersClearlyApart(XRHand hand, Vector3 thumbPos, float minSeparation) {
+            bool apartMiddle = TryGetDistance(hand, XRHandJointID.MiddleTip, thumbPos, out float dM) && dM >= minSeparation;
+            bool apartRing   = TryGetDistance(hand, XRHandJointID.RingTip,   thumbPos, out float dR) && dR >= minSeparation;
+            bool apartLittle = TryGetDistance(hand, XRHandJointID.LittleTip, thumbPos, out float dL) && dL >= minSeparation;
+
+            return apartMiddle && apartRing && apartLittle;
+        }
+
+        private static bool TryGetDistance(XRHand hand, XRHandJointID id, Vector3 refPos, out float distance) {
+            distance = 0f;
+            if (!TryGetPose(hand, id, out var pose)) return false;
+            distance = Vector3.Distance(refPos, pose.position);
+            return true;
+        }
+
+        private static bool TryGetPose(XRHand hand, XRHandJointID id, out Pose pose) {
+            var joint = hand.GetJoint(id);
+            if (joint.TryGetPose(out pose)) return true;
+            pose = default;
             return false;
         }
-        
-        private void OnPinchDetection() {
-            if (!GameManager.Instance.IsGamePaused()) {
-                Debug.Log("Game is paused");
-                GameManager.Instance.PauseGame();
-                m_pauseCanvas.enabled = true;
-            }
-            else {
-                Debug.Log("Game is resumed");
-                GameManager.Instance.ResumeGame();
-                m_pauseCanvas.enabled = false;
+
+        private void TogglePause() {
+            activityCanvasChanger.ChangeCanvas(new ActivityEventTypeWrapper(ActivityEventType.PauseTriggered));
+        }
+
+        private void TryGetHandSubsystem() {
+            if (m_handSubsystem != null) return;
+
+            var subsystems = new List<XRHandSubsystem>();
+            SubsystemManager.GetSubsystems(subsystems);
+            if (subsystems.Count > 0) {
+                m_handSubsystem = subsystems[0];
+                if (!m_handSubsystem.running)
+                    m_handSubsystem.Start();
+            } else {
+                Debug.LogWarning("XRHandSubsystem not found. Enable XR Hands (OpenXR) in project settings.");
             }
         }
     }
