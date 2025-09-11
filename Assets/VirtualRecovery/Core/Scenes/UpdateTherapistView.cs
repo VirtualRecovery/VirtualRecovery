@@ -28,12 +28,14 @@ namespace VirtualRecovery.Core.Scenes {
 
         private System.Collections.IEnumerator UpdateExcerciseInfo() {
             while (true) {
-                int secondsFromStart = GameManager.Instance.GetCurrentActivityDurationTime();
-                time.text = $"{Mathf.FloorToInt(secondsFromStart / 60f):00}:{secondsFromStart % 60f:00}";
-                patientID.text = (GameManager.Instance.GetPatient().Id).ToString();
-                activityName.text = GameManager.Instance.GetCurrentActivity().Name;
-                difficultyLevel.text = GameManager.Instance.GetCurrentDifficultyLevel().ToString();
-                bodySide.text = GameManager.Instance.GetCurrentBodySide().ToString();
+                if (!GameManager.Instance.IsGamePaused()) {
+                    int secondsFromStart = GameManager.Instance.GetCurrentActivityDurationTime();
+                    time.text = $"{Mathf.FloorToInt(secondsFromStart / 60f):00}:{secondsFromStart % 60f:00}";
+                    patientID.text = (GameManager.Instance.GetPatient().Id).ToString();
+                    activityName.text = GameManager.Instance.GetCurrentActivity().Name;
+                    difficultyLevel.text = GameManager.Instance.GetCurrentDifficultyLevel().ToString();
+                    bodySide.text = GameManager.Instance.GetCurrentBodySide().ToString();
+                }
                 yield return new WaitForSeconds(1f);
             }
         }

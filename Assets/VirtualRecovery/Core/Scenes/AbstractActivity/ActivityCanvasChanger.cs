@@ -40,6 +40,10 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 GameManager.Instance.ResumeGame();
                 DisableCurrentCanvas();
             }
+            if (eventType is ActivityEventType.PauseTriggered) {
+                GameManager.Instance.PauseGame();
+            }
+            
             if (eventType is ActivityEventType.RestartButtonClicked) {
                 GameManager.Instance.RestartActivity();
             }
@@ -47,6 +51,7 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 PreviousCanvases.Push(CurrentCanvas);
                 CurrentCanvas = EventToCanvas[eventType];
             }
+            
             if (CurrentCanvas != null && CurrentCanvas.transform.parent != null) {
                 var faceXRCamera = CurrentCanvas.transform.parent.GetComponent<FaceXRCamera>();
                 if (faceXRCamera != null) {
