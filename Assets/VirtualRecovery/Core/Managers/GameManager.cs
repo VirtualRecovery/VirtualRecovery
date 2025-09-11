@@ -144,6 +144,10 @@ namespace VirtualRecovery.Core.Managers {
             return 0;
         }
 
+        public int GetCurrentActivityDurationTime() {
+            return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime);
+        }
+
         public bool IsGamePaused() {
             return m_isPaused;
         }
