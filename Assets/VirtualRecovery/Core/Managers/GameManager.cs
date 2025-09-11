@@ -98,7 +98,7 @@ namespace VirtualRecovery.Core.Managers {
             
             SceneManager.LoadScene(room.SceneName, LoadSceneMode.Single);
             SceneManager.sceneLoaded += SetUpSession;
-            Display.displays[1].Activate();
+            //Display.displays[1].Activate();
         }
         
         public void SetUpSession(Scene scene, LoadSceneMode mode) {
