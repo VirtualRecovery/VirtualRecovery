@@ -1,76 +1,123 @@
 ﻿// /*
-//  * Copyright © 2024 Virtual Recovery
-//  * Author: Piotr Lachowicz
-//  * Created on: 31/12/2024
+//  * Copyright © 2025 Virtual Recovery
+//  * Author: Mateusz Kaszubowski
+//  * Created on: 13/08/2025
 //  */
 
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using VirtualRecovery.DataAccess;
 using VirtualRecovery.DataAccess.DataModels;
 using VirtualRecovery.DataAccess.Repositories;
 
-namespace VirtualRecovery.Core {
-    [System.Serializable]
-    internal class ConfigurationData {
+namespace VirtualRecovery.Core
+{
+    [System.Serializable] internal class ConfigurationData {
         public DatabaseConfig database;
-        public List<Room> rooms;
+        public System.Collections.Generic.List<Room> rooms;
     }
 
-
-    [System.Serializable]
-    internal class DatabaseConfig {
+    [System.Serializable] internal class DatabaseConfig {
         public string connectionString;
         public string roomsTableName;
         public string activitiesTableName;
         public string patientTableName;
         public string sessionsTableName;
     }
-    
-    internal class Configuration : MonoBehaviour {
-        private const string k_configFilePath = "Assets/VirtualRecovery/Core/config.json";
+
+    // Make sure this runs early
+    [DefaultExecutionOrder(-10000)]
+    internal class Configuration : MonoBehaviour
+    {
         public static Configuration Instance { get; private set; }
 
+        private const string ConfigFileName = "config.json";
         public ConfigurationData configData;
-        
-        private void Awake() {
-            if (Instance != null && Instance != this) {
-                Destroy(gameObject);
-                return;
-            }
 
+        void Awake()
+        {
+            if (Instance != null && Instance != this) { Destroy(gameObject); return; }
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
-            LoadConfig();
-            
-            // TODO: Maybe make entry point file? This code should be moved from here
+            StartCoroutine(InitCoroutine());
+        }
+
+        private System.Collections.IEnumerator InitCoroutine()
+        {
+            yield return LoadConfig();
+
+            var dbPath = EnsureDatabaseFile();
+            OverrideConnectionStringDataSource(dbPath);
+
             var dbConnector = new DbConnector();
             var dbSchemaValidator = new DbSchemaValidator(dbConnector);
             dbSchemaValidator.EnsureTables();
-            
-            var roomRepository = new RoomRepository();
-            foreach (var room in configData.rooms) {
-                roomRepository.Insert(room);
+
+            SeedInitialData();
+
+            Debug.Log($"[Configuration] Init OK. DB: {dbPath}");
+        }
+
+        private System.Collections.IEnumerator LoadConfig()
+        {
+            string path;
+#if UNITY_ANDROID
+            // On Android StreamingAssets is inside APK → must use UnityWebRequest
+            path = Path.Combine(Application.streamingAssetsPath, ConfigFileName);
+            using var req = UnityWebRequest.Get(path);
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"[Configuration] Failed to load config: {req.error} path={path}");
+                yield break;
             }
+            var json = req.downloadHandler.text;
+#else
+            path = Path.Combine(Application.streamingAssetsPath, ConfigFileName);
+            if (!File.Exists(path))
+            {
+                Debug.LogError($"[Configuration] Config not found: {path}");
+                yield break;
+            }
+            var json = File.ReadAllText(path);
+#endif
+            configData = JsonUtility.FromJson<ConfigurationData>(json);
+            if (configData == null) Debug.LogError("[Configuration] Parsed config is null");
         }
-        
-        void Start() {
+
+        private string EnsureDatabaseFile() {
+            var folder = Application.persistentDataPath;
+            Directory.CreateDirectory(folder);
+            var dbPath = Path.Combine(folder, "VirtualRecovery.db");
+
+            if (!File.Exists(dbPath)) {
+                Debug.Log($"[Configuration] Creating new DB at {dbPath}");
+            }
+            return dbPath;
         }
-        
-        public void LoadConfig() {
-            if (File.Exists(k_configFilePath)) {
-                string json = File.ReadAllText(k_configFilePath);
-                configData = JsonUtility.FromJson<ConfigurationData>(json);
-                
-                if (configData != null) {
-                    Debug.Log("Config loaded successfully.");
-                } else {
-                    Debug.LogError("Configuration data is null after loading.");
-                }
-            } else {
-                Debug.LogError($"Config file not found at path: {k_configFilePath}");
+
+        private void OverrideConnectionStringDataSource(string dbPath) {
+            if (configData == null) return;
+
+            dbPath = dbPath.Replace("\\", "/");
+
+            var cs = configData.database.connectionString;
+            if (string.IsNullOrWhiteSpace(cs))
+                cs = "Data Source={DB};Version=3;";
+
+            cs = System.Text.RegularExpressions.Regex.Replace(
+                cs, @"Data Source\s*=\s*[^;]*", $"Data Source={dbPath}");
+
+            configData.database.connectionString = cs;
+            Debug.Log($"[Configuration] Using connectionString: {configData.database.connectionString}");
+        }
+
+        private void SeedInitialData() {
+            if (configData?.rooms == null || configData.rooms.Count == 0) return;
+
+            var roomRepo = new RoomRepository();
+            foreach (var room in configData.rooms) {
+                roomRepo.Insert(room);
             }
         }
     }
