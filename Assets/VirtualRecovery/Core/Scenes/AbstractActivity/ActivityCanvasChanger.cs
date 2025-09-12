@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VirtualRecovery.Core.Managers;
 using VirtualRecovery.Core.Scenes.BaseClasses;
 using VirtualRecovery.Core.Scenes.Interfaces;
@@ -41,6 +40,7 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 DisableCurrentCanvas();
             }
             if (eventType is ActivityEventType.PauseTriggered) {
+                if (CurrentCanvas == sessionEndCanvas) return;
                 GameManager.Instance.PauseGame();
             }
             
