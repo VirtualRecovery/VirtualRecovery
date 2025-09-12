@@ -14530,6 +14530,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: knife
       objectReference: {fileID: 0}
+    - target: {fileID: 6373790063626633261, guid: 82b2799cc1496425abc1982808c43d2b, type: 3}
+      propertyPath: m_TagString
+      value: Grabbable
+      objectReference: {fileID: 0}
     - target: {fileID: 6861596969499774744, guid: 82b2799cc1496425abc1982808c43d2b, type: 3}
       propertyPath: m_TagString
       value: Knife
