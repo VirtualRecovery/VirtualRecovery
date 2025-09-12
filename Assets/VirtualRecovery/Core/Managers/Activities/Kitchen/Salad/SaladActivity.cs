@@ -12,16 +12,16 @@ using VirtualRecovery.DataAccess.DataModels;
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
     internal class SaladActivity : BaseActivity {
         
-        private Dictionary<DifficultyLevel, float> m_triggerCreationRadiusByDifficultyLevel = new() {
-            { DifficultyLevel.Łatwy, 0.053f },
-            { DifficultyLevel.Średni, 0.095f },
-            { DifficultyLevel.Trudny, 0.142f }
+        private Dictionary<DifficultyLevel, int> m_triggersInCircleByDifficultyLevel = new() {
+            { DifficultyLevel.Łatwy, 6 },
+            { DifficultyLevel.Średni, 12 },
+            { DifficultyLevel.Trudny, 18 }
         };
         
-        private float m_triggerCreationRadius;
+        private float m_triggerCreationRadius = 0.142f;
         
         private int m_fullCircles = 3;
-        private int m_triggersInCircle = 12;
+        private int m_triggersInCircle;
         private int m_triggersCreated = 0;
         
         private GameObject spoon => GameObject.Find("spoon")
@@ -44,6 +44,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
         public void CreateNextTrigger() {
             if (m_triggersCreated >= m_triggersInCircle * m_fullCircles) {
                 GameManager.Instance.EndSession();
+                return;
             }
             
             var angle = 2 * Mathf.PI * (m_triggersCreated % m_triggersInCircle) / m_triggersInCircle;
@@ -59,17 +60,17 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
         }
         
         protected override void LoadEasy() {
-            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Łatwy];
+            m_triggersInCircle = m_triggersInCircleByDifficultyLevel[DifficultyLevel.Łatwy];
             CreateNextTrigger();
         }
 
         protected override void LoadMedium() {
-            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Średni];
+            m_triggersInCircle = m_triggersInCircleByDifficultyLevel[DifficultyLevel.Średni];
             CreateNextTrigger();
         }
 
         protected override void LoadHard() {
-            m_triggerCreationRadius = m_triggerCreationRadiusByDifficultyLevel[DifficultyLevel.Trudny];
+            m_triggersInCircle = m_triggersInCircleByDifficultyLevel[DifficultyLevel.Trudny];
             CreateNextTrigger();
         }
         
