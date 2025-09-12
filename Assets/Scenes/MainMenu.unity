@@ -9707,7 +9707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 728965.1}
+  m_AnchoredPosition: {x: 73.99994, y: 740841.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &603665532
@@ -22123,7 +22123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 38500}
+  m_AnchoredPosition: {x: 73.99994, y: 40950}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1549560166
@@ -25248,7 +25248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 154256.22}
+  m_AnchoredPosition: {x: 73.99994, y: 161348.97}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1734608277
@@ -32038,6 +32038,7 @@ GameObject:
   - component: {fileID: 2136496523}
   - component: {fileID: 2136496522}
   - component: {fileID: 2136496521}
+  - component: {fileID: 2136496525}
   m_Layer: 11
   m_Name: TherapistViewCanvas
   m_TagString: Untagged
@@ -32128,6 +32129,24 @@ RectTransform:
   m_AnchoredPosition: {x: 6.06, y: 0.41}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2136496525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136496520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31709a55482487e9fc6423e559b5fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xrCam: {fileID: 94902024}
+  distance: 0.75
+  verticalOffset: -0.05
+  posLerp: 12
+  rotLerp: 12
+  followContinuously: 1
 --- !u!224 &1006565322267883578
 RectTransform:
   m_ObjectHideFlags: 0
