@@ -7125,7 +7125,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
-  m_AllowXRRendering: 0
+  m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -9394,6 +9394,10 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Depth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_TargetDisplay
       value: 0
       objectReference: {fileID: 0}
@@ -9703,7 +9707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 703879.3}
+  m_AnchoredPosition: {x: 73.99994, y: 723875.25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &603665532
@@ -13906,13 +13910,14 @@ GameObject:
   m_Component:
   - component: {fileID: 916562751}
   - component: {fileID: 916562750}
+  - component: {fileID: 916562752}
   m_Layer: 0
   m_Name: PlayerDoubleHandControlMechnic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &916562750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13947,6 +13952,19 @@ Transform:
   - {fileID: 1114951347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &916562752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916562749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077769af507745d28e790fb6f440c408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 916562749}
 --- !u!1001 &923596041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22104,7 +22122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 33325}
+  m_AnchoredPosition: {x: 73.99994, y: 37450}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1549560166
@@ -25229,7 +25247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 73.99994, y: 139274.6}
+  m_AnchoredPosition: {x: 73.99994, y: 151216.47}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1734608277
