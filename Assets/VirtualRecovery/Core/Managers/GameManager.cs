@@ -26,6 +26,8 @@ namespace VirtualRecovery.Core.Managers {
         
         private float m_sessionStartTime;
         private float m_sessionEndTime;
+        private float m_totalPauseTime = 0f;
+        private float m_pauseStartTime = 0f;
         
         private bool m_wasRoomAddedd = false;
         private bool m_wasActivityAdded = false;
@@ -35,6 +37,12 @@ namespace VirtualRecovery.Core.Managers {
         private bool m_activityEnded = false; // Sometimes EndSession is triggered twice, this flag prevents it from happening
 
         private Patient m_patient;
+        private Room m_room;
+        private Activity m_activity;
+        private DifficultyLevel m_difficultyLevel;
+        private BodySide m_bodySide;
+        
+        private bool m_isPaused = false;
         private List<Room> m_rooms = new List<Room>();
         private List<Activity> m_activities = new List<Activity>();
         private List<DifficultyLevel> m_difficultyLevels = new List<DifficultyLevel>();
@@ -63,6 +71,24 @@ namespace VirtualRecovery.Core.Managers {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        
+        public void RestartActivity() {
+            if (m_currentRoom == null || m_currentActivity == null || m_currentDifficultyLevel == null || m_currentBodySide == null) {
+                Debug.LogError("Cannot restart activity. Current room, activity, difficulty level or body side is null.");
+                return;
+            }
+            
+            SceneManager.LoadScene(m_currentRoom.SceneName, LoadSceneMode.Single);
+            SceneManager.sceneLoaded += SetUpRestartedSession;
+        }
+
+        public void SetUpRestartedSession(Scene scene, LoadSceneMode mode) {
+            SceneManager.sceneLoaded -= SetUpRestartedSession;
+            m_sessionStartTime = Time.time; 
+            m_activityEnded = false;
+            var activityClass = m_activityClasses[m_currentActivity.Id]();
+            activityClass.Load(m_currentDifficultyLevel, m_currentBodySide);
+        }
 
         public void BeginSession() {
             m_activityEnded = false;
@@ -76,6 +102,7 @@ namespace VirtualRecovery.Core.Managers {
         }
         
         public void SetUpSession(Scene scene, LoadSceneMode mode) {
+            SceneManager.sceneLoaded -= SetUpSession;
             if (m_activities.Count == 0)
                 return;
             var activity = m_activities[0];
@@ -119,11 +146,33 @@ namespace VirtualRecovery.Core.Managers {
 
         public int GetSessionDurationTime() {
             if (m_sessionStartTime > 0f) {
-                return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime);
+                return Mathf.RoundToInt(m_sessionEndTime - m_sessionStartTime - m_totalPauseTime);
             }
             return 0;
         }
+
+        public int GetCurrentActivityDurationTime() {
+            return Mathf.RoundToInt(Time.time - m_sessionStartTime - m_totalPauseTime);
+        }
+
+        public bool IsGamePaused() {
+            return m_isPaused;
+        }
         
+        public void PauseGame() {
+            if (!m_isPaused) {
+                m_pauseStartTime = Time.time;
+                m_isPaused = true;
+            }
+        }
+
+        public void ResumeGame() {
+            if (m_isPaused) {
+                m_totalPauseTime += Time.time - m_pauseStartTime;
+                m_isPaused = false;
+            }
+        }
+
         public void SetPatient(Patient patient) => m_patient = patient;
         
         public Patient GetPatient() => m_patient;
@@ -196,8 +245,6 @@ namespace VirtualRecovery.Core.Managers {
         }
 
         public void BackToMainMenu() {
-            SceneManager.sceneLoaded -= SetUpSession;
-            
             ClearSelectionFlags();
             m_rooms.Clear();
             m_activities.Clear();

@@ -12,20 +12,20 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
                                                                                
     public class ThumbTipCollisionDetector : MonoBehaviour {
         
-        [SerializeField] private HandGrabController mHandGrabController;
+        [FormerlySerializedAs("mHandGrabController")] [SerializeField] private HandGrabDetector mHandGrabDetector;
         private String m_grabbableTag = "Grabbable";
         
         private void OnCollisionEnter(Collision collision) {
 //            Debug.Log("Thumb collision enter:" + collision.gameObject.name);
             if (collision.gameObject.CompareTag(m_grabbableTag)) {
-                mHandGrabController.ThumbTipCollisionEnter(this.gameObject, collision.gameObject, collision);    
+                mHandGrabDetector.ThumbTipCollisionEnter(this.gameObject, collision.gameObject, collision);    
             }
         }
 
         private void OnCollisionExit(Collision collision) { 
             // Debug.Log("Thumb collision exit:" + collision.gameObject.name);
             if (collision.gameObject.CompareTag(m_grabbableTag)) {
-                mHandGrabController.ThumbTipCollisionExit(this.gameObject);
+                mHandGrabDetector.ThumbTipCollisionExit(this.gameObject);
             }
         }
         

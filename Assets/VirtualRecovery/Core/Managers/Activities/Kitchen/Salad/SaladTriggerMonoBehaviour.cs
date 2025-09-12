@@ -9,8 +9,10 @@ using UnityEngine;
 namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
     internal class SaladTriggerMonoBehaviour : MonoBehaviour {
         private SaladActivity m_saladActivity;
+        private bool m_wasTriggered = false;
         public void OnTriggerEnter(Collider other) {
-            if (other.name == "spoon_head") {
+            if (!m_wasTriggered && other.name == "spoon_head") {
+                m_wasTriggered = true;
                 m_saladActivity.CreateNextTrigger();
                 GameObject.Destroy(this.gameObject);
             }

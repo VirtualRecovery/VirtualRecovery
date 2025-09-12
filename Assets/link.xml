@@ -1,0 +1,4 @@
+﻿<linker>
+    <assembly fullname="System.Data.SQLite" preserve="all"/>
+    <assembly fullname="Microsoft.Data.Sqlite" preserve="all"/>
+</linker>

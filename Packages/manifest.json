@@ -2,6 +2,7 @@
   "dependencies": {
     "com.spoiledcat.git": "1.0.44",
     "com.unity.collab-proxy": "2.5.2",
+    "com.unity.device-simulator.devices": "1.0.0",
     "com.unity.feature.development": "1.0.2",
     "com.unity.ide.rider": "3.0.35",
     "com.unity.inputsystem": "1.11.2",
