@@ -35,7 +35,7 @@ namespace VirtualRecovery.Core.Managers.Activities.Kitchen.Salad {
         
         public SaladActivity()
             : base(
-                "FinalSaladTrigger",
+                "Tylna ściana",
                 typeof(SaladTriggerMonoBehaviour),
                 new Vector3(-1.41400003f,-1.64999998f,0.753000021f),
                 new Quaternion(0, -1, 0, 0)) {
