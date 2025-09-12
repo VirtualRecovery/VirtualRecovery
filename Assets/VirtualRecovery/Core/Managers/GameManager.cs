@@ -83,6 +83,7 @@ namespace VirtualRecovery.Core.Managers {
         }
 
         public void SetUpRestartedSession(Scene scene, LoadSceneMode mode) {
+            SceneManager.sceneLoaded -= SetUpRestartedSession;
             m_sessionStartTime = Time.time; 
             m_activityEnded = false;
             var activityClass = m_activityClasses[m_currentActivity.Id]();
@@ -98,10 +99,10 @@ namespace VirtualRecovery.Core.Managers {
             
             SceneManager.LoadScene(room.SceneName, LoadSceneMode.Single);
             SceneManager.sceneLoaded += SetUpSession;
-            //Display.displays[1].Activate();
         }
         
         public void SetUpSession(Scene scene, LoadSceneMode mode) {
+            SceneManager.sceneLoaded -= SetUpSession;
             if (m_activities.Count == 0)
                 return;
             var activity = m_activities[0];
@@ -244,9 +245,6 @@ namespace VirtualRecovery.Core.Managers {
         }
 
         public void BackToMainMenu() {
-            SceneManager.sceneLoaded -= SetUpSession;
-            SceneManager.sceneLoaded -= SetUpRestartedSession;
-            
             ClearSelectionFlags();
             m_rooms.Clear();
             m_activities.Clear();
