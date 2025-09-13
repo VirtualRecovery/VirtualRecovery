@@ -19,10 +19,10 @@ namespace VirtualRecovery.Core.HandTracking.Scripts {
         public void Update() {
             if (!isPinching) {
                 isGrabbedLeft = leftHandGrabDetector.CheckHandGrab();   
-                isGrabbedRight = leftHandGrabDetector.CheckHandGrab();   
+                isGrabbedRight = rightHandGrabDetector.CheckHandGrab();   
             }
 
-            if (!isGrabbedLeft && !isGrabbedRight) {
+            if (patientPinchDetection && !isGrabbedLeft && !isGrabbedRight) {
                 isPinching = patientPinchDetection.CheckPinch();   
             }
         }
