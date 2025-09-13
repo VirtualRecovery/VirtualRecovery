@@ -84,6 +84,8 @@ namespace VirtualRecovery.Core.Managers {
 
         public void SetUpRestartedSession(Scene scene, LoadSceneMode mode) {
             SceneManager.sceneLoaded -= SetUpRestartedSession;
+            m_totalPauseTime = 0;
+            m_totalPauseTime = 0;
             m_sessionStartTime = Time.time; 
             m_activityEnded = false;
             var activityClass = m_activityClasses[m_currentActivity.Id]();
@@ -119,6 +121,8 @@ namespace VirtualRecovery.Core.Managers {
             
             var activityClass = m_activityClasses[activity.Id]();
             activityClass.Load(difficultyLevel, bodySide);
+            m_totalPauseTime = 0;
+            m_totalPauseTime = 0;
             m_sessionStartTime = Time.time; 
         }
 
