@@ -77,7 +77,7 @@ namespace VirtualRecovery.Core.Managers {
                 Debug.LogError("Cannot restart activity. Current room, activity, difficulty level or body side is null.");
                 return;
             }
-            
+            ResumeGame();
             SceneManager.LoadScene(m_currentRoom.SceneName, LoadSceneMode.Single);
             SceneManager.sceneLoaded += SetUpRestartedSession;
         }
@@ -257,7 +257,7 @@ namespace VirtualRecovery.Core.Managers {
             m_patient = null;
             m_currentRoom = null;
             m_currentActivity = null;
-            
+            ResumeGame();
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
             m_activityEnded = false;
         }
