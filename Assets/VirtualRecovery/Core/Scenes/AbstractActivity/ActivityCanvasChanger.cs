@@ -16,6 +16,9 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
         [SerializeField] private Canvas sessionEndCanvas;
         [SerializeField] private Canvas therapistViewCanvas;
         [SerializeField] private Canvas pauseMenuCanvas;
+        
+        [SerializeField] private Camera playerCameraOverlay;
+        [SerializeField] private Camera therapistCameraOverlay;
 
         private void Awake() {
             var eventToCanvas = new Dictionary<Enum, Canvas> {
@@ -25,6 +28,8 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
                 { ActivityEventType.PauseTriggered, pauseMenuCanvas }
             };
             Initialize(eventToCanvas, therapistViewCanvas);
+            playerCameraOverlay.enabled = false;
+            therapistCameraOverlay.enabled = false;
         }
         
         internal override void ChangeCanvas(IEventTypeWrapper eventTypeWrapper) {
@@ -34,18 +39,31 @@ namespace VirtualRecovery.Core.Scenes.AbstractActivity {
             
             if (eventType == ActivityEventType.BackToMainMenuButtonClicked) {
                 GameManager.Instance.BackToMainMenu();
+                playerCameraOverlay.enabled = true;
+                therapistCameraOverlay.enabled = true;
             }
             if (eventType is ActivityEventType.ResumeButtonClicked) {
                 GameManager.Instance.ResumeGame();
                 DisableCurrentCanvas();
+                playerCameraOverlay.enabled = false;
+                therapistCameraOverlay.enabled = false;
             }
             if (eventType is ActivityEventType.PauseTriggered) {
                 if (CurrentCanvas == sessionEndCanvas) return;
+                playerCameraOverlay.enabled = true;
+                therapistCameraOverlay.enabled = true;
                 GameManager.Instance.PauseGame();
+            }
+
+            if (eventType is ActivityEventType.SessionEnded) {
+                playerCameraOverlay.enabled = true;
+                therapistCameraOverlay.enabled = true;
             }
             
             if (eventType is ActivityEventType.RestartButtonClicked) {
                 GameManager.Instance.RestartActivity();
+                playerCameraOverlay.enabled = true;
+                therapistCameraOverlay.enabled = true;
             }
             else {
                 PreviousCanvases.Push(CurrentCanvas);

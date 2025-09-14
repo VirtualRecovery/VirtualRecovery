@@ -1114,6 +1114,8 @@ MonoBehaviour:
   sessionEndCanvas: {fileID: 1018217241}
   therapistViewCanvas: {fileID: 245525112}
   pauseMenuCanvas: {fileID: 1147882853}
+  playerCameraOverlay: {fileID: 52678200}
+  therapistCameraOverlay: {fileID: 154230906}
 --- !u!4 &114316429
 Transform:
   m_ObjectHideFlags: 0
